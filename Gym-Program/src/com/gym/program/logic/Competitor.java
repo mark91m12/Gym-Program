@@ -18,5 +18,6 @@ public class Competitor {
 	private String name;
 	private String surname;
 	private double weight;
+	private int age;
 
 }
