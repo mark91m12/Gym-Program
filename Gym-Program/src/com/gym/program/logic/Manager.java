@@ -3,7 +3,8 @@ package com.gym.program.logic;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.gym.program.logic.Match.TypeOfMatch;
+import com.gym.program.logic.match.Match;
+import com.gym.program.logic.match.Match.TypeOfMatch;
 
 public class Manager {
 

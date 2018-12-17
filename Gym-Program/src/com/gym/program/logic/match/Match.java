@@ -1,4 +1,4 @@
-package com.gym.program.logic;
+package com.gym.program.logic.match;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class Match {
 		BENCHPRESS, SQUAT, DEADLIFT
 	}
 
-	private List<Competitor> competitors;
+	private List<Lifter> lifters;
 	private TypeOfMatch type;
 	private List<Ranking> ranking;
 	
@@ -28,9 +28,14 @@ public class Match {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void signUp(Competitor competitor, Choice choice) {
+	public void signUp(Competitor competitor, Choice choice,double first_lift) {
+		
+		// set choice for category
 		competitor.getMap().put(this.type, choice);
-		this.competitors.add(competitor);
+		// set first lift 
+		Lifter lifter = new Lifter(competitor,first_lift);
+		
+		this.lifters.add(lifter);
 	}
 
 }

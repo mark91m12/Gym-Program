@@ -1,4 +1,4 @@
-package com.gym.program.logic;
+package com.gym.program.logic.match;
 
 import java.util.List;
 
