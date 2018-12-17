@@ -1,21 +1,31 @@
 package com.gym.program.logic.competitor;
 
-enum Age {
-	SUB_JUNIOR, JUNIOR, SENIOR, MASTER1, MASTER2, MASTER3, MASTER4
-}
+import java.util.HashMap;
+import java.util.Map;
+import com.gym.program.logic.Match.TypeOfMatch;
 
-enum Weight {
-	// female weights classes
-	MINUS_43, MINUS_47, MINUS_52, MINUS_57, MINUS_63, MINUS_72, MINUS_84, PLUS_84,
-	// male weights classes
-	MINUS_53, MINUS_59, MINUS_66, MINUS_74, MINUS_83, MINUS_93, MINUS_105, MINUS_120, PLUS_120,
-}
-
-enum Sex {
-	MALE, FEMALE
-}
 
 public class Competitor {
+
+	
+	public enum Age {
+		SUB_JUNIOR, JUNIOR, SENIOR, MASTER1, MASTER2, MASTER3, MASTER4
+	}
+
+	public enum Weight {
+		// female weights classes
+		MINUS_43, MINUS_47, MINUS_52, MINUS_57, MINUS_63, MINUS_72, MINUS_84, PLUS_84,
+		// male weights classes
+		MINUS_53, MINUS_59, MINUS_66, MINUS_74, MINUS_83, MINUS_93, MINUS_105, MINUS_120, PLUS_120,
+	}
+
+	public enum Sex {
+		MALE, FEMALE
+	}
+
+	public enum Choice {
+		CLSS_AGE, CLSS_WEIGHT
+	}
 
 	private String name;
 	private String surname;
@@ -25,6 +35,7 @@ public class Competitor {
 	private Age age_class;
 	private Weight weight_class;
 	private String team;
+	private Map map;
 
 	public Competitor(String name, String surname, Sex sex, String team, double weight, int age) {
 		setName(name);
@@ -33,6 +44,8 @@ public class Competitor {
 		setTeam(team);
 		setWeight(weight);
 		setAge(age);
+		
+		map = new HashMap<TypeOfMatch,Choice>();
 
 		setAge_class(age);
 		setWeight_class(weight);
@@ -170,6 +183,14 @@ public class Competitor {
 
 	public void setTeam(String team) {
 		this.team = team;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
 	}
 
 }

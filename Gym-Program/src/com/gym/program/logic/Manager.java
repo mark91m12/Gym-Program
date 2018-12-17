@@ -1,17 +1,33 @@
 package com.gym.program.logic;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.gym.program.logic.Match.TypeOfMatch;
 
 public class Manager {
 
-	private List<Match> matches;
+	private Map<TypeOfMatch, Match> matches;
+
+	public Manager() {
+		matches = new HashMap<TypeOfMatch, Match>();
+	}
 
 	public boolean addMatch(Match m) {
-		return this.matches.add(m);
+
+		// message ( the choosen match is yet selected ) 
+		if (this.matches.containsKey(m.getType())) {
+			return false;
+		}
+
+		this.matches.put(m.getType(), m);
+
+		return true;
 	}
 
 	public boolean removeMatch(Match m) {
-		return this.matches.remove(m);
+		this.matches.remove(m.getType());
+		return true;
 	}
 
 }
