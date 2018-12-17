@@ -14,9 +14,17 @@ public class Manager {
 		matches = new HashMap<TypeOfMatch, Match>();
 	}
 
+	public Map<TypeOfMatch, Match> getMatches() {
+		return matches;
+	}
+
+	public void setMatches(Map<TypeOfMatch, Match> matches) {
+		this.matches = matches;
+	}
+
 	public boolean addMatch(Match m) {
 
-		// message ( the choosen match is yet selected ) 
+		// message ( the choosen match is yet selected )
 		if (this.matches.containsKey(m.getType())) {
 			return false;
 		}
