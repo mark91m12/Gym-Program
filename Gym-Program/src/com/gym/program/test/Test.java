@@ -2,9 +2,9 @@ package com.gym.program.test;
 
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
-import com.gym.program.logic.competitor.Competitor.Choice;
-import com.gym.program.logic.competitor.Competitor.Sex;
 import com.gym.program.logic.competitor.CompetitorBuilder;
+import com.gym.program.logic.competitor.Sex;
+import com.gym.program.logic.match.Choice;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 
@@ -26,7 +26,7 @@ public class Test {
 		checkMatch(manager, match_bench);
 		checkMatch(manager, match_bench_2);
 		checkMatch(manager, match_squat);
-		
+
 		System.out.println();
 
 		// SUBSCRIBE COMPETITORS TO MATCHES
@@ -61,10 +61,9 @@ public class Test {
 		System.out.println("MATCHES selezionati :");
 		System.out.println(manager.getMatches() + "\n");
 
-		
 		System.out.println("Lifters per Match :");
 		for (TypeOfMatch type : manager.getMatches().keySet()) {
-			System.out.println("Per "+type+" => "+manager.getMatches().get(type).getLifters());
+			System.out.println("Per " + type + " => " + manager.getMatches().get(type).getLifters());
 		}
 
 	}

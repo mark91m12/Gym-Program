@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gym.program.logic.competitor.Competitor;
-import com.gym.program.logic.competitor.Competitor.Choice;
 
 public class Match {
 
@@ -14,15 +13,16 @@ public class Match {
 
 	private List<Lifter> lifters;
 	private TypeOfMatch type;
-	// private List<Ranking> ranking;
+	private MatchRanking matchRanking;
 
 	public Match(TypeOfMatch type) {
-		lifters = new ArrayList<Lifter>();
+		this.lifters = new ArrayList<>();
 		this.setType(type);
+		this.matchRanking = new MatchRanking();
 	}
 
 	public TypeOfMatch getType() {
-		return type;
+		return this.type;
 	}
 
 	public void setType(TypeOfMatch type) {
@@ -30,7 +30,7 @@ public class Match {
 	}
 
 	public List<Lifter> getLifters() {
-		return lifters;
+		return this.lifters;
 	}
 
 	public void setLifters(List<Lifter> lifters) {
@@ -43,9 +43,9 @@ public class Match {
 		// set choice for category
 		competitor.getMap().put(this.type, choice);
 		// set first lift
-		Lifter lifter = new Lifter(competitor, first_lift);
-
+		Lifter lifter = new Lifter(competitor, first_lift, choice);
 		this.lifters.add(lifter);
+		this.matchRanking.addLifter(lifter);
 	}
 
 }

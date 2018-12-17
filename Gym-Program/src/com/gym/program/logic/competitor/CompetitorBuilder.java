@@ -1,7 +1,5 @@
 package com.gym.program.logic.competitor;
 
-import com.gym.program.logic.competitor.Competitor.Sex;
-
 public class CompetitorBuilder {
 
 	private String name;
@@ -10,7 +8,6 @@ public class CompetitorBuilder {
 	private int age;
 	private Sex sex;
 	private String team;
-	
 
 	private CompetitorBuilder() {
 	}
