@@ -1,12 +1,17 @@
 package com.gym.program.test;
 
+import java.util.Collections;
+
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.competitor.CompetitorBuilder;
 import com.gym.program.logic.competitor.Sex;
 import com.gym.program.logic.match.Choice;
+import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
+import com.gym.program.logic.utils.CallComparator;
+import com.gym.program.logic.utils.WilksCalculator;
 
 public class Test {
 
@@ -64,6 +69,26 @@ public class Test {
 		System.out.println("Lifters per Match :");
 		for (TypeOfMatch type : manager.getMatches().keySet()) {
 			System.out.println("Per " + type + " => " + manager.getMatches().get(type).getLifters());
+		}
+
+		// test Wilks calculator
+
+		System.out.println("score =>> " + WilksCalculator.getMaleResult(75, 110));
+		
+		
+		// test CALL SORTING for first lift
+
+		Match test = manager.getMatches().get(TypeOfMatch.BENCHPRESS);
+		
+		for (Lifter lifter : test.getLifters()) {
+			System.out.println("lifter xx ==> " + lifter.getFirstLift());
+		}
+
+		System.out.println("\n\n\n");
+		Collections.sort(test.getLifters(), new CallComparator());
+		
+		for (Lifter lifter : test.getLifters()) {
+			System.out.println("lifter xx ==> " + lifter.getFirstLift());
 		}
 
 	}

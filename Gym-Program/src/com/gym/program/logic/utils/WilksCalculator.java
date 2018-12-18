@@ -1,4 +1,4 @@
-package com.gym.program.logic;
+package com.gym.program.logic.utils;
 
 public class WilksCalculator {
 

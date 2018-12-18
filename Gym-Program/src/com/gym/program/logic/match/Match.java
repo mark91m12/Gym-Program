@@ -1,9 +1,11 @@
 package com.gym.program.logic.match;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.gym.program.logic.competitor.Competitor;
+import com.gym.program.logic.utils.CallComparator;
 
 public class Match {
 
@@ -46,6 +48,12 @@ public class Match {
 		Lifter lifter = new Lifter(competitor, first_lift, choice);
 		this.lifters.add(lifter);
 		this.matchRanking.addLifter(lifter);
+	}
+
+	public void closeInscriptions() {
+		
+		//sort lifters based on their first lift (list will be sorted/updated dynamically during the match)
+		Collections.sort(this.getLifters(), new CallComparator());
 	}
 
 }
