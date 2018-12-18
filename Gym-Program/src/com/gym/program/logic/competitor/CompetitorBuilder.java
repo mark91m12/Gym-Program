@@ -1,5 +1,7 @@
 package com.gym.program.logic.competitor;
 
+import com.gym.program.logic.utils.Sex;
+
 public class CompetitorBuilder {
 
 	private String name;

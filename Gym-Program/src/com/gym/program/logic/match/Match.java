@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.utils.CallComparator;
+import com.gym.program.logic.utils.Choice;
 
 public class Match {
 

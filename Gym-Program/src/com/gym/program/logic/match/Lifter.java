@@ -1,8 +1,10 @@
 package com.gym.program.logic.match;
 
 import com.gym.program.logic.competitor.Competitor;
-import com.gym.program.logic.match.Category.Age;
-import com.gym.program.logic.match.Category.Weight;
+import com.gym.program.logic.utils.Category;
+import com.gym.program.logic.utils.Choice;
+import com.gym.program.logic.utils.Category.Age;
+import com.gym.program.logic.utils.Category.Weight;
 
 public class Lifter {
 

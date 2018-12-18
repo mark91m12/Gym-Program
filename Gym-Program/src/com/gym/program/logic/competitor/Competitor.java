@@ -3,8 +3,9 @@ package com.gym.program.logic.competitor;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.gym.program.logic.match.Choice;
 import com.gym.program.logic.match.Match.TypeOfMatch;
+import com.gym.program.logic.utils.Choice;
+import com.gym.program.logic.utils.Sex;
 
 public class Competitor {
 

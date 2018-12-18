@@ -5,12 +5,12 @@ import java.util.Collections;
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.competitor.CompetitorBuilder;
-import com.gym.program.logic.competitor.Sex;
-import com.gym.program.logic.match.Choice;
 import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.logic.utils.CallComparator;
+import com.gym.program.logic.utils.Choice;
+import com.gym.program.logic.utils.Sex;
 import com.gym.program.logic.utils.WilksCalculator;
 
 public class Test {

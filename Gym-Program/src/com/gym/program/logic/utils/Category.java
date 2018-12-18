@@ -1,4 +1,4 @@
-package com.gym.program.logic.match;
+package com.gym.program.logic.utils;
 
 public interface Category {
 
