@@ -18,7 +18,7 @@ public class WilksCalculator {
 	private static final double f_female = -0.00000009054;
 
 	public static double getMaleResult(double bw, double weight_lifted) {
-		
+
 		double coeff_male = 500 / (a_male + (b_male * bw) + (c_male * Math.pow(bw, 2)) + (d_male * Math.pow(bw, 3))
 				+ (e_male * Math.pow(bw, 4)) + (f_male * Math.pow(bw, 5)));
 
@@ -26,7 +26,7 @@ public class WilksCalculator {
 	}
 
 	public static double getFemaleResult(double bw, double weight_lifted) {
-		
+
 		double coeff_female = 500 / (a_female + (b_female * bw) + (c_female * Math.pow(bw, 2))
 				+ (d_female * Math.pow(bw, 3)) + (e_female * Math.pow(bw, 4)) + (f_female * Math.pow(bw, 5)));
 
