@@ -27,6 +27,20 @@ public class MatchRanking {
 		}
 	}
 
+	public MatchRanking(List<Lifter> lifters) {
+		super();
+		this.lifters = lifters;
+		this.rankings = new HashMap<>();
+		for (Lifter lifter : lifters) {
+			Category category = lifter.getCategory();
+			RankingPerCategory ranking = this.rankings.get(category);
+			if (ranking == null) {
+				ranking = new RankingPerCategory();
+			}
+			ranking.add(lifter);
+		}
+	}
+
 	public MatchRanking() {
 		super();
 		this.lifters = new LinkedList<>();
@@ -40,6 +54,25 @@ public class MatchRanking {
 			ranking = new RankingPerCategory();
 		}
 		ranking.add(lifter);
-		this.rankings = this.rankings;
 	}
+
+	public void updateLifter(Lifter lifter) {
+		Category category = lifter.getCategory();
+		RankingPerCategory ranking = this.rankings.get(category);
+		if (ranking != null) {
+			if (!ranking.contains(lifter)) {
+				ranking.add(lifter);
+			}
+		} else {
+			ranking = new RankingPerCategory();
+			ranking.add(lifter);
+		}
+		ranking.sortRanking();
+	}
+
+	@Override
+	public String toString() {
+		return "MatchRanking \n[lifters=" + this.lifters + ", \nrankings=" + this.rankings + "]";
+	}
+
 }

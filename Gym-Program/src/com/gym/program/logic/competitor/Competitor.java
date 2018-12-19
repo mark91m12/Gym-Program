@@ -84,4 +84,11 @@ public class Competitor {
 	public void setMap(Map map) {
 		this.map = map;
 	}
+
+	@Override
+	public String toString() {
+		return "Competitor [name=" + this.name + ", surname=" + this.surname + ", weight=" + this.weight + ", age="
+				+ this.age + ", sex=" + this.sex + ", team=" + this.team + ", map=" + this.map + "]";
+	}
+
 }

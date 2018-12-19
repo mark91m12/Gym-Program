@@ -2,9 +2,9 @@ package com.gym.program.logic.match;
 
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.utils.Category;
-import com.gym.program.logic.utils.Choice;
 import com.gym.program.logic.utils.Category.Age;
 import com.gym.program.logic.utils.Category.Weight;
+import com.gym.program.logic.utils.Choice;
 
 public class Lifter {
 
@@ -166,6 +166,14 @@ public class Lifter {
 
 	public boolean isGoodThird() {
 		return this.good_third;
+	}
+
+	@Override
+	public String toString() {
+		return "Lifter [score=" + this.score + ", first_lift=" + this.first_lift + ", second_lift=" + this.second_lift
+				+ ", third_lift=" + this.third_lift + ", good_first=" + this.good_first + ", good_second="
+				+ this.good_second + ", good_third=" + this.good_third + ", competitor=" + this.competitor
+				+ ", category=" + this.category + "]";
 	}
 
 	public void setGoodThird(boolean good_third) {

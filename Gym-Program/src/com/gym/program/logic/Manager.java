@@ -11,11 +11,11 @@ public class Manager {
 	private Map<TypeOfMatch, Match> matches;
 
 	public Manager() {
-		matches = new HashMap<TypeOfMatch, Match>();
+		this.matches = new HashMap<>();
 	}
 
 	public Map<TypeOfMatch, Match> getMatches() {
-		return matches;
+		return this.matches;
 	}
 
 	public void setMatches(Map<TypeOfMatch, Match> matches) {
@@ -37,6 +37,14 @@ public class Manager {
 	public boolean removeMatch(Match m) {
 		this.matches.remove(m.getType());
 		return true;
+	}
+
+	public void start() {
+		for (TypeOfMatch typeOfMatch : this.matches.keySet()) {
+			System.out.println("START MATCH TYPE:" + typeOfMatch);
+			System.out.println("INITIAL RANKING:\n" + this.matches.get(typeOfMatch).getMatchRanking());
+			this.matches.get(typeOfMatch).start();
+		}
 	}
 
 }

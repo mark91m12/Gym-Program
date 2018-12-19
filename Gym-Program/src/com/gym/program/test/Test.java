@@ -19,6 +19,8 @@ public class Test {
 		// TODO Auto-generated method stub
 
 		// SIMULATING EVENT CREATION
+		System.out.println("\n\n\n");
+		System.out.println("*********** TEST EVENT CREATION ****************");
 
 		Manager manager = new Manager();
 
@@ -35,17 +37,20 @@ public class Test {
 		System.out.println();
 
 		// SUBSCRIBE COMPETITORS TO MATCHES
+		System.out.println("\n\n\n");
+		System.out.println("*********** TEST SUBSCRIBE COMPETITORS TO MATCHES****************");
 
-		CompetitorBuilder builder = CompetitorBuilder.newBuilder().setName("Tizio").setSurname("Caio").setSex(Sex.MALE)
-				.setAge(24).setTeam("KC").setWeight(82.40);
+		CompetitorBuilder builder = CompetitorBuilder.newBuilder().setName("C1 NOME").setSurname("C1 COGNOME")
+				.setSex(Sex.MALE).setAge(24).setTeam("KC").setWeight(82.40);
 
 		Competitor c1 = builder.build();
-		Competitor c2 = builder.setAge(17).setWeight(68.2).build();
-		Competitor c3 = builder.setSex(Sex.FEMALE).setWeight(56.5).build();
-		Competitor c4 = builder.setSex(Sex.FEMALE).setWeight(48.5).build();
-		Competitor c5 = builder.setAge(37).setWeight(98.2).build();
-		Competitor c6 = builder.setAge(87).setWeight(70.2).build();
-		Competitor c7 = builder.setAge(28).setTeam("CzWOW").setWeight(86.4).build();
+		Competitor c2 = builder.setName("C2 NOME").setSurname("C2 COGNOME").setAge(17).setWeight(68.2).build();
+		Competitor c3 = builder.setName("C3 NOME").setSurname("C3 COGNOME").setSex(Sex.FEMALE).setWeight(56.5).build();
+		Competitor c4 = builder.setName("C4 NOME").setSurname("C4 COGNOME").setSex(Sex.FEMALE).setWeight(48.5).build();
+		Competitor c5 = builder.setName("C5 NOME").setSurname("C5 COGNOME").setAge(37).setWeight(98.2).build();
+		Competitor c6 = builder.setName("C6 NOME").setSurname("C6 COGNOME").setAge(87).setWeight(70.2).build();
+		Competitor c7 = builder.setName("C7 NOME").setSurname("C7 COGNOME").setAge(28).setTeam("CzWOW").setWeight(86.4)
+				.build();
 
 		// c1 c3 c5 to all matches
 
@@ -74,23 +79,30 @@ public class Test {
 		// test Wilks calculator
 
 		System.out.println("score =>> " + WilksCalculator.getMaleResult(75, 110));
-		
-		
+
 		// test CALL SORTING for first lift
+		System.out.println("\n\n\n");
+		System.out.println("*********** TEST SORTING FOR CALL ****************");
 
 		Match test = manager.getMatches().get(TypeOfMatch.BENCHPRESS);
-		
+		System.out.println("Match BENCHPRESS");
+
+		System.out.println("BEFORE SORT");
 		for (Lifter lifter : test.getLifters()) {
-			System.out.println("lifter xx ==> " + lifter.getFirstLift());
+			System.out.println(lifter + " ==> " + lifter.getFirstLift());
 		}
 
-		System.out.println("\n\n\n");
 		Collections.sort(test.getLifters(), new CallComparator());
-		
+
+		System.out.println("AFTER SORT");
 		for (Lifter lifter : test.getLifters()) {
-			System.out.println("lifter xx ==> " + lifter.getFirstLift());
+			System.out.println(lifter + " ==> " + lifter.getFirstLift());
 		}
 
+		// test Main Flow
+		System.out.println("\n\n\n");
+		System.out.println("*********** TEST MAIN FLOW ****************");
+		manager.start();
 	}
 
 	public static void checkMatch(Manager manager, Match match) {
