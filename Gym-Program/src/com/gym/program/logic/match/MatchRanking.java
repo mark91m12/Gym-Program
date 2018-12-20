@@ -38,6 +38,7 @@ public class MatchRanking {
 				ranking = new RankingPerCategory();
 			}
 			ranking.add(lifter);
+			this.rankings.put(category, ranking);
 		}
 	}
 
@@ -48,12 +49,15 @@ public class MatchRanking {
 	}
 
 	public void addLifter(Lifter lifter) {
+		System.out.println("ADDED lifter on MATCH RANKING");
+		System.out.println("lifter:" + lifter + " \ncurrent ranking: " + this.rankings);
 		Category category = lifter.getCategory();
 		RankingPerCategory ranking = this.rankings.get(category);
 		if (ranking == null) {
 			ranking = new RankingPerCategory();
 		}
 		ranking.add(lifter);
+		this.rankings.put(category, ranking);
 	}
 
 	public void updateLifter(Lifter lifter) {
@@ -68,11 +72,21 @@ public class MatchRanking {
 			ranking.add(lifter);
 		}
 		ranking.sortRanking();
+		this.rankings.put(category, ranking);
 	}
 
 	@Override
 	public String toString() {
-		return "MatchRanking \n[lifters=" + this.lifters + ", \nrankings=" + this.rankings + "]";
+		String s = "MatchRanking: \n";
+		s += "LIFTERS:\n";
+		for (Lifter lifter : this.lifters) {
+			s += this.lifters + "\n";
+		}
+		s += "RANKINGS:\n";
+		for (Category c : this.rankings.keySet()) {
+			s += c + ":\n" + this.rankings.get(c);
+		}
+		return s;
 	}
 
 }
