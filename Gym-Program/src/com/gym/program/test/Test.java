@@ -1,7 +1,9 @@
 package com.gym.program.test;
 
+import java.awt.Menu;
 import java.util.Collections;
 
+import com.gym.program.gui.MainMenu;
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.competitor.CompetitorBuilder;
@@ -103,6 +105,12 @@ public class Test {
 		System.out.println("\n\n\n");
 		System.out.println("*********** TEST MAIN FLOW ****************");
 		manager.start();
+		
+		
+		
+		// TEST main menu window
+		
+		new MainMenu();
 	}
 
 	public static void checkMatch(Manager manager, Match match) {
