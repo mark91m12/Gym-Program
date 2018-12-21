@@ -9,12 +9,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -66,9 +64,9 @@ public class CreateEventMenu extends JFrame {
 		gbc_bench_panel.gridx = 0;
 		gbc_bench_panel.gridy = 0;
 		contentPane.add(bench_panel, gbc_bench_panel);
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Bench Press");
-		bench_panel.add(chckbxNewCheckBox);
-		components.add(chckbxNewCheckBox);
+		JCheckBox bench_chckbx = new JCheckBox("Bench Press");
+		bench_panel.add(bench_chckbx);
+		components.add(bench_chckbx);
 		components.add(bench_panel);
 
 		// SQUAT PANEL
@@ -79,10 +77,10 @@ public class CreateEventMenu extends JFrame {
 		gbc_squat_panel.gridx = 1;
 		gbc_squat_panel.gridy = 0;
 		contentPane.add(squat_panel, gbc_squat_panel);
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Squat");
-		squat_panel.add(chckbxNewCheckBox_1);
+		JCheckBox squat_chckbx = new JCheckBox("Squat");
+		squat_panel.add(squat_chckbx);
 		components.add(squat_panel);
-		components.add(chckbxNewCheckBox_1);
+		components.add(squat_chckbx);
 
 		// DEADLIFT PANEL
 		JPanel deadlift_panel = new JPanel();
@@ -92,10 +90,10 @@ public class CreateEventMenu extends JFrame {
 		gbc_deadlift_panel.gridx = 2;
 		gbc_deadlift_panel.gridy = 0;
 		contentPane.add(deadlift_panel, gbc_deadlift_panel);
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Deadlift");
-		deadlift_panel.add(chckbxNewCheckBox_2);
+		JCheckBox deadlift_chckbx = new JCheckBox("Deadlift");
+		deadlift_panel.add(deadlift_chckbx);
 		components.add(deadlift_panel);
-		components.add(chckbxNewCheckBox_2);
+		components.add(deadlift_chckbx);
 
 		// BUTTON PANEL
 		JPanel button_panel = new JPanel();
@@ -108,6 +106,31 @@ public class CreateEventMenu extends JFrame {
 		JButton createEventBtn = new JButton("Crea Evento");
 		createEventBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				String message = "sono stati selezionati :";
+
+				boolean selected = false;
+
+				if (bench_chckbx.isSelected()) {
+					message += "\nbench";
+					selected = true;
+				}
+				if (squat_chckbx.isSelected()) {
+					message += "\nsquat";
+					selected = true;
+				}
+				if (deadlift_chckbx.isSelected()) {
+					message += "\ndeadlift";
+					selected = true;
+				}
+
+				if (!selected) {
+					System.out.println("Inserire almeno un'esercizio ");
+				} else {
+					System.out.println(message);
+					CreateEventMenu.this.dispose();
+				}
+
 			}
 		});
 		button_panel.add(createEventBtn);

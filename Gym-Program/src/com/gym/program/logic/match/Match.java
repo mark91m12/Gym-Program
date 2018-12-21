@@ -51,7 +51,6 @@ public class Match {
 		this.matchRanking = matchRanking;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void signUp(Competitor competitor, Choice choice, double first_lift) {
 
 		// set choice for category

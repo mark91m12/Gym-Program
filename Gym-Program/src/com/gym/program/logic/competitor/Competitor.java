@@ -15,7 +15,7 @@ public class Competitor {
 	private int age;
 	private Sex sex;
 	private String team;
-	private Map map;
+	private Map<TypeOfMatch, Choice> map;
 
 	public Competitor(String name, String surname, Sex sex, String team, double weight, int age) {
 		this.setName(name);
@@ -77,11 +77,11 @@ public class Competitor {
 		this.team = team;
 	}
 
-	public Map getMap() {
+	public Map<TypeOfMatch, Choice> getMap() {
 		return this.map;
 	}
 
-	public void setMap(Map map) {
+	public void setMap(Map<TypeOfMatch, Choice> map) {
 		this.map = map;
 	}
 

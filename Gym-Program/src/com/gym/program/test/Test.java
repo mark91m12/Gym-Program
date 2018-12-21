@@ -1,6 +1,5 @@
 package com.gym.program.test;
 
-import java.awt.Menu;
 import java.util.Collections;
 
 import com.gym.program.gui.MainMenu;
