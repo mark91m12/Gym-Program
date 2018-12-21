@@ -1,6 +1,6 @@
 package com.gym.program.logic.competitor;
 
-import com.gym.program.logic.utils.Sex;
+import com.gym.program.utils.Sex;
 
 public class CompetitorBuilder {
 

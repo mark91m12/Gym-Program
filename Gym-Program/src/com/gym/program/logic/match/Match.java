@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.gym.program.logic.competitor.Competitor;
-import com.gym.program.logic.utils.CallComparator;
-import com.gym.program.logic.utils.Choice;
-import com.gym.program.logic.utils.WilksCalculator;
+import com.gym.program.utils.CallComparator;
+import com.gym.program.utils.Choice;
+import com.gym.program.utils.WilksCalculator;
 
 public class Match {
 

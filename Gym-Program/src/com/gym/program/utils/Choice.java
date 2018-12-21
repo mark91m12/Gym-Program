@@ -1,4 +1,4 @@
-package com.gym.program.logic.utils;
+package com.gym.program.utils;
 
 public enum Choice {
 	CLSS_AGE, CLSS_WEIGHT

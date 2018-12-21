@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.gym.program.logic.match.Match.TypeOfMatch;
-import com.gym.program.logic.utils.Choice;
-import com.gym.program.logic.utils.Sex;
+import com.gym.program.utils.Choice;
+import com.gym.program.utils.Sex;
 
 public class Competitor {
 

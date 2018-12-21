@@ -1,4 +1,4 @@
-package com.gym.program.logic.utils;
+package com.gym.program.utils;
 
 import java.util.Comparator;
 

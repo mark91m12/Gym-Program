@@ -10,10 +10,10 @@ import com.gym.program.logic.competitor.CompetitorBuilder;
 import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
-import com.gym.program.logic.utils.CallComparator;
-import com.gym.program.logic.utils.Choice;
-import com.gym.program.logic.utils.Sex;
-import com.gym.program.logic.utils.WilksCalculator;
+import com.gym.program.utils.CallComparator;
+import com.gym.program.utils.Choice;
+import com.gym.program.utils.Sex;
+import com.gym.program.utils.WilksCalculator;
 
 public class Test {
 
