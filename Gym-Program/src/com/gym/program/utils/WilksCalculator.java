@@ -1,5 +1,7 @@
 package com.gym.program.utils;
 
+import java.util.ArrayList;
+
 public class WilksCalculator {
 
 	// male constants
@@ -31,6 +33,21 @@ public class WilksCalculator {
 				+ (d_female * Math.pow(bw, 3)) + (e_female * Math.pow(bw, 4)) + (f_female * Math.pow(bw, 5)));
 
 		return weight_lifted * coeff_female;
+	}
+
+	public static ArrayList<WeightDisc> calculateWeights(double weight, double bar) {
+
+		WeightDisc plate = new TwentyFiveKg();
+
+		double target;
+
+		ArrayList<WeightDisc> plates = new ArrayList<WeightDisc>();
+
+		target = (weight - bar) / 2;
+		plate.updateList(target, plates);
+
+		return plates;
+
 	}
 
 }

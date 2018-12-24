@@ -163,8 +163,8 @@ public class Match {
 		System.out.println("LIFTER. Surame:" + competitor.getSurname() + " - Name:" + competitor.getName() + " - Age:"
 				+ competitor.getAge() + " - Weight:" + competitor.getWeight() + " - Category:" + lifter.getCategory());
 		System.out.println("First Try:" + lifter.getAttemptWeight(Attempt.FIRST));
-		System.out.println("Second Try:" + lifter.getAttemptWeight(Attempt.SECOND));
-		System.out.println("Third Try:" + lifter.getAttemptWeight(Attempt.THIRD));
+//		System.out.println("Second Try:" + lifter.getAttemptWeight(Attempt.SECOND));
+//		System.out.println("Third Try:" + lifter.getAttemptWeight(Attempt.THIRD));
 		System.out.println("ACTUAL RANKINK:\n" + this.matchRanking);
 		System.out.println("***************************************");
 	}
