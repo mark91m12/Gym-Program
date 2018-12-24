@@ -16,13 +16,6 @@ public class Lifter {
 	private Map<Attempt, Double> attemptsWeights;
 	private Map<Attempt, Boolean> attemptsResults;
 	private Attempt currentAttempt;
-//	private double first_lift;
-//	private double second_lift;
-//	private double third_lift;
-//
-//	private boolean good_first;
-//	private boolean good_second;
-//	private boolean good_third;
 
 	private Competitor competitor;
 	private Category category;
@@ -172,6 +165,7 @@ public class Lifter {
 
 	public void setCurrentAttemptResult(boolean result) {
 		this.setAttemptResult(this.currentAttempt, result);
+		this.setNextCurrentAttempt();
 	}
 
 	private boolean setNextCurrentAttempt() {
