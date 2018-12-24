@@ -1,17 +1,25 @@
 package com.gym.program.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.gym.program.logic.competitor.Competitor;
+import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
+import com.gym.program.utils.Attempt;
+import com.gym.program.utils.Choice;
 
 public class Manager {
 
 	private Map<TypeOfMatch, Match> matches;
+	private List<TypeOfMatch> matchesOrder;
 
 	public Manager() {
 		this.matches = new HashMap<>();
+		this.matchesOrder = new ArrayList<>();
 	}
 
 	public Map<TypeOfMatch, Match> getMatches() {
@@ -45,6 +53,41 @@ public class Manager {
 			System.out.println("INITIAL RANKING:\n" + this.matches.get(typeOfMatch).getMatchRanking());
 			this.matches.get(typeOfMatch).start();
 		}
+	}
+
+	public List<TypeOfMatch> getMatchesOrder() {
+		return this.matchesOrder;
+	}
+
+	public void setMatchesOrder(List<TypeOfMatch> matchesOrder) {
+		this.matchesOrder = matchesOrder;
+	}
+
+	public TypeOfMatch getCurrentTypeOfMatch() {
+		return this.matchesOrder.get(0);
+	}
+
+	public TypeOfMatch getNextTypeOfMatch() {
+		this.matchesOrder.remove(0);
+		return this.matchesOrder.get(0);
+	}
+
+	public void signupLifter(List<TypeOfMatch> typeOfMatches, Competitor competitor, Choice choice, double first_lift) {
+		for (TypeOfMatch typeOfMatch : typeOfMatches) {
+			this.matches.get(typeOfMatch).signUp(competitor, choice, first_lift);
+		}
+	}
+
+	public Lifter getNextLifter() {
+		return this.matches.get(this.getNextTypeOfMatch()).getNextLifter();
+	}
+
+	public Lifter getCurrentLifter() {
+		return this.matches.get(this.getNextTypeOfMatch()).getCurrentLifter();
+	}
+
+	public void updateLifterResult(Attempt a, boolean result) {
+		this.getCurrentLifter().setAttemptResult(a, result);
 	}
 
 }

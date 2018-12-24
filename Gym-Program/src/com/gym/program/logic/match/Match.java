@@ -1,11 +1,11 @@
 package com.gym.program.logic.match;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import com.gym.program.logic.competitor.Competitor;
+import com.gym.program.utils.Attempt;
 import com.gym.program.utils.CallComparator;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.WilksCalculator;
@@ -56,16 +56,18 @@ public class Match {
 		// set choice for category
 		competitor.getMap().put(this.type, choice);
 		// set first lift
-		Lifter lifter = new Lifter(competitor, first_lift, choice);
+		Lifter lifter = new Lifter(competitor, choice);
+		lifter.setAttemptWeight(Attempt.FIRST, first_lift);
 		this.lifters.add(lifter);
 		this.matchRanking.addLifter(lifter);
+		this.sortLifters();
 	}
 
-	public void closeInscriptions() {
-		// sort lifters based on their first lift (list will be sorted/updated
-		// dynamically during the match)
-		Collections.sort(this.getLifters(), new CallComparator());
-	}
+//	public void closeInscriptions() {
+//		// sort lifters based on their first lift (list will be sorted/updated
+//		// dynamically during the match)
+//		Collections.sort(this.getLifters(), new CallComparator());
+//	}
 
 	public void sortLifters() {
 		this.lifters.sort(new CallComparator());
@@ -102,48 +104,54 @@ public class Match {
 				Competitor competitor = lifter.getCompetitor();
 				switch (competitor.getSex()) {
 				case MALE:
-					lifter.setScore(WilksCalculator.getMaleResult(competitor.getWeight(), lifter.getFirstLift()));
+					lifter.setScore(WilksCalculator.getMaleResult(competitor.getWeight(),
+							lifter.getAttemptWeight(Attempt.FIRST)));
 					break;
 				case FEMALE:
-					lifter.setScore(WilksCalculator.getFemaleResult(competitor.getWeight(), lifter.getFirstLift()));
+					lifter.setScore(WilksCalculator.getFemaleResult(competitor.getWeight(),
+							lifter.getAttemptWeight(Attempt.FIRST)));
 					break;
 				default:
 					break;
 				}
 			}
-			lifter.setGoodFirst(isGoodLift);
+			lifter.setAttemptResult(Attempt.FIRST, isGoodLift);
 			break;
 		case 2:
 			if (isGoodLift) {
 				Competitor competitor = lifter.getCompetitor();
 				switch (competitor.getSex()) {
 				case MALE:
-					lifter.setScore(WilksCalculator.getMaleResult(competitor.getWeight(), lifter.getSecondLift()));
+					lifter.setScore(WilksCalculator.getMaleResult(competitor.getWeight(),
+							lifter.getAttemptWeight(Attempt.SECOND)));
 					break;
 				case FEMALE:
-					lifter.setScore(WilksCalculator.getFemaleResult(competitor.getWeight(), lifter.getSecondLift()));
+					lifter.setScore(WilksCalculator.getFemaleResult(competitor.getWeight(),
+							lifter.getAttemptWeight(Attempt.SECOND)));
 					break;
 				default:
 					break;
 				}
 			}
-			lifter.setGoodSecond(isGoodLift);
+			lifter.setAttemptResult(Attempt.SECOND, isGoodLift);
 			break;
 		case 3:
 			if (isGoodLift) {
 				Competitor competitor = lifter.getCompetitor();
 				switch (competitor.getSex()) {
 				case MALE:
-					lifter.setScore(WilksCalculator.getMaleResult(competitor.getWeight(), lifter.getThirdLift()));
+					lifter.setScore(WilksCalculator.getMaleResult(competitor.getWeight(),
+							lifter.getAttemptWeight(Attempt.THIRD)));
 					break;
 				case FEMALE:
-					lifter.setScore(WilksCalculator.getFemaleResult(competitor.getWeight(), lifter.getThirdLift()));
+					lifter.setScore(WilksCalculator.getFemaleResult(competitor.getWeight(),
+							lifter.getAttemptWeight(Attempt.THIRD)));
 					break;
 				default:
 					break;
 				}
 			}
-			lifter.setGoodThird(isGoodLift);
+			lifter.setAttemptResult(Attempt.THIRD, isGoodLift);
 			break;
 		default:
 			break;
@@ -154,9 +162,9 @@ public class Match {
 		Competitor competitor = lifter.getCompetitor();
 		System.out.println("LIFTER. Surame:" + competitor.getSurname() + " - Name:" + competitor.getName() + " - Age:"
 				+ competitor.getAge() + " - Weight:" + competitor.getWeight() + " - Category:" + lifter.getCategory());
-		System.out.println("First Try:" + lifter.getFirstLift());
-		System.out.println("Second Try:" + lifter.getSecondLift());
-		System.out.println("Third Try:" + lifter.getThirdLift());
+		System.out.println("First Try:" + lifter.getAttemptWeight(Attempt.FIRST));
+		System.out.println("Second Try:" + lifter.getAttemptWeight(Attempt.SECOND));
+		System.out.println("Third Try:" + lifter.getAttemptWeight(Attempt.THIRD));
 		System.out.println("ACTUAL RANKINK:\n" + this.matchRanking);
 		System.out.println("***************************************");
 	}
@@ -166,4 +174,18 @@ public class Match {
 		return "Match [lifters=" + this.lifters + ", type=" + this.type + ", matchRanking=" + this.matchRanking + "]";
 	}
 
+	public Lifter getCurrentLifter() {
+		return this.lifters.get(0);
+	}
+
+	public Lifter getNextLifter() {
+		this.lifters.remove(0);
+		Lifter lifter = null;
+		try {
+			lifter = this.lifters.get(0);
+		} catch (Exception e) {
+
+		}
+		return lifter;
+	}
 }

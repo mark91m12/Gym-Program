@@ -90,25 +90,23 @@ public class Test {
 
 		System.out.println("BEFORE SORT");
 		for (Lifter lifter : test.getLifters()) {
-			System.out.println(lifter + " ==> " + lifter.getFirstLift());
+			System.out.println(lifter + " ==> " + lifter.getCurrentAttemptWeight());
 		}
 
 		Collections.sort(test.getLifters(), new CallComparator());
 
 		System.out.println("AFTER SORT");
 		for (Lifter lifter : test.getLifters()) {
-			System.out.println(lifter + " ==> " + lifter.getFirstLift());
+			System.out.println(lifter + " ==> " + lifter.getCurrentAttemptWeight());
 		}
 
 		// test Main Flow
 		System.out.println("\n\n\n");
 		System.out.println("*********** TEST MAIN FLOW ****************");
 		manager.start();
-		
-		
-		
+
 		// TEST main menu window
-		
+
 		new MainMenu();
 	}
 
