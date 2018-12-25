@@ -75,6 +75,7 @@ public class MainApp extends JFrame {
 			gl_mainPanel.createParallelGroup(Alignment.LEADING)
 				.addGap(0, 243, Short.MAX_VALUE)
 		);
+		
 //		mainPanel.setLayout(gl_mainPanel);
 		
 		JButton btnInsertLifters = new JButton("Iscrivi partecipanti");
