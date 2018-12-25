@@ -28,7 +28,6 @@ public class Card extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	
 	private JPanel plates_panel;
 	
 	
