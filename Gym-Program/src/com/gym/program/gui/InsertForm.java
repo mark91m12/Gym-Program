@@ -39,17 +39,17 @@ public class InsertForm extends JFrame {
 
 		JPanel panel = new JPanel();
 
-		JPanel panel_1 = new JPanel();
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		JPanel panel_2 = new JPanel();
+		GroupLayout gl_panel_1 = new GroupLayout(panel_2);
 		gl_panel_1
 				.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGap(0, 374, Short.MAX_VALUE));
 		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGap(0, 540, Short.MAX_VALUE));
-		panel_1.setLayout(gl_panel_1);
+		panel_2.setLayout(gl_panel_1);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 374, GroupLayout.PREFERRED_SIZE).addGap(18)
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 374, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 374, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(
 				Alignment.TRAILING,
@@ -57,7 +57,7 @@ public class InsertForm extends JFrame {
 						.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE).addContainerGap())
-						.addComponent(panel_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 540,
+						.addComponent(panel_2, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 540,
 								GroupLayout.PREFERRED_SIZE))));
 
 		txtNome = new JTextField();
