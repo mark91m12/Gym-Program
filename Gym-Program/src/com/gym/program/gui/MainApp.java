@@ -29,6 +29,7 @@ public class MainApp extends JFrame {
 				try {
 					MainApp frame = new MainApp();
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
