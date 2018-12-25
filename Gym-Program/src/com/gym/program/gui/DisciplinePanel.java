@@ -5,18 +5,29 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Vector;
+
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JList;
 import javax.swing.JButton;
 
-public class DisciplineSelectionPanel extends JInternalFrame {
+public class DisciplinePanel extends JPanel {
 
+	private final PanelSwitcher switcher;
+
+	private Vector<String> disciplinesChoosen;
 	/**
 	 * Create the panel.
 	 */
-	public DisciplineSelectionPanel() {
+	public DisciplinePanel(final PanelSwitcher newSwitcher) {
+		switcher = newSwitcher;
+		disciplinesChoosen = new Vector<>();
 		setBackground(Color.PINK);
 		
 		JPanel disciplineSelectionPanel = new JPanel();
@@ -28,13 +39,13 @@ public class DisciplineSelectionPanel extends JInternalFrame {
 		JButton btnSubmitDisciplineSelection = new JButton("Avanti");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(disciplineSelectionPanel, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+					.addComponent(disciplineSelectionPanel, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
 					.addGap(18)
-					.addComponent(disciplineOrderPanel, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
-					.addGap(53))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addComponent(disciplineOrderPanel, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+					.addGap(1))
+				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(128)
 					.addComponent(btnSubmitDisciplineSelection, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(207, Short.MAX_VALUE))
@@ -50,15 +61,15 @@ public class DisciplineSelectionPanel extends JInternalFrame {
 					.addContainerGap())
 		);
 		
-		JLabel lblCambiaOrdine = new JLabel("Cambia ordine");
+		JLabel lblOrder = new JLabel("Ordine");
 		
-		JList list = new JList();
+		JList list = new JList(disciplinesChoosen);
 		GroupLayout gl_disciplineOrderPanel = new GroupLayout(disciplineOrderPanel);
 		gl_disciplineOrderPanel.setHorizontalGroup(
 			gl_disciplineOrderPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_disciplineOrderPanel.createSequentialGroup()
 					.addContainerGap(73, Short.MAX_VALUE)
-					.addComponent(lblCambiaOrdine)
+					.addComponent(lblOrder)
 					.addGap(71))
 				.addGroup(gl_disciplineOrderPanel.createSequentialGroup()
 					.addContainerGap()
@@ -69,7 +80,7 @@ public class DisciplineSelectionPanel extends JInternalFrame {
 			gl_disciplineOrderPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_disciplineOrderPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblCambiaOrdine)
+					.addComponent(lblOrder)
 					.addGap(18)
 					.addComponent(list, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(149, Short.MAX_VALUE))
@@ -79,10 +90,44 @@ public class DisciplineSelectionPanel extends JInternalFrame {
 		JLabel lblSelezionaDiscipline = new JLabel("Seleziona discipline");
 		
 		JCheckBox chckbxBenchPress = new JCheckBox("Bench Press");
+		chckbxBenchPress.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+					 disciplinesChoosen.add("BenchPress");
+		        } else {//checkbox has been deselected
+		        	disciplinesChoosen.remove("BenchPress");
+		        }
+			}
+		});
 		
 		JCheckBox chckbxSquat = new JCheckBox("Squat");
+		chckbxSquat.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+					 disciplinesChoosen.add("Squat");
+		        } else {//checkbox has been deselected
+		        	disciplinesChoosen.remove("Squat");
+		        }
+			}
+		});
 		
 		JCheckBox chckbxDeadlift = new JCheckBox("Deadlift");
+		chckbxDeadlift.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+					 disciplinesChoosen.add("Deadlift");
+		        } else {//checkbox has been deselected
+		        	disciplinesChoosen.remove("Deadlift");
+		        }
+			}
+		});
+		
 		GroupLayout gl_disciplineSelectionPanel = new GroupLayout(disciplineSelectionPanel);
 		gl_disciplineSelectionPanel.setHorizontalGroup(
 			gl_disciplineSelectionPanel.createParallelGroup(Alignment.LEADING)

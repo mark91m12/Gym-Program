@@ -76,8 +76,8 @@ public class MainMenu extends JFrame implements ActionListener {
 		} else if (e.getSource() == loadEventBtn) {
 
 			// Load event TODO
-			//new Card();
-			new MainApp();
+			// new Card();
+			new MainFrame();
 			this.dispose();
 		}
 
