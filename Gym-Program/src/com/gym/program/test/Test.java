@@ -2,6 +2,7 @@ package com.gym.program.test;
 
 import java.util.Collections;
 
+import com.gym.program.gui.InsertForm;
 import com.gym.program.gui.MainMenu;
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
@@ -107,7 +108,8 @@ public class Test {
 
 		// TEST main menu window
 
-		new MainMenu();
+		 new MainMenu();
+		
 	}
 
 	public static void checkMatch(Manager manager, Match match) {

@@ -68,13 +68,16 @@ public class MainMenu extends JFrame implements ActionListener {
 		if (e.getSource() == createEventBtn) {
 
 			// Open window for events choice ( BENCH | SQUAT | DEADLIFT )
-			new CreateEventMenu();
+			// new CreateEventMenu();
+
+			new InsertForm();
 			this.dispose();
 
 		} else if (e.getSource() == loadEventBtn) {
 
 			// Load event TODO
-			new Card();
+			//new Card();
+			new MainApp();
 			this.dispose();
 		}
 
