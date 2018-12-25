@@ -1,5 +1,6 @@
 package com.gym.program.logic.match;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.gym.program.logic.competitor.Competitor;
@@ -23,6 +24,8 @@ public class Lifter {
 	public Lifter(Competitor competitor, Choice choice) {
 		this.competitor = competitor;
 		this.setCategory(choice);
+		this.attemptsWeights = new HashMap<Attempt, Double>();
+		this.attemptsResults = new HashMap<Attempt, Boolean>();
 		this.currentAttempt = Attempt.FIRST;
 	}
 
