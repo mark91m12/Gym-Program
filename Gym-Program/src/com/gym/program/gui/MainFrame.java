@@ -10,6 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.gym.program.logic.Manager;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
@@ -20,7 +23,9 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 
 	private JPanel contentPane;
 	private final DisciplinePanel disciplinePanel;
+	private final InsertForm insertForm;
 	private JPanel mainPanelToSwitch;
+	private Manager manager;
 	/**
 	 * Launch the application.
 	 */
@@ -41,8 +46,10 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 	 * Create the frame.
 	 */
 	public MainFrame() {
-		this.disciplinePanel = new DisciplinePanel(this);
+		manager = new Manager();
 		
+		this.disciplinePanel = new DisciplinePanel(this);
+		this.insertForm = new InsertForm();
 		setBounds(100, 100, 600, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -124,4 +131,14 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 //		pack();
 		setLocationRelativeTo(null);
 	}
+
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void showInsertForm() {
+//		switchTo(insertForm);
+	}
+
+	
 }
