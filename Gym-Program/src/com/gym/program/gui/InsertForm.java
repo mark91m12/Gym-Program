@@ -121,7 +121,6 @@ public class InsertForm extends JFrame {
 		bench_panel = new JPanel();
 		bench_panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Bench Press"));
 
-		
 		JButton submit_btn = new JButton("submit");
 		submit_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
