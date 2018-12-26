@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.competitor.CompetitorBuilder;
+import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Sex;
 
@@ -221,6 +222,14 @@ public class InsertForm extends JFrame {
 		deadlift_panel.setLayout(gl_deadlift_panel);
 
 		add_lifter_btn = new JButton("Iscrivi");
+		add_lifter_btn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(
