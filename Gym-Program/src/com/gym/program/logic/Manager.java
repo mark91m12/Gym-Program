@@ -14,6 +14,7 @@ import com.gym.program.utils.Choice;
 
 public class Manager {
 
+
 	private Map<TypeOfMatch, Match> matches;
 	private List<TypeOfMatch> matchesOrder;
 
@@ -90,4 +91,8 @@ public class Manager {
 		this.getCurrentLifter().setAttemptResult(a, result);
 	}
 
+	@Override
+	public String toString() {
+		return "Manager [matches=" + matches + ", matchesOrder=" + matchesOrder + "]";
+	}
 }

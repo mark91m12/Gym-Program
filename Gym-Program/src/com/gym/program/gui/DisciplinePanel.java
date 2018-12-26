@@ -1,33 +1,39 @@
 package com.gym.program.gui;
 
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-import javax.swing.JLabel;
-import javax.swing.JCheckBox;
-import javax.swing.JInternalFrame;
-import javax.swing.JList;
+import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import com.gym.program.logic.Manager;
+import com.gym.program.logic.match.Match;
+import com.gym.program.logic.match.Match.TypeOfMatch;
 
 public class DisciplinePanel extends JPanel {
 
-	private final PanelSwitcher switcher;
+	private final MainFrame mainFrame;
 
-	private Vector<String> disciplinesChoosen;
+	DefaultListModel<TypeOfMatch> disciplinesChoosen;
 	/**
 	 * Create the panel.
 	 */
-	public DisciplinePanel(final PanelSwitcher newSwitcher) {
-		switcher = newSwitcher;
-		disciplinesChoosen = new Vector<>();
+	public DisciplinePanel(final MainFrame mainFrame) {
+		this.mainFrame = mainFrame;
+		disciplinesChoosen = new DefaultListModel();
 		setBackground(Color.PINK);
 		
 		JPanel disciplineSelectionPanel = new JPanel();
@@ -37,6 +43,27 @@ public class DisciplinePanel extends JPanel {
 		disciplineOrderPanel.setBackground(Color.RED);
 		
 		JButton btnSubmitDisciplineSelection = new JButton("Avanti");
+		btnSubmitDisciplineSelection.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Manager manager = mainFrame.getManager();
+				manager.setMatches(new HashMap<>());
+				List<TypeOfMatch> orderedList = new ArrayList<>();
+				TypeOfMatch type = null;
+				for (int i = 0; i < disciplinesChoosen.size(); i++) {
+					type = disciplinesChoosen.get(i);
+					manager.addMatch(new Match(type));
+					orderedList.add(i, type);
+				}
+				for (TypeOfMatch typeOfMatch : orderedList) {
+					System.out.println("index:"+orderedList.indexOf(typeOfMatch)+"--O:"+orderedList.get(orderedList.indexOf(typeOfMatch)));
+				}
+				manager.setMatchesOrder(orderedList);
+				mainFrame.showInsertForm();
+			}
+		});
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -95,9 +122,9 @@ public class DisciplinePanel extends JPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
-					 disciplinesChoosen.add("BenchPress");
+					 disciplinesChoosen.addElement(TypeOfMatch.BENCHPRESS);
 		        } else {//checkbox has been deselected
-		        	disciplinesChoosen.remove("BenchPress");
+		        	disciplinesChoosen.removeElement(TypeOfMatch.BENCHPRESS);
 		        }
 			}
 		});
@@ -108,9 +135,9 @@ public class DisciplinePanel extends JPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
-					 disciplinesChoosen.add("Squat");
+					 disciplinesChoosen.addElement(TypeOfMatch.SQUAT);
 		        } else {//checkbox has been deselected
-		        	disciplinesChoosen.remove("Squat");
+		        	disciplinesChoosen.removeElement(TypeOfMatch.SQUAT);
 		        }
 			}
 		});
@@ -121,9 +148,9 @@ public class DisciplinePanel extends JPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
-					 disciplinesChoosen.add("Deadlift");
+					 disciplinesChoosen.addElement(TypeOfMatch.DEADLIFT);
 		        } else {//checkbox has been deselected
-		        	disciplinesChoosen.remove("Deadlift");
+		        	disciplinesChoosen.removeElement(TypeOfMatch.DEADLIFT);
 		        }
 			}
 		});
@@ -160,4 +187,6 @@ public class DisciplinePanel extends JPanel {
 		disciplineSelectionPanel.setLayout(gl_disciplineSelectionPanel);
 		setLayout(groupLayout);
 	}
+	
+	
 }
