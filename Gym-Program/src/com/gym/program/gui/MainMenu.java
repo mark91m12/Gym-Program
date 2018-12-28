@@ -70,7 +70,7 @@ public class MainMenu extends JFrame implements ActionListener {
 			// Open window for events choice ( BENCH | SQUAT | DEADLIFT )
 			// new CreateEventMenu();
 
-			new InsertForm();
+//			new InsertForm(this);
 			this.dispose();
 
 		} else if (e.getSource() == loadEventBtn) {
