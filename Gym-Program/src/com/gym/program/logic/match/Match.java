@@ -8,7 +8,7 @@ import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.utils.Attempt;
 import com.gym.program.utils.CallComparator;
 import com.gym.program.utils.Choice;
-import com.gym.program.utils.WilksCalculator;
+import com.gym.program.utils.LogicHelper;
 
 public class Match {
 
@@ -104,11 +104,11 @@ public class Match {
 				Competitor competitor = lifter.getCompetitor();
 				switch (competitor.getSex()) {
 				case MALE:
-					lifter.setScore(WilksCalculator.getMaleResult(competitor.getWeight(),
+					lifter.setScore(LogicHelper.getMaleResult(competitor.getWeight(),
 							lifter.getAttemptWeight(Attempt.FIRST)));
 					break;
 				case FEMALE:
-					lifter.setScore(WilksCalculator.getFemaleResult(competitor.getWeight(),
+					lifter.setScore(LogicHelper.getFemaleResult(competitor.getWeight(),
 							lifter.getAttemptWeight(Attempt.FIRST)));
 					break;
 				default:
@@ -122,11 +122,11 @@ public class Match {
 				Competitor competitor = lifter.getCompetitor();
 				switch (competitor.getSex()) {
 				case MALE:
-					lifter.setScore(WilksCalculator.getMaleResult(competitor.getWeight(),
+					lifter.setScore(LogicHelper.getMaleResult(competitor.getWeight(),
 							lifter.getAttemptWeight(Attempt.SECOND)));
 					break;
 				case FEMALE:
-					lifter.setScore(WilksCalculator.getFemaleResult(competitor.getWeight(),
+					lifter.setScore(LogicHelper.getFemaleResult(competitor.getWeight(),
 							lifter.getAttemptWeight(Attempt.SECOND)));
 					break;
 				default:
@@ -140,11 +140,11 @@ public class Match {
 				Competitor competitor = lifter.getCompetitor();
 				switch (competitor.getSex()) {
 				case MALE:
-					lifter.setScore(WilksCalculator.getMaleResult(competitor.getWeight(),
+					lifter.setScore(LogicHelper.getMaleResult(competitor.getWeight(),
 							lifter.getAttemptWeight(Attempt.THIRD)));
 					break;
 				case FEMALE:
-					lifter.setScore(WilksCalculator.getFemaleResult(competitor.getWeight(),
+					lifter.setScore(LogicHelper.getFemaleResult(competitor.getWeight(),
 							lifter.getAttemptWeight(Attempt.THIRD)));
 					break;
 				default:

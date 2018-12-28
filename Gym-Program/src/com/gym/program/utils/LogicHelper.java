@@ -6,7 +6,7 @@ import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.utils.Category.Age;
 import com.gym.program.utils.Category.Weight;
 
-public class WilksCalculator {
+public class LogicHelper {
 
 	// male constants
 	private static final double a_male = -216.0475144;

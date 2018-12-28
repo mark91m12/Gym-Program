@@ -9,7 +9,7 @@ import com.gym.program.utils.Category;
 import com.gym.program.utils.Category.Age;
 import com.gym.program.utils.Category.Weight;
 import com.gym.program.utils.Choice;
-import com.gym.program.utils.WilksCalculator;
+import com.gym.program.utils.LogicHelper;
 
 public class Lifter {
 
@@ -31,7 +31,7 @@ public class Lifter {
 	}
 
 	public void setCategory(Choice choice) {
-		this.category = WilksCalculator.getCategory(choice, this.competitor);
+		this.category = LogicHelper.getCategory(choice, this.competitor);
 
 	}
 

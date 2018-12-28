@@ -13,7 +13,7 @@ import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.CallComparator;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.Sex;
-import com.gym.program.utils.WilksCalculator;
+import com.gym.program.utils.LogicHelper;
 
 public class Test {
 

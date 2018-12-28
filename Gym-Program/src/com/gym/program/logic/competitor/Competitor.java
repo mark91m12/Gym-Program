@@ -6,7 +6,7 @@ import java.util.Map;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.Sex;
-import com.gym.program.utils.WilksCalculator;
+import com.gym.program.utils.LogicHelper;
 import com.gym.program.utils.Category.Age;
 import com.gym.program.utils.Category.Weight;
 
@@ -104,7 +104,7 @@ public class Competitor {
 	}
 
 	private void setAge_class() {
-		this.age_class = (Age) WilksCalculator.getCategory(Choice.CLSS_AGE, this);
+		this.age_class = (Age) LogicHelper.getCategory(Choice.CLSS_AGE, this);
 	}
 
 	public Weight getWeight_class() {
@@ -112,7 +112,7 @@ public class Competitor {
 	}
 
 	private void setWeight_class() {
-		this.weight_class = (Weight) WilksCalculator.getCategory(Choice.CLSS_WEIGHT, this);
+		this.weight_class = (Weight) LogicHelper.getCategory(Choice.CLSS_WEIGHT, this);
 	}
 
 }
