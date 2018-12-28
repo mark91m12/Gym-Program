@@ -23,7 +23,6 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 
 	private JPanel contentPane;
 	private final DisciplinePanel disciplinePanel;
-	private final InsertForm insertForm;
 	private JPanel mainPanelToSwitch;
 	private Manager manager;
 	/**
@@ -49,7 +48,6 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 		manager = new Manager();
 		
 		this.disciplinePanel = new DisciplinePanel(this);
-		this.insertForm = new InsertForm();
 		setBounds(100, 100, 600, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -75,7 +73,7 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 		
 		mainPanelToSwitch = new JPanel();
 		mainPanelToSwitch.setBackground(Color.ORANGE);
-		switchTo(disciplinePanel);
+		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -120,6 +118,7 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 		);
 		menuPanel.setLayout(gl_menuPanel);
 		contentPane.setLayout(gl_contentPane);
+		switchTo(disciplinePanel);
 	}
 
 	@Override
@@ -137,8 +136,7 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 	}
 
 	public void showInsertForm() {
-//		switchTo(insertForm);
+		switchTo(new InsertForm(this));
 	}
-
 	
 }

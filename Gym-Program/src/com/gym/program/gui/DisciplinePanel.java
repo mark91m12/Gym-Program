@@ -43,6 +43,7 @@ public class DisciplinePanel extends JPanel {
 		disciplineOrderPanel.setBackground(Color.RED);
 		
 		JButton btnSubmitDisciplineSelection = new JButton("Avanti");
+		btnSubmitDisciplineSelection.setEnabled(false);
 		btnSubmitDisciplineSelection.addActionListener(new ActionListener() {
 			
 			@Override
@@ -57,7 +58,7 @@ public class DisciplinePanel extends JPanel {
 					orderedList.add(i, type);
 				}
 				for (TypeOfMatch typeOfMatch : orderedList) {
-					System.out.println("index:"+orderedList.indexOf(typeOfMatch)+"--O:"+orderedList.get(orderedList.indexOf(typeOfMatch)));
+					System.out.println("index:"+orderedList.indexOf(typeOfMatch)+"--"+orderedList.get(orderedList.indexOf(typeOfMatch)));
 				}
 				manager.setMatchesOrder(orderedList);
 				mainFrame.showInsertForm();
@@ -123,8 +124,14 @@ public class DisciplinePanel extends JPanel {
 			public void itemStateChanged(ItemEvent e) {
 				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
 					 disciplinesChoosen.addElement(TypeOfMatch.BENCHPRESS);
+					 if(!btnSubmitDisciplineSelection.isEnabled()) {
+						 btnSubmitDisciplineSelection.setEnabled(true);
+					 }
 		        } else {//checkbox has been deselected
 		        	disciplinesChoosen.removeElement(TypeOfMatch.BENCHPRESS);
+		        	if(disciplinesChoosen.getSize() == 0 && btnSubmitDisciplineSelection.isEnabled()) {
+		        		btnSubmitDisciplineSelection.setEnabled(false);
+					}
 		        }
 			}
 		});
@@ -136,8 +143,14 @@ public class DisciplinePanel extends JPanel {
 			public void itemStateChanged(ItemEvent e) {
 				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
 					 disciplinesChoosen.addElement(TypeOfMatch.SQUAT);
+					 if(!btnSubmitDisciplineSelection.isEnabled()) {
+						 btnSubmitDisciplineSelection.setEnabled(true);
+					 }
 		        } else {//checkbox has been deselected
 		        	disciplinesChoosen.removeElement(TypeOfMatch.SQUAT);
+		        	if(disciplinesChoosen.getSize() == 0 && btnSubmitDisciplineSelection.isEnabled()) {
+		        		btnSubmitDisciplineSelection.setEnabled(false);
+					}
 		        }
 			}
 		});
@@ -149,8 +162,14 @@ public class DisciplinePanel extends JPanel {
 			public void itemStateChanged(ItemEvent e) {
 				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
 					 disciplinesChoosen.addElement(TypeOfMatch.DEADLIFT);
+					 if(!btnSubmitDisciplineSelection.isEnabled()) {
+						 btnSubmitDisciplineSelection.setEnabled(true);
+					 }
 		        } else {//checkbox has been deselected
 		        	disciplinesChoosen.removeElement(TypeOfMatch.DEADLIFT);
+		        	if(disciplinesChoosen.getSize() == 0 && btnSubmitDisciplineSelection.isEnabled()) {
+		        		btnSubmitDisciplineSelection.setEnabled(false);
+					}
 		        }
 			}
 		});

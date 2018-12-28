@@ -95,4 +95,5 @@ public class Manager {
 	public String toString() {
 		return "Manager [matches=" + matches + ", matchesOrder=" + matchesOrder + "]";
 	}
+
 }

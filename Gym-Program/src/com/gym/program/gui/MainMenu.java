@@ -71,6 +71,7 @@ public class MainMenu extends JFrame implements ActionListener {
 			// new CreateEventMenu();
 
 			new Card();
+			// new InsertForm(this);
 			this.dispose();
 
 		} else if (e.getSource() == loadEventBtn) {

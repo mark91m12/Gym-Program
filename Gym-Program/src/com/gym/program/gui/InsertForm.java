@@ -2,31 +2,35 @@ package com.gym.program.gui;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Locale.Category;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.EmptyBorder;
 
+import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.competitor.CompetitorBuilder;
-import com.gym.program.logic.match.Lifter;
+import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
+import com.gym.program.utils.Choice;
 import com.gym.program.utils.Sex;
 
-public class InsertForm extends JFrame {
+public class InsertForm extends JPanel {
 
-	private JPanel contentPane;
 	private JTextField txt_name;
 	private JTextField txt_surname;
 	private JTextField txt_team;
@@ -59,21 +63,23 @@ public class InsertForm extends JFrame {
 	private JComboBox list_age;
 
 	private Competitor c;
-
+	
+	private MainFrame mainFrame;
+	private Manager manager;
 	/**
 	 * Create the frame.
 	 */
-	public InsertForm() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public InsertForm(MainFrame m) {
+		mainFrame = m;
+		manager = mainFrame.getManager();
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 680);
 		setVisible(true);
-		setLocationRelativeTo(null);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+//		setLocationRelativeTo(null);
+//		setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane
 						.createSequentialGroup().addContainerGap().addComponent(panel, GroupLayout.PREFERRED_SIZE,
@@ -125,10 +131,13 @@ public class InsertForm extends JFrame {
 		submit_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				InsertForm.this.checkDataInput();
-				InsertForm.this.submitLifter();
+				if(checkDataInput()) {
+					initDisciplineForms();
+					submitLifter();
+					updateChoicePanels();
+					add_lifter_btn.setEnabled(true);
+				}
 
-				InsertForm.this.updateChoicePanels();
 			}
 		});
 
@@ -226,11 +235,18 @@ public class InsertForm extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				if(canAddLifter()) {
+					addLifter();
+				}else {
+					System.out.println("ERROREEEEEEEEEEEEEEEEEEE");
+					JOptionPane.showMessageDialog(InsertForm.this, "Non hai inserito tutte le informazioni necessarie. Prego ricontrolla bene", "ATTENZIONE", 2);
+				}
 			}
-		});
 
+			
+		});
+		add_lifter_btn.setEnabled(false);
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(
 				Alignment.LEADING)
@@ -370,8 +386,10 @@ public class InsertForm extends JFrame {
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		bench_panel.setLayout(gl_bench_panel);
 		panel.setLayout(gl_panel);
-		contentPane.setLayout(gl_contentPane);
-
+		this.setLayout(gl_contentPane);
+		setEnabledPanel(TypeOfMatch.BENCHPRESS, false);
+		setEnabledPanel(TypeOfMatch.SQUAT, false);
+		setEnabledPanel(TypeOfMatch.DEADLIFT, false);
 	}
 
 	private void updateChoicePanels() {
@@ -386,25 +404,25 @@ public class InsertForm extends JFrame {
 
 	}
 
-	public void disablePanel(TypeOfMatch type) {
+	public void setEnabledPanel(TypeOfMatch type,boolean value) {
 
 		switch (type) {
 		case BENCHPRESS:
-			this.bench_panel.setEnabled(false);
+			this.bench_panel.setEnabled(value);
 			for (Component c : bench_panel.getComponents()) {
-				c.setEnabled(false);
+				c.setEnabled(value);
 			}
 			break;
 		case SQUAT:
-			this.squat_panel.setEnabled(false);
+			this.squat_panel.setEnabled(value);
 			for (Component c : squat_panel.getComponents()) {
-				c.setEnabled(false);
+				c.setEnabled(value);
 			}
 			break;
 		case DEADLIFT:
-			this.deadlift_panel.setEnabled(false);
+			this.deadlift_panel.setEnabled(value);
 			for (Component c : deadlift_panel.getComponents()) {
-				c.setEnabled(false);
+				c.setEnabled(value);
 			}
 			break;
 		default:
@@ -428,14 +446,20 @@ public class InsertForm extends JFrame {
 
 	}
 
-	private void checkDataInput() {
-
-		try {
-			Double.parseDouble(this.txt_weight.getText());
-		} catch (NumberFormatException e) {
-			// not a double
-			System.out.println("MESSAGGIO INSERIRE PESO CORRETTO");
+	private boolean checkDataInput() {
+		boolean result = false;
+		if(!txt_name.getText().equals("") && !txt_name.getText().equals(null) && !txt_surname.getText().equals("") && !txt_surname.getText().equals(null)
+				&& list_age.getSelectedIndex() > 0 && !txt_team.getText().equals(null) && !txt_team.getText().equals("")) {
+			try {
+				Double.parseDouble(this.txt_weight.getText());
+				result = true;
+			} catch (NumberFormatException e) {
+				// not a double
+				result = false;
+				System.out.println("MESSAGGIO INSERIRE PESO CORRETTO");
+			}
 		}
+		return result;
 	}
 
 	private void setSwitch(JRadioButton b1, JRadioButton b2) {
@@ -446,9 +470,10 @@ public class InsertForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				b2.setSelected(false);
+				b1.setSelected(true);
 			}
 		});
-		;
+		
 
 		b2.addActionListener(new ActionListener() {
 
@@ -456,9 +481,91 @@ public class InsertForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				b1.setSelected(false);
+				b2.setSelected(true);
 			}
 		});
 		;
 	}
 
+	public void initDisciplineForms() {
+		Manager manager = mainFrame.getManager();
+		List<TypeOfMatch> matchesOrder = manager.getMatchesOrder();
+		if(matchesOrder.contains(TypeOfMatch.BENCHPRESS)) {
+			setEnabledPanel(TypeOfMatch.BENCHPRESS,true);
+		}
+		if(matchesOrder.contains(TypeOfMatch.SQUAT)) {
+			setEnabledPanel(TypeOfMatch.SQUAT,true);
+		}
+		if(matchesOrder.contains(TypeOfMatch.DEADLIFT)) {
+			setEnabledPanel(TypeOfMatch.DEADLIFT,true);
+		}
+	}
+	
+	private boolean canAddLifter() {
+		if(rdbtnBenchPress.isSelected()) {
+			if(txt_lift_bench.getText().equals("") || txt_lift_bench.getText().equals(null)) {
+				return false;
+			}
+			try{
+				Double.parseDouble(this.txt_lift_bench.getText());
+			}catch(NumberFormatException e) {
+				return false;
+			}
+		}
+		if(rdbtnSquat.isSelected()) {
+			if(txt_lift_squat.getText().equals("") || txt_lift_squat.getText().equals(null)) {
+				return false;
+			}
+			try{
+				Double.parseDouble(this.txt_lift_squat.getText());
+			}catch(NumberFormatException e) {
+				return false;
+			}
+		}
+		if(rdbtnDeadLift.isSelected()) {
+			if(txt_lift_deadlift.getText().equals("") || txt_lift_deadlift.getText().equals(null)) {
+				return false;
+			}
+			try{
+				Double.parseDouble(this.txt_lift_deadlift.getText());
+			}catch(NumberFormatException e) {
+				return false;
+			}
+		}
+		if(!rdbtnBenchPress.isSelected() && !rdbtnSquat.isSelected() && !rdbtnDeadLift.isSelected()) {
+			return false;
+		}
+		return true;
+	}
+	
+	private void addLifter() {
+		Map<TypeOfMatch, Match> matches = manager.getMatches();
+		if(rdbtnBenchPress.isSelected()) {
+			if(weight_class_benchbtn.isSelected()) {
+				matches.get(TypeOfMatch.BENCHPRESS).signUp(c, Choice.CLSS_WEIGHT, Double.parseDouble(txt_lift_bench.getText()));
+			}else {
+				matches.get(TypeOfMatch.BENCHPRESS).signUp(c, Choice.CLSS_AGE, Double.parseDouble(txt_lift_bench.getText()));
+			}
+		}
+		if(rdbtnSquat.isSelected()) {
+			if(weight_class_squatbtn.isSelected()) {
+				matches.get(TypeOfMatch.SQUAT).signUp(c, Choice.CLSS_WEIGHT, Double.parseDouble(txt_lift_squat.getText()));
+			}else {
+				matches.get(TypeOfMatch.SQUAT).signUp(c, Choice.CLSS_AGE, Double.parseDouble(txt_lift_squat.getText()));
+			}
+		}
+		if(rdbtnDeadLift.isSelected()) {
+			if(weight_class_deadbtn.isSelected()) {
+				matches.get(TypeOfMatch.DEADLIFT).signUp(c, Choice.CLSS_WEIGHT, Double.parseDouble(txt_lift_deadlift.getText()));
+			}else {
+				matches.get(TypeOfMatch.DEADLIFT).signUp(c, Choice.CLSS_AGE, Double.parseDouble(txt_lift_deadlift.getText()));
+			}
+		}
+		reset();
+		System.out.println(manager);
+	}
+	
+	void reset(){
+	    mainFrame.showInsertForm();
+	}
 }
