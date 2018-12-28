@@ -19,6 +19,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.gym.program.logic.match.Lifter;
+import com.gym.program.logic.match.Match;
 import com.gym.program.utils.WeightDisc;
 
 public class Card extends JFrame {
@@ -29,8 +31,18 @@ public class Card extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel plates_panel;
-	
-	
+	private JLabel lifter_surname_label;
+	private JLabel lifter_name_label;
+	private JLabel lifter_team_label;
+	private JLabel lifter_category_label;
+	private JLabel record_weights_label;
+	private JLabel first_attempt_label;
+	private JLabel second_attempt_label;
+	private JLabel third_attempt_label;
+	private JLabel exercise_label;
+	private JLabel current_lift_label;
+	private JLabel seconds_left_label;
+	private JPanel image_exercise_panel;
 
 	/**
 	 * Create the frame.
@@ -95,68 +107,70 @@ public class Card extends JFrame {
 				.addPreferredGap(ComponentPlacement.RELATED)
 				.addComponent(button_panel, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)));
 
-		JPanel image_exercise_panel = new JPanel();
+		image_exercise_panel = new JPanel();
 		image_exercise_panel.setBackground(Color.GREEN);
+		// GuiHelper.getInstance().addBgImageJP(image_exercise_panel,
+		// "images/squat_bg.jpg");
 
 		JLabel time_label = new JLabel("Time :");
 		time_label.setFont(new Font("Serif", Font.PLAIN, 40));
 
-		JLabel seconds_left_label = new JLabel("43 s");
+		seconds_left_label = new JLabel();
 		seconds_left_label.setFont(new Font("Serif", Font.PLAIN, 40));
 		seconds_left_label.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JLabel Kg_label = new JLabel("Kg :");
 		Kg_label.setFont(new Font("Serif", Font.PLAIN, 50));
 
-		JLabel label = new JLabel("130,5");
-		label.setFont(new Font("Serif", Font.PLAIN, 99));
+		current_lift_label = new JLabel();
+		current_lift_label.setFont(new Font("Serif", Font.PLAIN, 99));
 
-		JLabel exercise_label = new JLabel("Bench Press");
+		exercise_label = new JLabel();
 		exercise_label.setFont(new Font("Serif", Font.PLAIN, 40));
+
 		GroupLayout gl_target_panel = new GroupLayout(target_panel);
-		gl_target_panel
-				.setHorizontalGroup(gl_target_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_target_panel.createSequentialGroup()
-								.addContainerGap(207, Short.MAX_VALUE)
-								.addComponent(exercise_label, GroupLayout.PREFERRED_SIZE, 273,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(110))
-						.addGroup(gl_target_panel.createSequentialGroup().addContainerGap()
-								.addComponent(Kg_label, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_target_panel.createSequentialGroup().addGap(10)
-												.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 113,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 104,
-														GroupLayout.PREFERRED_SIZE))
-										.addComponent(label, GroupLayout.PREFERRED_SIZE, 256,
-												GroupLayout.PREFERRED_SIZE)))
-						.addGroup(Alignment.LEADING,
-								gl_target_panel
-										.createSequentialGroup().addGap(32).addComponent(image_exercise_panel,
-												GroupLayout.PREFERRED_SIZE, 535, GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(23, Short.MAX_VALUE)));
+		gl_target_panel.setHorizontalGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_target_panel.createSequentialGroup().addGroup(gl_target_panel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_target_panel.createSequentialGroup().addGap(32).addComponent(image_exercise_panel,
+								GroupLayout.PREFERRED_SIZE, 535, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_target_panel.createSequentialGroup().addGap(157).addComponent(exercise_label,
+								GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap(23, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_target_panel.createSequentialGroup()
+						.addContainerGap(323, Short.MAX_VALUE)
+						.addComponent(Kg_label, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_target_panel.createSequentialGroup().addGap(10)
+										.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 113,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(seconds_left_label,
+												GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
+								.addComponent(current_lift_label, GroupLayout.PREFERRED_SIZE, 256,
+										GroupLayout.PREFERRED_SIZE))
+						.addContainerGap()));
 		gl_target_panel.setVerticalGroup(gl_target_panel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_target_panel.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_target_panel.createSequentialGroup()
 						.addComponent(exercise_label, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
 						.addGap(4)
 						.addComponent(image_exercise_panel, GroupLayout.PREFERRED_SIZE, 386, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-						.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(Kg_label, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 84,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 77,
-										GroupLayout.PREFERRED_SIZE))
-						.addContainerGap()));
+						.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+						.addGroup(
+								gl_target_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(Kg_label, GroupLayout.PREFERRED_SIZE, 73,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(current_lift_label, GroupLayout.PREFERRED_SIZE, 99,
+												GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED).addGroup(
+								gl_target_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 84,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 77,
+												GroupLayout.PREFERRED_SIZE))));
 		target_panel.setLayout(gl_target_panel);
 
-		JLabel lifter_team_label = new JLabel("squadra con nome lungo assai");
+		lifter_team_label = new JLabel();
 		lifter_team_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		JLabel fixed_team_label = new JLabel("team :");
@@ -167,13 +181,13 @@ public class Card extends JFrame {
 		JLabel fixed_category_label = new JLabel("categoria :");
 		fixed_category_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
-		JLabel lifter_category_label = new JLabel("Senior");
+		lifter_category_label = new JLabel();
 		lifter_category_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		JLabel fixed_record_label = new JLabel("record :");
 		fixed_record_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
-		JLabel record_weights_label = new JLabel("180 kg");
+		record_weights_label = new JLabel();
 		record_weights_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		JPanel attempts_panel = new JPanel();
@@ -225,21 +239,20 @@ public class Card extends JFrame {
 		JLabel fixed_attempts_label = new JLabel("tentativi :");
 		fixed_attempts_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
-		JLabel first_attempt_label = new JLabel("110");
-		first_attempt_label.setIcon(new ImageIcon("C:\\Users\\Mark\\Desktop\\immagini Gym program\\positive-50px.png"));
+		first_attempt_label = new JLabel();
 		first_attempt_label.setHorizontalAlignment(SwingConstants.CENTER);
 		first_attempt_label.setFont(new Font("Serif", Font.PLAIN, 35));
+		this.setWhiteIcon(first_attempt_label);
 
-		JLabel second_attempt_label = new JLabel("120");
-		second_attempt_label
-				.setIcon(new ImageIcon("C:\\Users\\Mark\\Desktop\\immagini Gym program\\negative-50px.png"));
+		second_attempt_label = new JLabel();
 		second_attempt_label.setHorizontalAlignment(SwingConstants.CENTER);
 		second_attempt_label.setFont(new Font("Serif", Font.PLAIN, 35));
+		this.setWhiteIcon(second_attempt_label);
 
-		JLabel third_attempt_label = new JLabel("130.5");
-		third_attempt_label.setIcon(new ImageIcon("C:\\Users\\Mark\\Desktop\\immagini Gym program\\white-50px.png"));
+		third_attempt_label = new JLabel();
 		third_attempt_label.setHorizontalAlignment(SwingConstants.CENTER);
 		third_attempt_label.setFont(new Font("Serif", Font.PLAIN, 35));
+		this.setWhiteIcon(third_attempt_label);
 
 		GroupLayout gl_attempts_panel = new GroupLayout(attempts_panel);
 		gl_attempts_panel.setHorizontalGroup(gl_attempts_panel.createParallelGroup(Alignment.LEADING)
@@ -268,13 +281,13 @@ public class Card extends JFrame {
 						.addContainerGap()));
 		attempts_panel.setLayout(gl_attempts_panel);
 
-		JLabel lifter_surname_label = new JLabel("Azzeccagarbugli");
+		lifter_surname_label = new JLabel();
 
 		lifter_surname_label.setVerticalAlignment(SwingConstants.TOP);
 		lifter_surname_label.setHorizontalAlignment(SwingConstants.LEFT);
 		lifter_surname_label.setFont(new Font("Serif", Font.PLAIN, 50));
 
-		JLabel lifter_name_label = new JLabel("Pierferdinando");
+		lifter_name_label = new JLabel();
 		lifter_name_label.setHorizontalAlignment(SwingConstants.LEFT);
 		lifter_name_label.setFont(new Font("Serif", Font.PLAIN, 50));
 		name_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 40, 5));
@@ -329,5 +342,32 @@ public class Card extends JFrame {
 		temp.setVerticalTextPosition(JLabel.BOTTOM);
 
 		return temp;
+	}
+
+	private void setPositiveIcon(JLabel label) {
+		label.setIcon(new ImageIcon("images/positive-50px.png"));
+	}
+
+	private void setNegativeIcon(JLabel label) {
+		label.setIcon(new ImageIcon("images/negative-50px.png"));
+	}
+
+	private void setWhiteIcon(JLabel label) {
+		label.setIcon(new ImageIcon("images/white-50px.png"));
+	}
+
+	public void setLifterData(Lifter lifter) {
+
+		this.lifter_name_label.setText(lifter.getCompetitor().getName());
+		this.lifter_surname_label.setText(lifter.getCompetitor().getSurname());
+		this.lifter_team_label.setText(lifter.getCompetitor().getTeam());
+		this.lifter_category_label.setText(lifter.getCategory().toString());
+		// this.first_attempt_label.setText();
+		// this.second_attempt_label
+		// this.third_attempt_label
+		// this.exercise_label.setText();
+		// this.image_exercise_panel
+		// this.current_lift_label.setText(lifter.setcu);
+
 	}
 }
