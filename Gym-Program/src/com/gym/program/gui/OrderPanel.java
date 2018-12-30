@@ -24,7 +24,7 @@ import com.gym.program.logic.match.Match;
 import com.gym.program.utils.WeightDisc;
 import java.awt.Dimension;
 
-public class Card extends JPanel {
+public class OrderPanel extends JPanel {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class Card extends JPanel {
 	 * Create the frame.
 	 */
 
-	public Card() {
+	public OrderPanel() {
 
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
