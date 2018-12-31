@@ -27,6 +27,7 @@ import com.gym.program.logic.competitor.CompetitorBuilder;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Choice;
+import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.Sex;
 
 public class InsertForm extends JPanel {
@@ -63,20 +64,21 @@ public class InsertForm extends JPanel {
 	private JComboBox list_age;
 
 	private Competitor c;
-	
+
 	private MainFrame mainFrame;
 	private Manager manager;
+
 	/**
 	 * Create the frame.
 	 */
 	public InsertForm(MainFrame m) {
 		mainFrame = m;
 		manager = mainFrame.getManager();
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 680);
 		setVisible(true);
-//		setLocationRelativeTo(null);
-//		setContentPane(contentPane);
+		// setLocationRelativeTo(null);
+		// setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(this);
@@ -116,7 +118,7 @@ public class InsertForm extends JPanel {
 
 		male_radiobtn = new JRadioButton(" M", true);
 		female_radiobtn = new JRadioButton(" F");
-		setSwitch(male_radiobtn, female_radiobtn);
+		GuiHelper.getInstance().setSwitch(male_radiobtn, female_radiobtn);
 
 		fixed_surname_label = new JLabel("cognome :");
 
@@ -131,7 +133,7 @@ public class InsertForm extends JPanel {
 		submit_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if(checkDataInput()) {
+				if (checkDataInput()) {
 					initDisciplineForms();
 					submitLifter();
 					updateChoicePanels();
@@ -151,7 +153,7 @@ public class InsertForm extends JPanel {
 
 		weight_class_squatbtn = new JRadioButton("  categoria peso", true);
 		age_class_squatbtn = new JRadioButton("  categoria et\u00E0");
-		setSwitch(weight_class_squatbtn, age_class_squatbtn);
+		GuiHelper.getInstance().setSwitch(weight_class_squatbtn, age_class_squatbtn);
 
 		rdbtnSquat = new JRadioButton("  seleziona");
 		GroupLayout gl_squat_panel = new GroupLayout(squat_panel);
@@ -194,7 +196,7 @@ public class InsertForm extends JPanel {
 
 		weight_class_deadbtn = new JRadioButton("  categoria peso", true);
 		age_class_deadbtn = new JRadioButton("  categoria et\u00E0");
-		setSwitch(weight_class_deadbtn, age_class_deadbtn);
+		GuiHelper.getInstance().setSwitch(weight_class_deadbtn, age_class_deadbtn);
 
 		rdbtnDeadLift = new JRadioButton("  seleziona");
 		GroupLayout gl_deadlift_panel = new GroupLayout(deadlift_panel);
@@ -235,18 +237,19 @@ public class InsertForm extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(canAddLifter()) {
+				if (canAddLifter()) {
 					addLifter();
-				}else {
+				} else {
 					System.out.println("ERROREEEEEEEEEEEEEEEEEEE");
-					JOptionPane.showMessageDialog(InsertForm.this, "Non hai inserito tutte le informazioni necessarie. Prego ricontrolla bene", "ATTENZIONE", 2);
+					JOptionPane.showMessageDialog(InsertForm.this,
+							"Non hai inserito tutte le informazioni necessarie. Prego ricontrolla bene", "ATTENZIONE",
+							2);
 				}
 			}
 
-			
 		});
 		add_lifter_btn.setEnabled(false);
-		
+
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(
 				Alignment.LEADING)
@@ -354,7 +357,7 @@ public class InsertForm extends JPanel {
 
 		weight_class_benchbtn = new JRadioButton("  categoria peso", true);
 		age_class_benchbtn = new JRadioButton("  categoria et\u00E0");
-		setSwitch(weight_class_benchbtn, age_class_benchbtn);
+		GuiHelper.getInstance().setSwitch(weight_class_benchbtn, age_class_benchbtn);
 
 		GroupLayout gl_bench_panel = new GroupLayout(bench_panel);
 		gl_bench_panel.setHorizontalGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_bench_panel
@@ -404,7 +407,7 @@ public class InsertForm extends JPanel {
 
 	}
 
-	public void setEnabledPanel(TypeOfMatch type,boolean value) {
+	public void setEnabledPanel(TypeOfMatch type, boolean value) {
 
 		switch (type) {
 		case BENCHPRESS:
@@ -448,8 +451,9 @@ public class InsertForm extends JPanel {
 
 	private boolean checkDataInput() {
 		boolean result = false;
-		if(!txt_name.getText().equals("") && !txt_name.getText().equals(null) && !txt_surname.getText().equals("") && !txt_surname.getText().equals(null)
-				&& list_age.getSelectedIndex() > 0 && !txt_team.getText().equals(null) && !txt_team.getText().equals("")) {
+		if (!txt_name.getText().equals("") && !txt_name.getText().equals(null) && !txt_surname.getText().equals("")
+				&& !txt_surname.getText().equals(null) && list_age.getSelectedIndex() > 0
+				&& !txt_team.getText().equals(null) && !txt_team.getText().equals("")) {
 			try {
 				Double.parseDouble(this.txt_weight.getText());
 				result = true;
@@ -462,110 +466,90 @@ public class InsertForm extends JPanel {
 		return result;
 	}
 
-	private void setSwitch(JRadioButton b1, JRadioButton b2) {
-
-		b1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				b2.setSelected(false);
-				b1.setSelected(true);
-			}
-		});
-		
-
-		b2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				b1.setSelected(false);
-				b2.setSelected(true);
-			}
-		});
-		;
-	}
-
 	public void initDisciplineForms() {
 		Manager manager = mainFrame.getManager();
 		List<TypeOfMatch> matchesOrder = manager.getMatchesOrder();
-		if(matchesOrder.contains(TypeOfMatch.BENCHPRESS)) {
-			setEnabledPanel(TypeOfMatch.BENCHPRESS,true);
+		if (matchesOrder.contains(TypeOfMatch.BENCHPRESS)) {
+			setEnabledPanel(TypeOfMatch.BENCHPRESS, true);
 		}
-		if(matchesOrder.contains(TypeOfMatch.SQUAT)) {
-			setEnabledPanel(TypeOfMatch.SQUAT,true);
+		if (matchesOrder.contains(TypeOfMatch.SQUAT)) {
+			setEnabledPanel(TypeOfMatch.SQUAT, true);
 		}
-		if(matchesOrder.contains(TypeOfMatch.DEADLIFT)) {
-			setEnabledPanel(TypeOfMatch.DEADLIFT,true);
+		if (matchesOrder.contains(TypeOfMatch.DEADLIFT)) {
+			setEnabledPanel(TypeOfMatch.DEADLIFT, true);
 		}
 	}
-	
+
 	private boolean canAddLifter() {
-		if(rdbtnBenchPress.isSelected()) {
-			if(txt_lift_bench.getText().equals("") || txt_lift_bench.getText().equals(null)) {
+		if (rdbtnBenchPress.isSelected()) {
+			if (txt_lift_bench.getText().equals("") || txt_lift_bench.getText().equals(null)) {
 				return false;
 			}
-			try{
+			try {
 				Double.parseDouble(this.txt_lift_bench.getText());
-			}catch(NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				return false;
 			}
 		}
-		if(rdbtnSquat.isSelected()) {
-			if(txt_lift_squat.getText().equals("") || txt_lift_squat.getText().equals(null)) {
+		if (rdbtnSquat.isSelected()) {
+			if (txt_lift_squat.getText().equals("") || txt_lift_squat.getText().equals(null)) {
 				return false;
 			}
-			try{
+			try {
 				Double.parseDouble(this.txt_lift_squat.getText());
-			}catch(NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				return false;
 			}
 		}
-		if(rdbtnDeadLift.isSelected()) {
-			if(txt_lift_deadlift.getText().equals("") || txt_lift_deadlift.getText().equals(null)) {
+		if (rdbtnDeadLift.isSelected()) {
+			if (txt_lift_deadlift.getText().equals("") || txt_lift_deadlift.getText().equals(null)) {
 				return false;
 			}
-			try{
+			try {
 				Double.parseDouble(this.txt_lift_deadlift.getText());
-			}catch(NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				return false;
 			}
 		}
-		if(!rdbtnBenchPress.isSelected() && !rdbtnSquat.isSelected() && !rdbtnDeadLift.isSelected()) {
+		if (!rdbtnBenchPress.isSelected() && !rdbtnSquat.isSelected() && !rdbtnDeadLift.isSelected()) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	private void addLifter() {
 		Map<TypeOfMatch, Match> matches = manager.getMatches();
-		if(rdbtnBenchPress.isSelected()) {
-			if(weight_class_benchbtn.isSelected()) {
-				matches.get(TypeOfMatch.BENCHPRESS).signUp(c, Choice.CLSS_WEIGHT, Double.parseDouble(txt_lift_bench.getText()));
-			}else {
-				matches.get(TypeOfMatch.BENCHPRESS).signUp(c, Choice.CLSS_AGE, Double.parseDouble(txt_lift_bench.getText()));
+		if (rdbtnBenchPress.isSelected()) {
+			if (weight_class_benchbtn.isSelected()) {
+				matches.get(TypeOfMatch.BENCHPRESS).signUp(c, Choice.CLSS_WEIGHT,
+						Double.parseDouble(txt_lift_bench.getText()));
+			} else {
+				matches.get(TypeOfMatch.BENCHPRESS).signUp(c, Choice.CLSS_AGE,
+						Double.parseDouble(txt_lift_bench.getText()));
 			}
 		}
-		if(rdbtnSquat.isSelected()) {
-			if(weight_class_squatbtn.isSelected()) {
-				matches.get(TypeOfMatch.SQUAT).signUp(c, Choice.CLSS_WEIGHT, Double.parseDouble(txt_lift_squat.getText()));
-			}else {
+		if (rdbtnSquat.isSelected()) {
+			if (weight_class_squatbtn.isSelected()) {
+				matches.get(TypeOfMatch.SQUAT).signUp(c, Choice.CLSS_WEIGHT,
+						Double.parseDouble(txt_lift_squat.getText()));
+			} else {
 				matches.get(TypeOfMatch.SQUAT).signUp(c, Choice.CLSS_AGE, Double.parseDouble(txt_lift_squat.getText()));
 			}
 		}
-		if(rdbtnDeadLift.isSelected()) {
-			if(weight_class_deadbtn.isSelected()) {
-				matches.get(TypeOfMatch.DEADLIFT).signUp(c, Choice.CLSS_WEIGHT, Double.parseDouble(txt_lift_deadlift.getText()));
-			}else {
-				matches.get(TypeOfMatch.DEADLIFT).signUp(c, Choice.CLSS_AGE, Double.parseDouble(txt_lift_deadlift.getText()));
+		if (rdbtnDeadLift.isSelected()) {
+			if (weight_class_deadbtn.isSelected()) {
+				matches.get(TypeOfMatch.DEADLIFT).signUp(c, Choice.CLSS_WEIGHT,
+						Double.parseDouble(txt_lift_deadlift.getText()));
+			} else {
+				matches.get(TypeOfMatch.DEADLIFT).signUp(c, Choice.CLSS_AGE,
+						Double.parseDouble(txt_lift_deadlift.getText()));
 			}
 		}
 		reset();
 		System.out.println(manager);
 	}
-	
-	void reset(){
-	    mainFrame.showInsertForm();
+
+	void reset() {
+		mainFrame.showInsertForm();
 	}
 }

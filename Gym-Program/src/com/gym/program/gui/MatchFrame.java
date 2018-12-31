@@ -48,7 +48,7 @@ public class MatchFrame extends JFrame {
 
 		tabbed_pane.add(" pedana ", new Card());
 		tabbed_pane.add(" classifica ", new Card());
-		tabbed_pane.add(" ordine ", new Card());
+		tabbed_pane.add(" ordine ", new OrderPanel());
 
 	}
 
