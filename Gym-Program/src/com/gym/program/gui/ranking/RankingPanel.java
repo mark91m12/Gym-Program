@@ -1,5 +1,6 @@
 package com.gym.program.gui.ranking;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
@@ -33,6 +34,8 @@ public class RankingPanel extends JPanel {
 	 * @param testFrame 
 	 */
 	public RankingPanel(TestFrame testFrame) {
+		
+		
 		this.testFrame = testFrame;
 		
 		JPanel matchListPanel = new JPanel();
@@ -96,9 +99,6 @@ public class RankingPanel extends JPanel {
 		gl_categoryPanel.setHorizontalGroup(
 			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_categoryPanel.createSequentialGroup()
-					.addGap(186)
-					.addComponent(lblCategory))
-				.addGroup(gl_categoryPanel.createSequentialGroup()
 					.addGap(124)
 					.addComponent(comboBoxCategoryList, 0, 201, Short.MAX_VALUE)
 					.addGap(125))
@@ -106,31 +106,35 @@ public class RankingPanel extends JPanel {
 					.addContainerGap()
 					.addComponent(listLifters, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(gl_categoryPanel.createSequentialGroup()
+					.addGap(192)
+					.addComponent(lblCategory, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(203))
 		);
 		gl_categoryPanel.setVerticalGroup(
 			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_categoryPanel.createSequentialGroup()
-					.addGap(5)
 					.addComponent(lblCategory)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(12)
 					.addComponent(comboBoxCategoryList, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(listLifters, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(44, Short.MAX_VALUE))
+					.addComponent(listLifters, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+					.addGap(44))
 		);
 		categoryPanel.setLayout(gl_categoryPanel);
 		
 		
 		GroupLayout gl_matchListPanel = new GroupLayout(matchListPanel);
 		gl_matchListPanel.setHorizontalGroup(
-			gl_matchListPanel.createParallelGroup(Alignment.LEADING)
+			gl_matchListPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_matchListPanel.createSequentialGroup()
-					.addGap(186)
-					.addComponent(lblMatchList))
-				.addGroup(Alignment.TRAILING, gl_matchListPanel.createSequentialGroup()
 					.addGap(127)
-					.addComponent(comboBoxMatchList, 0, 177, Short.MAX_VALUE)
+					.addComponent(comboBoxMatchList, 0, 199, Short.MAX_VALUE)
 					.addGap(124))
+				.addGroup(Alignment.LEADING, gl_matchListPanel.createSequentialGroup()
+					.addGap(191)
+					.addComponent(lblMatchList, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(203))
 		);
 		gl_matchListPanel.setVerticalGroup(
 			gl_matchListPanel.createParallelGroup(Alignment.LEADING)
@@ -139,7 +143,7 @@ public class RankingPanel extends JPanel {
 					.addComponent(lblMatchList)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(comboBoxMatchList, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(16, Short.MAX_VALUE))
+					.addContainerGap(29, Short.MAX_VALUE))
 		);
 		matchListPanel.setLayout(gl_matchListPanel);
 		setLayout(groupLayout);

@@ -1,6 +1,7 @@
 package com.gym.program.gui.ranking;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
@@ -58,7 +59,7 @@ public class TestFrame extends JFrame {
 //		setContentPane(contentPane);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setContentPane(rankingPanel);
 		
 //		pack();

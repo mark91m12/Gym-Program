@@ -68,8 +68,8 @@ public class OrderPanel extends JPanel {
 		TableModel model = new DefaultTableModel(rowData, columnNames);
 		JTable table = new JTable(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.add(table);
-		list_panel.add(table);
+//		scroll.add(table);
+//		list_panel.add(table);
 		this.setLayout(gl_contentPane);
 	}
 
