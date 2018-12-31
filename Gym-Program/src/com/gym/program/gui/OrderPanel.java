@@ -3,6 +3,8 @@ package com.gym.program.gui;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -20,6 +22,7 @@ import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.Sex;
+import java.awt.BorderLayout;
 
 public class OrderPanel extends JPanel {
 
@@ -60,9 +63,21 @@ public class OrderPanel extends JPanel {
 						.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
 						.addComponent(list_panel, GroupLayout.PREFERRED_SIZE, 670, GroupLayout.PREFERRED_SIZE)
 						.addGap(43)));
-		list_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		list_panel.setLayout(new BorderLayout(0, 0));
 
 		choice_box = new JComboBox();
+
+		choice_box.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				// UPDATE LIST 
+				System.out.println("SCELTO " + choice_box.getSelectedItem());
+			}
+		});
+
 		choice_panel.add(choice_box);
 		this.setPossibleChoices();
 
@@ -100,7 +115,8 @@ public class OrderPanel extends JPanel {
 		manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c1, Choice.CLSS_WEIGHT, 120);
 		manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c1, Choice.CLSS_AGE, 110);
 
-		Object names[] = { " Posizione ", " Cognome ", " Nome ", " Squadra ", " Età ", " Peso Corporeo ", " Categoria ", " Peso da sollevare " };
+		Object names[] = { " Posizione ", " Cognome ", " Nome ", " Squadra ", " Età ", " Peso Corporeo ", " Categoria ",
+				" Peso da sollevare " };
 
 		JScrollPane scroll = GuiHelper.getInstance().createTable(names,
 				manager.getMatches().get(TypeOfMatch.BENCHPRESS).getLifters());

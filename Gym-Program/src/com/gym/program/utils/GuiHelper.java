@@ -102,6 +102,7 @@ public class GuiHelper {
 		TableModel model = new DefaultTableModel(rowData, names);
 		JTable table = new JTable(model);
 		table.getTableHeader().setReorderingAllowed(false);
+
 		JScrollPane scroll = new JScrollPane(table);
 
 		return scroll;
