@@ -34,7 +34,6 @@ public class RankingPerCategory extends LinkedList<Lifter> {
 					return 0;// 01 score
 				}
 			}
-
 		});
 	}
 }

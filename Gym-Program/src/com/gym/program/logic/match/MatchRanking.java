@@ -8,6 +8,10 @@ import java.util.Map;
 import com.gym.program.utils.Category;
 
 public class MatchRanking {
+	public Map<Category, RankingPerCategory> getRankings() {
+		return rankings;
+	}
+
 	private List<Lifter> lifters;
 
 	private Map<Category, RankingPerCategory> rankings;

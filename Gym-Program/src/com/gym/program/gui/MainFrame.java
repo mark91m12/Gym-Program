@@ -25,6 +25,7 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 	private final DisciplinePanel disciplinePanel;
 	private JPanel mainPanelToSwitch;
 	private Manager manager;
+	private JButton btnStart;
 	/**
 	 * Launch the application.
 	 */
@@ -95,7 +96,7 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 		JButton btnInsertLifters = new JButton("Iscrivi atleti");
 		btnInsertLifters.setEnabled(false);
 		
-		JButton btnStart = new JButton("Inizia gara");
+		btnStart = new JButton("Inizia gara");
 		btnStart.setEnabled(false);
 		GroupLayout gl_menuPanel = new GroupLayout(menuPanel);
 		gl_menuPanel.setHorizontalGroup(
@@ -137,6 +138,10 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 
 	public void showInsertForm() {
 		switchTo(new InsertForm(this));
+	}
+
+	public void setStartBtnEnabled(boolean b) {
+		btnStart.setEnabled(b);
 	}
 	
 }

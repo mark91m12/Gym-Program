@@ -136,6 +136,8 @@ public class InsertForm extends JPanel {
 					submitLifter();
 					updateChoicePanels();
 					add_lifter_btn.setEnabled(true);
+				}else {
+					JOptionPane.showMessageDialog(InsertForm.this, "Non hai inserito tutte le informazioni necessarie.", "ATTENZIONE", 2);
 				}
 
 			}
@@ -237,8 +239,8 @@ public class InsertForm extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(canAddLifter()) {
 					addLifter();
+					InsertForm.this.mainFrame.setStartBtnEnabled(true);;
 				}else {
-					System.out.println("ERROREEEEEEEEEEEEEEEEEEE");
 					JOptionPane.showMessageDialog(InsertForm.this, "Non hai inserito tutte le informazioni necessarie. Prego ricontrolla bene", "ATTENZIONE", 2);
 				}
 			}

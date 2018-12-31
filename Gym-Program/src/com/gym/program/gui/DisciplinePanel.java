@@ -27,7 +27,7 @@ public class DisciplinePanel extends JPanel {
 
 	private final MainFrame mainFrame;
 
-	DefaultListModel<TypeOfMatch> disciplinesChoosen;
+	private DefaultListModel<TypeOfMatch> disciplinesChoosen;
 	/**
 	 * Create the panel.
 	 */
