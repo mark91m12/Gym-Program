@@ -14,11 +14,15 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Category;
+import com.gym.program.utils.GuiHelper;
+import java.awt.Color;
+import java.awt.BorderLayout;
 
 public class RankingPanel extends JPanel {
 
@@ -78,21 +82,22 @@ public class RankingPanel extends JPanel {
 		});
 		
 		
+		JPanel tableContainerPanel = new JPanel();
+		tableContainerPanel.setBackground(Color.WHITE);
 		JLabel lblCategory = new JLabel("Categorie");
-		
-		JList listLifters = new JList();
 		comboBoxCategoryList = new JComboBox();
 		comboBoxCategoryList.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				liftersModel = new DefaultListModel();
-				for ( Lifter l: testFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().get(comboBoxCategoryList.getSelectedItem())) {
-					liftersModel.addElement(l.toString());
-				}
-				listLifters.setModel(liftersModel);
+				tableContainerPanel.removeAll();
+				JScrollPane scroll = GuiHelper.getInstance().createTableForRanking(
+						testFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().get(comboBoxCategoryList.getSelectedItem()));
+				tableContainerPanel.add(scroll);
+				tableContainerPanel.updateUI();
 			}
 		});
+		
 		
 
 		GroupLayout gl_categoryPanel = new GroupLayout(categoryPanel);
@@ -103,13 +108,13 @@ public class RankingPanel extends JPanel {
 					.addComponent(comboBoxCategoryList, 0, 201, Short.MAX_VALUE)
 					.addGap(125))
 				.addGroup(gl_categoryPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(listLifters, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(gl_categoryPanel.createSequentialGroup()
 					.addGap(192)
 					.addComponent(lblCategory, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(203))
+				.addGroup(gl_categoryPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+					.addGap(14))
 		);
 		gl_categoryPanel.setVerticalGroup(
 			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
@@ -118,9 +123,10 @@ public class RankingPanel extends JPanel {
 					.addGap(12)
 					.addComponent(comboBoxCategoryList, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(listLifters, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-					.addGap(44))
+					.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+					.addGap(36))
 		);
+		tableContainerPanel.setLayout(new BorderLayout(0, 0));
 		categoryPanel.setLayout(gl_categoryPanel);
 		
 		
