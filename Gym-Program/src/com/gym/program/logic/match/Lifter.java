@@ -51,18 +51,18 @@ public class Lifter {
 		this.score = score;
 	}
 
-	public double getAttemptWeight(Attempt a) {
+	public Double getAttemptWeight(Attempt a) {
 		Double weight = this.attemptsWeights.get(a);
-		return weight==null?0.0:weight;
+		return weight;//==null?0.0:weight;
 	}
 
 	public void setAttemptWeight(Attempt a, double weight) {
 		this.attemptsWeights.put(a, weight);
 	}
 
-	public boolean getAttemptResult(Attempt a) {
+	public Boolean getAttemptResult(Attempt a) {
 		Boolean result = this.attemptsResults.get(a);
-		return result==null?false:result;
+		return result;//==null?false:result;
 	}
 
 	public void setAttemptResult(Attempt a, boolean result) {

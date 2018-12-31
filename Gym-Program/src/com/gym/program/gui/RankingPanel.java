@@ -1,6 +1,7 @@
-package com.gym.program.gui.ranking;
+package com.gym.program.gui;
 
-import java.awt.Toolkit;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
@@ -12,7 +13,6 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -21,12 +21,10 @@ import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Category;
 import com.gym.program.utils.GuiHelper;
-import java.awt.Color;
-import java.awt.BorderLayout;
 
 public class RankingPanel extends JPanel {
 
-	private TestFrame testFrame;
+	private MatchFrame matchFrame;
 	private DefaultComboBoxModel<TypeOfMatch> matchListModel;
 	private DefaultComboBoxModel<Category> categoryListModel;
 	private DefaultListModel<String> liftersModel;
@@ -37,10 +35,9 @@ public class RankingPanel extends JPanel {
 	 * Create the panel.
 	 * @param testFrame 
 	 */
-	public RankingPanel(TestFrame testFrame) {
+	public RankingPanel(MatchFrame mF) {
 		
-		
-		this.testFrame = testFrame;
+		this.matchFrame = mF;
 		
 		JPanel matchListPanel = new JPanel();
 		
@@ -63,7 +60,7 @@ public class RankingPanel extends JPanel {
 		
 		comboBoxMatchList = new JComboBox();
 		matchListModel = new DefaultComboBoxModel();
-		for (TypeOfMatch type : testFrame.getManager().getMatches().keySet()) {
+		for (TypeOfMatch type : matchFrame.getManager().getMatches().keySet()) {
 			matchListModel.addElement(type);
 		}
 		comboBoxMatchList.setModel(matchListModel);
@@ -72,7 +69,7 @@ public class RankingPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Set<Category> categories = new HashSet();
-				for (Lifter lifter: testFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getLifters()) {
+				for (Lifter lifter: matchFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getLifters()) {
 					categories.add(lifter.getCategory());
 				}
 				System.out.println("ACTION MATCH LIST:"+categories+"--"+comboBoxMatchList.getSelectedItem());
@@ -92,7 +89,7 @@ public class RankingPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				tableContainerPanel.removeAll();
 				JScrollPane scroll = GuiHelper.getInstance().createTableForRanking(
-						testFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().get(comboBoxCategoryList.getSelectedItem()));
+						matchFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().get(comboBoxCategoryList.getSelectedItem()));
 				tableContainerPanel.add(scroll);
 				tableContainerPanel.updateUI();
 			}

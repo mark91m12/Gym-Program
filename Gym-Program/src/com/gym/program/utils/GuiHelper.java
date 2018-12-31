@@ -122,12 +122,12 @@ public class GuiHelper {
 			rowData[i][5] = lifters.get(i).getCompetitor().getAge();
 			rowData[i][6] = lifters.get(i).getCompetitor().getWeight();
 			rowData[i][7] = lifters.get(i).getCategory();
-			rowData[i][8] = lifters.get(i).getAttemptWeight(Attempt.FIRST);
-			rowData[i][9] = lifters.get(i).getAttemptResult(Attempt.FIRST);
-			rowData[i][10] = lifters.get(i).getAttemptWeight(Attempt.SECOND);
-			rowData[i][11] = lifters.get(i).getAttemptResult(Attempt.SECOND);
-			rowData[i][12] = lifters.get(i).getAttemptWeight(Attempt.THIRD);
-			rowData[i][13] = lifters.get(i).getAttemptResult(Attempt.THIRD);
+			rowData[i][8] = lifters.get(i).getAttemptWeight(Attempt.FIRST)==null?"-":lifters.get(i).getAttemptWeight(Attempt.FIRST);
+			rowData[i][9] = lifters.get(i).getAttemptResult(Attempt.FIRST)==null?"-":(lifters.get(i).getAttemptResult(Attempt.FIRST)==false?"negativo":"positivo");
+			rowData[i][10] = lifters.get(i).getAttemptWeight(Attempt.SECOND)==null?"-":lifters.get(i).getAttemptWeight(Attempt.SECOND);
+			rowData[i][11] = lifters.get(i).getAttemptResult(Attempt.SECOND)==null?"-":(lifters.get(i).getAttemptResult(Attempt.SECOND)==false?"negativo":"positivo");
+			rowData[i][12] = lifters.get(i).getAttemptWeight(Attempt.THIRD)==null?"-":lifters.get(i).getAttemptWeight(Attempt.THIRD);
+			rowData[i][13] = lifters.get(i).getAttemptResult(Attempt.THIRD)==null?"-":(lifters.get(i).getAttemptResult(Attempt.THIRD)==false?"negativo":"positivo");
 		}
 
 		TableModel model = new DefaultTableModel(rowData, names);
