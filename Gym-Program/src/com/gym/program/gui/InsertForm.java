@@ -27,6 +27,7 @@ import com.gym.program.logic.competitor.CompetitorBuilder;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Choice;
+import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.Sex;
 
 public class InsertForm extends JPanel {
@@ -116,7 +117,7 @@ public class InsertForm extends JPanel {
 
 		male_radiobtn = new JRadioButton(" M", true);
 		female_radiobtn = new JRadioButton(" F");
-		setSwitch(male_radiobtn, female_radiobtn);
+		GuiHelper.getInstance().setSwitch(male_radiobtn, female_radiobtn);
 
 		fixed_surname_label = new JLabel("cognome :");
 
@@ -153,7 +154,7 @@ public class InsertForm extends JPanel {
 
 		weight_class_squatbtn = new JRadioButton("  categoria peso", true);
 		age_class_squatbtn = new JRadioButton("  categoria et\u00E0");
-		setSwitch(weight_class_squatbtn, age_class_squatbtn);
+		GuiHelper.getInstance().setSwitch(weight_class_squatbtn, age_class_squatbtn);
 
 		rdbtnSquat = new JRadioButton("  seleziona");
 		GroupLayout gl_squat_panel = new GroupLayout(squat_panel);
@@ -196,7 +197,7 @@ public class InsertForm extends JPanel {
 
 		weight_class_deadbtn = new JRadioButton("  categoria peso", true);
 		age_class_deadbtn = new JRadioButton("  categoria et\u00E0");
-		setSwitch(weight_class_deadbtn, age_class_deadbtn);
+		GuiHelper.getInstance().setSwitch(weight_class_deadbtn, age_class_deadbtn);
 
 		rdbtnDeadLift = new JRadioButton("  seleziona");
 		GroupLayout gl_deadlift_panel = new GroupLayout(deadlift_panel);
@@ -356,7 +357,7 @@ public class InsertForm extends JPanel {
 
 		weight_class_benchbtn = new JRadioButton("  categoria peso", true);
 		age_class_benchbtn = new JRadioButton("  categoria et\u00E0");
-		setSwitch(weight_class_benchbtn, age_class_benchbtn);
+		GuiHelper.getInstance().setSwitch(weight_class_benchbtn, age_class_benchbtn);
 
 		GroupLayout gl_bench_panel = new GroupLayout(bench_panel);
 		gl_bench_panel.setHorizontalGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_bench_panel
@@ -462,31 +463,6 @@ public class InsertForm extends JPanel {
 			}
 		}
 		return result;
-	}
-
-	private void setSwitch(JRadioButton b1, JRadioButton b2) {
-
-		b1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				b2.setSelected(false);
-				b1.setSelected(true);
-			}
-		});
-		
-
-		b2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				b1.setSelected(false);
-				b2.setSelected(true);
-			}
-		});
-		;
 	}
 
 	public void initDisciplineForms() {

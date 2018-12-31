@@ -1,6 +1,8 @@
 package com.gym.program.utils;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -8,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 public class GuiHelper {
 
@@ -43,6 +46,30 @@ public class GuiHelper {
 		for (JComponent jComponent : components) {
 			jComponent.setBackground(color);
 		}
+	}
+
+	public void setSwitch(JRadioButton b1, JRadioButton b2) {
+
+		b1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				b2.setSelected(false);
+				b1.setSelected(true);
+			}
+		});
+
+		b2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				b1.setSelected(false);
+				b2.setSelected(true);
+			}
+		});
+		;
 	}
 
 }
