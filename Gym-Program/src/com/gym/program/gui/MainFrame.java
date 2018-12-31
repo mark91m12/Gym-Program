@@ -2,6 +2,8 @@ package com.gym.program.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -26,27 +28,12 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 	private JPanel mainPanelToSwitch;
 	private Manager manager;
 	private JButton btnStart;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private MatchFrame matchFrame;
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
-		manager = new Manager();
+	public MainFrame(Manager manager) {
+		this.manager = manager;
 		
 		this.disciplinePanel = new DisciplinePanel(this);
 		setBounds(100, 100, 600, 420);
@@ -98,6 +85,13 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 		
 		btnStart = new JButton("Inizia gara");
 		btnStart.setEnabled(false);
+		btnStart.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				matchFrame = new MatchFrame(MainFrame.this.manager);
+			}
+		});
 		GroupLayout gl_menuPanel = new GroupLayout(menuPanel);
 		gl_menuPanel.setHorizontalGroup(
 			gl_menuPanel.createParallelGroup(Alignment.TRAILING)
@@ -120,6 +114,7 @@ public class MainFrame extends JFrame implements PanelSwitcher{
 		menuPanel.setLayout(gl_menuPanel);
 		contentPane.setLayout(gl_contentPane);
 		switchTo(disciplinePanel);
+		this.setVisible(true);
 	}
 
 	@Override

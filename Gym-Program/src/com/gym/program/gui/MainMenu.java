@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.gym.program.logic.Manager;
 import com.gym.program.utils.GuiHelper;
 
 public class MainMenu extends JFrame implements ActionListener {
@@ -69,7 +70,9 @@ public class MainMenu extends JFrame implements ActionListener {
 
 			// Open window for events choice ( BENCH | SQUAT | DEADLIFT )
 			// new CreateEventMenu();
-			new MainFrame();
+
+			new MainFrame(new Manager());
+
 			this.dispose();
 
 		} else if (e.getSource() == loadEventBtn) {

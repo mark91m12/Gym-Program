@@ -44,23 +44,25 @@ public class Lifter {
 	}
 
 	public double getScore() {
-		return this.score;
+		return (Double)score==null?0.0:score;
 	}
 
 	public void setScore(double score) {
 		this.score = score;
 	}
 
-	public double getAttemptWeight(Attempt a) {
-		return this.attemptsWeights.get(a);
+	public Double getAttemptWeight(Attempt a) {
+		Double weight = this.attemptsWeights.get(a);
+		return weight;//==null?0.0:weight;
 	}
 
 	public void setAttemptWeight(Attempt a, double weight) {
 		this.attemptsWeights.put(a, weight);
 	}
 
-	public boolean getAttemptResult(Attempt a) {
-		return this.attemptsResults.get(a);
+	public Boolean getAttemptResult(Attempt a) {
+		Boolean result = this.attemptsResults.get(a);
+		return result;//==null?false:result;
 	}
 
 	public void setAttemptResult(Attempt a, boolean result) {

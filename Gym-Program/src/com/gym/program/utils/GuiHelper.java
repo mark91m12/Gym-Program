@@ -107,4 +107,34 @@ public class GuiHelper {
 
 		return scroll;
 	}
+	
+	public JScrollPane createTableForRanking( List<Lifter> lifters) {
+
+		Object names[] = { " Posizione "," Cognome "," Nome ","Punteggio"," Squadra "," Età "," Peso Corporeo "," Categoria ",
+				" Peso prima alzta "," Esito prima alzta "," Peso seconda alzta "," Esito seconda alzta "," Peso terza alzta "," Esito terza alzta " };
+		Object rowData[][] = new Object[lifters.size()][names.length];
+
+		for (int i = 0; i < lifters.size(); i++) {
+			rowData[i][0] = i + 1;
+			rowData[i][1] = lifters.get(i).getCompetitor().getSurname();
+			rowData[i][2] = lifters.get(i).getCompetitor().getName();
+			rowData[i][3] = lifters.get(i).getScore();
+			rowData[i][4] = lifters.get(i).getCompetitor().getTeam();
+			rowData[i][5] = lifters.get(i).getCompetitor().getAge();
+			rowData[i][6] = lifters.get(i).getCompetitor().getWeight();
+			rowData[i][7] = lifters.get(i).getCategory();
+			rowData[i][8] = lifters.get(i).getAttemptWeight(Attempt.FIRST)==null?"-":lifters.get(i).getAttemptWeight(Attempt.FIRST);
+			rowData[i][9] = lifters.get(i).getAttemptResult(Attempt.FIRST)==null?"-":(lifters.get(i).getAttemptResult(Attempt.FIRST)==false?"negativo":"positivo");
+			rowData[i][10] = lifters.get(i).getAttemptWeight(Attempt.SECOND)==null?"-":lifters.get(i).getAttemptWeight(Attempt.SECOND);
+			rowData[i][11] = lifters.get(i).getAttemptResult(Attempt.SECOND)==null?"-":(lifters.get(i).getAttemptResult(Attempt.SECOND)==false?"negativo":"positivo");
+			rowData[i][12] = lifters.get(i).getAttemptWeight(Attempt.THIRD)==null?"-":lifters.get(i).getAttemptWeight(Attempt.THIRD);
+			rowData[i][13] = lifters.get(i).getAttemptResult(Attempt.THIRD)==null?"-":(lifters.get(i).getAttemptResult(Attempt.THIRD)==false?"negativo":"positivo");
+		}
+
+		TableModel model = new DefaultTableModel(rowData, names);
+		JTable table = new JTable(model);
+		table.getTableHeader().setReorderingAllowed(false);
+		JScrollPane scroll = new JScrollPane(table);
+		return scroll;
+	}
 }
