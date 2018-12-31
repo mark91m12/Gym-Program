@@ -11,6 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
+import com.gym.program.logic.match.Lifter;
 
 public class GuiHelper {
 
@@ -72,4 +78,32 @@ public class GuiHelper {
 		;
 	}
 
+	public JScrollPane createTable(Object names[], List<Lifter> lifters) {
+
+		// Object rowData[][] = { { "Row1-Column1", "Row1-Column2",
+		// "Row1-Column3" },
+		// { "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
+		// Object columnNames[] = { "Column One", "Column Two", "Column Three"
+		// };
+
+		Object rowData[][] = new Object[lifters.size()][names.length];
+
+		for (int i = 0; i < lifters.size(); i++) {
+			rowData[i][0] = i + 1;
+			rowData[i][1] = lifters.get(i).getCompetitor().getSurname();
+			rowData[i][2] = lifters.get(i).getCompetitor().getName();
+			rowData[i][3] = lifters.get(i).getCompetitor().getTeam();
+			rowData[i][4] = lifters.get(i).getCompetitor().getAge();
+			rowData[i][5] = lifters.get(i).getCompetitor().getWeight();
+			rowData[i][6] = lifters.get(i).getCategory();
+			rowData[i][7] = lifters.get(i).getCurrentAttemptWeight();
+		}
+
+		TableModel model = new DefaultTableModel(rowData, names);
+		JTable table = new JTable(model);
+		table.getTableHeader().setReorderingAllowed(false);
+		JScrollPane scroll = new JScrollPane(table);
+
+		return scroll;
+	}
 }
