@@ -33,6 +33,8 @@ public class MatchFrame extends JFrame {
 	 */
 	public MatchFrame(Manager m) {
 		this.manager = m;
+		
+		System.out.println(this.manager);
 
 		Match m1 = new Match(TypeOfMatch.BENCHPRESS);
 		Match m2 = new Match(TypeOfMatch.DEADLIFT);
@@ -71,7 +73,7 @@ public class MatchFrame extends JFrame {
 		JTabbedPane tabbed_pane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbed_pane);
 
-		tabbed_pane.add(" pedana ", new Card());
+		tabbed_pane.add(" pedana ", new Card(this));
 		tabbed_pane.add(" ordine ", new OrderPanel(this));
 		tabbed_pane.add(" classifica ", new RankingPanel(this));
 		this.setVisible(true);

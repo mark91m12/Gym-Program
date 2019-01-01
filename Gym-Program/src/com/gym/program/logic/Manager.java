@@ -80,11 +80,11 @@ public class Manager {
 	}
 
 	public Lifter getNextLifter() {
-		return this.matches.get(this.getNextTypeOfMatch()).getNextLifter();
+		return this.matches.get(this.getCurrentTypeOfMatch()).getNextLifter();
 	}
 
 	public Lifter getCurrentLifter() {
-		return this.matches.get(this.getNextTypeOfMatch()).getCurrentLifter();
+		return this.matches.get(this.getCurrentTypeOfMatch()).getCurrentLifter();
 	}
 
 	public void updateLifterResult(Attempt a, boolean result) {

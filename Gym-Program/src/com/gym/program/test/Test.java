@@ -1,9 +1,12 @@
 package com.gym.program.test;
 
 import java.util.Collections;
+import java.util.Iterator;
 
+import com.gym.program.gui.Card;
 import com.gym.program.gui.InsertForm;
 import com.gym.program.gui.MainMenu;
+import com.gym.program.gui.MatchFrame;
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.competitor.CompetitorBuilder;
@@ -97,4 +100,26 @@ public class Test {
 		}
 	}
 
+	// public void start() {
+	//
+	// Manager m = new Manager();
+	// MatchFrame mf = new MatchFrame(m);
+	// Card c = new Card(mf);
+	//
+	// // SORT LIST
+	// m.getMatches().get(m.getCurrentTypeOfMatch()).sortLifters();
+	//
+	// Iterator<Lifter> lifterIter =
+	// m.getMatches().get(TypeOfMatch.BENCHPRESS).getLifters().iterator();
+	// while (lifterIter.hasNext()) {
+	//
+	// Lifter lifter = lifterIter.next();
+	//
+	// c.setLifterData(); // passo lifter
+	// while (c.isRunning()) {
+	// // DO NOTHING
+	// }
+	//
+	// }
+	// }
 }

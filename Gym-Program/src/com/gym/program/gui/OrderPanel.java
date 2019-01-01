@@ -39,6 +39,8 @@ public class OrderPanel extends JPanel {
 	public OrderPanel(MatchFrame mf) {
 
 		this.match_frame = mf;
+		
+		System.out.println("OP  "+this.match_frame.getManager());
 
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
