@@ -1,9 +1,10 @@
 package com.gym.program.logic;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.match.Lifter;
@@ -16,11 +17,12 @@ public class Manager {
 
 
 	private Map<TypeOfMatch, Match> matches;
-	private List<TypeOfMatch> matchesOrder;
+	private TypeOfMatch currentTypeOfMatch;
+	private Set<TypeOfMatch> completed;
 
 	public Manager() {
 		this.matches = new HashMap<>();
-		this.matchesOrder = new ArrayList<>();
+		completed = new HashSet<>();
 	}
 
 	public Map<TypeOfMatch, Match> getMatches() {
@@ -56,44 +58,37 @@ public class Manager {
 		}
 	}
 
-	public List<TypeOfMatch> getMatchesOrder() {
-		return this.matchesOrder;
-	}
-
-	public void setMatchesOrder(List<TypeOfMatch> matchesOrder) {
-		this.matchesOrder = matchesOrder;
-	}
-
-	public TypeOfMatch getCurrentTypeOfMatch() {
-		return this.matchesOrder.get(0);
-	}
-
-	public TypeOfMatch getNextTypeOfMatch() {
-		this.matchesOrder.remove(0);
-		return this.matchesOrder.get(0);
-	}
-
 	public void signupLifter(List<TypeOfMatch> typeOfMatches, Competitor competitor, Choice choice, double first_lift) {
 		for (TypeOfMatch typeOfMatch : typeOfMatches) {
 			this.matches.get(typeOfMatch).signUp(competitor, choice, first_lift);
 		}
 	}
 
-	public Lifter getNextLifter() {
-		return this.matches.get(this.getNextTypeOfMatch()).getNextLifter();
+	public TypeOfMatch getCurrentTypeOfMatch() {
+		return currentTypeOfMatch;
+	}
+	
+	public void setCurrentTypeOfMatch(TypeOfMatch type) {
+		this.currentTypeOfMatch = type;
 	}
 
+	public Set<TypeOfMatch> getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(TypeOfMatch completed) {
+		this.completed.add(completed);
+	}
+//	public Lifter getNextLifter() {
+//		return this.matches.get(this.getNextTypeOfMatch()).getNextLifter();
+//	}
+
 	public Lifter getCurrentLifter() {
-		return this.matches.get(this.getNextTypeOfMatch()).getCurrentLifter();
+		return this.matches.get(this.currentTypeOfMatch).getCurrentLifter();
 	}
 
 	public void updateLifterResult(Attempt a, boolean result) {
 		this.getCurrentLifter().setAttemptResult(a, result);
-	}
-
-	@Override
-	public String toString() {
-		return "Manager [matches=" + matches + ", matchesOrder=" + matchesOrder + "]";
 	}
 
 }

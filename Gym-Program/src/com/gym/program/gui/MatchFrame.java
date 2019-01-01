@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -17,21 +18,26 @@ import com.gym.program.utils.Sex;
 
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JTabbedPane;
 
 public class MatchFrame extends JFrame {
 
 	private JPanel contentPane;
+	private MainFrame mainFrame;
 	private Manager manager;
 
-	public static void main(String[] args) {
-		MatchFrame m = new MatchFrame(new Manager());
-	}
+//	public static void main(String[] args) {
+//		MatchFrame m = new MatchFrame(new Manager());
+//	}
 	/**
 	 * Create the frame.
 	 */
-	public MatchFrame(Manager m) {
-		this.manager = m;
+	public MatchFrame(MainFrame mF) {
+		this.mainFrame = mF;
+		this.manager = mF.getManager();
 		
 		Match m1 = new Match(TypeOfMatch.BENCHPRESS);
 		Match m2 = new Match(TypeOfMatch.DEADLIFT);
@@ -62,7 +68,7 @@ public class MatchFrame extends JFrame {
 		
 		
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
 		contentPane = new JPanel();
@@ -77,6 +83,20 @@ public class MatchFrame extends JFrame {
 		tabbed_pane.add(" ordine ", new OrderPanel());
 		tabbed_pane.add(" classifica ", new RankingPanel(this));
 		this.setVisible(true);
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(final WindowEvent e) {
+					final int i = JOptionPane.showConfirmDialog(MatchFrame.this, "Do you really want to exit?", "Exit?",
+							JOptionPane.YES_NO_OPTION);
+					if (i == JOptionPane.YES_OPTION) {
+						MatchFrame.this.mainFrame.setVisible(true);
+						MatchFrame.this.mainFrame.update();
+						MatchFrame.this.dispose();
+					}
+			}
+		});
 	}
 
 	public Manager getManager() {

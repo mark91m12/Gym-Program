@@ -5,9 +5,11 @@ import java.awt.Font;
 import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale.Category;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -117,7 +119,10 @@ public class InsertForm extends JPanel {
 
 		male_radiobtn = new JRadioButton(" M", true);
 		female_radiobtn = new JRadioButton(" F");
-		GuiHelper.getInstance().setSwitch(male_radiobtn, female_radiobtn);
+		Set<JRadioButton> setRdBtns = new HashSet<>();
+		setRdBtns.add(male_radiobtn);
+		setRdBtns.add(female_radiobtn);
+		GuiHelper.getInstance().setSwitch(setRdBtns);
 
 		fixed_surname_label = new JLabel("cognome :");
 
@@ -154,7 +159,10 @@ public class InsertForm extends JPanel {
 
 		weight_class_squatbtn = new JRadioButton("  categoria peso", true);
 		age_class_squatbtn = new JRadioButton("  categoria et\u00E0");
-		GuiHelper.getInstance().setSwitch(weight_class_squatbtn, age_class_squatbtn);
+		Set<JRadioButton> setRdBtns2 = new HashSet<>();
+		setRdBtns2.add(weight_class_squatbtn);
+		setRdBtns2.add(age_class_squatbtn);
+		GuiHelper.getInstance().setSwitch(setRdBtns2);
 
 		rdbtnSquat = new JRadioButton("  seleziona");
 		GroupLayout gl_squat_panel = new GroupLayout(squat_panel);
@@ -197,7 +205,10 @@ public class InsertForm extends JPanel {
 
 		weight_class_deadbtn = new JRadioButton("  categoria peso", true);
 		age_class_deadbtn = new JRadioButton("  categoria et\u00E0");
-		GuiHelper.getInstance().setSwitch(weight_class_deadbtn, age_class_deadbtn);
+		Set<JRadioButton> setRdBtns3 = new HashSet<>();
+		setRdBtns3.add(weight_class_deadbtn);
+		setRdBtns3.add(age_class_deadbtn);
+		GuiHelper.getInstance().setSwitch(setRdBtns3);
 
 		rdbtnDeadLift = new JRadioButton("  seleziona");
 		GroupLayout gl_deadlift_panel = new GroupLayout(deadlift_panel);
@@ -240,7 +251,7 @@ public class InsertForm extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(canAddLifter()) {
 					addLifter();
-					InsertForm.this.mainFrame.setStartBtnEnabled(true);;
+					InsertForm.this.mainFrame.setStartBtnEnabled(true);
 				}else {
 					JOptionPane.showMessageDialog(InsertForm.this, "Non hai inserito tutte le informazioni necessarie. Prego ricontrolla bene", "ATTENZIONE", 2);
 				}
@@ -357,7 +368,10 @@ public class InsertForm extends JPanel {
 
 		weight_class_benchbtn = new JRadioButton("  categoria peso", true);
 		age_class_benchbtn = new JRadioButton("  categoria et\u00E0");
-		GuiHelper.getInstance().setSwitch(weight_class_benchbtn, age_class_benchbtn);
+		Set<JRadioButton> setRdBtns4 = new HashSet<>();
+		setRdBtns4.add(weight_class_benchbtn);
+		setRdBtns4.add(age_class_benchbtn);
+		GuiHelper.getInstance().setSwitch(setRdBtns4);
 
 		GroupLayout gl_bench_panel = new GroupLayout(bench_panel);
 		gl_bench_panel.setHorizontalGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_bench_panel
@@ -467,14 +481,14 @@ public class InsertForm extends JPanel {
 
 	public void initDisciplineForms() {
 		Manager manager = mainFrame.getManager();
-		List<TypeOfMatch> matchesOrder = manager.getMatchesOrder();
-		if(matchesOrder.contains(TypeOfMatch.BENCHPRESS)) {
+		Set<TypeOfMatch> matches = manager.getMatches().keySet();
+		if(matches.contains(TypeOfMatch.BENCHPRESS)) {
 			setEnabledPanel(TypeOfMatch.BENCHPRESS,true);
 		}
-		if(matchesOrder.contains(TypeOfMatch.SQUAT)) {
+		if(matches.contains(TypeOfMatch.SQUAT)) {
 			setEnabledPanel(TypeOfMatch.SQUAT,true);
 		}
-		if(matchesOrder.contains(TypeOfMatch.DEADLIFT)) {
+		if(matches.contains(TypeOfMatch.DEADLIFT)) {
 			setEnabledPanel(TypeOfMatch.DEADLIFT,true);
 		}
 	}

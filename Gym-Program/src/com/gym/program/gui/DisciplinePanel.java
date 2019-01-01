@@ -22,46 +22,33 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 public class DisciplinePanel extends JPanel {
 
 	private final MainFrame mainFrame;
-
-	private DefaultListModel<TypeOfMatch> disciplinesChoosen;
+	
+	private List<TypeOfMatch> disciplinesChoosen;
 	/**
 	 * Create the panel.
 	 */
 	public DisciplinePanel(final MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
-		disciplinesChoosen = new DefaultListModel();
-		setBackground(Color.PINK);
+		disciplinesChoosen = new ArrayList<>();
+//		disciplinesChoosen = new DefaultListModel();
+		setBackground(SystemColor.menu);
 		
 		JPanel disciplineSelectionPanel = new JPanel();
-		disciplineSelectionPanel.setBackground(Color.MAGENTA);
+		disciplineSelectionPanel.setBackground(SystemColor.menu);
 		
-		JPanel disciplineOrderPanel = new JPanel();
-		disciplineOrderPanel.setBackground(Color.RED);
-		
-		JButton btnSubmitDisciplineSelection = new JButton("Avanti");
+		JButton btnSubmitDisciplineSelection = new JButton("Conferma");
 		btnSubmitDisciplineSelection.setEnabled(false);
 		btnSubmitDisciplineSelection.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Manager manager = mainFrame.getManager();
-				manager.setMatches(new HashMap<>());
-				List<TypeOfMatch> orderedList = new ArrayList<>();
-				TypeOfMatch type = null;
-				for (int i = 0; i < disciplinesChoosen.size(); i++) {
-					type = disciplinesChoosen.get(i);
-					manager.addMatch(new Match(type));
-					orderedList.add(i, type);
-				}
-				for (TypeOfMatch typeOfMatch : orderedList) {
-					System.out.println("index:"+orderedList.indexOf(typeOfMatch)+"--"+orderedList.get(orderedList.indexOf(typeOfMatch)));
-				}
-				manager.setMatchesOrder(orderedList);
-				mainFrame.showInsertForm();
+				mainFrame.sumbitDisciplines(disciplinesChoosen);
 			}
 		});
 		
@@ -69,53 +56,25 @@ public class DisciplinePanel extends JPanel {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(disciplineSelectionPanel, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-					.addGap(18)
-					.addComponent(disciplineOrderPanel, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-					.addGap(1))
-				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(128)
 					.addComponent(btnSubmitDisciplineSelection, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(207, Short.MAX_VALUE))
+					.addContainerGap(155, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(70, Short.MAX_VALUE)
+					.addComponent(disciplineSelectionPanel, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
+					.addGap(101))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(disciplineOrderPanel, 0, 0, Short.MAX_VALUE)
-						.addComponent(disciplineSelectionPanel, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
+					.addComponent(disciplineSelectionPanel, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
 					.addComponent(btnSubmitDisciplineSelection)
 					.addContainerGap())
 		);
 		
-		JLabel lblOrder = new JLabel("Ordine");
-		
-		JList list = new JList(disciplinesChoosen);
-		GroupLayout gl_disciplineOrderPanel = new GroupLayout(disciplineOrderPanel);
-		gl_disciplineOrderPanel.setHorizontalGroup(
-			gl_disciplineOrderPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_disciplineOrderPanel.createSequentialGroup()
-					.addContainerGap(73, Short.MAX_VALUE)
-					.addComponent(lblOrder)
-					.addGap(71))
-				.addGroup(gl_disciplineOrderPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(list, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_disciplineOrderPanel.setVerticalGroup(
-			gl_disciplineOrderPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_disciplineOrderPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblOrder)
-					.addGap(18)
-					.addComponent(list, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(149, Short.MAX_VALUE))
-		);
-		disciplineOrderPanel.setLayout(gl_disciplineOrderPanel);
-		
 		JLabel lblSelezionaDiscipline = new JLabel("Seleziona discipline");
+		lblSelezionaDiscipline.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JCheckBox chckbxBenchPress = new JCheckBox("Bench Press");
 		chckbxBenchPress.addItemListener(new ItemListener() {
@@ -123,13 +82,13 @@ public class DisciplinePanel extends JPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
-					 disciplinesChoosen.addElement(TypeOfMatch.BENCHPRESS);
+					 disciplinesChoosen.add(TypeOfMatch.BENCHPRESS);
 					 if(!btnSubmitDisciplineSelection.isEnabled()) {
 						 btnSubmitDisciplineSelection.setEnabled(true);
 					 }
 		        } else {//checkbox has been deselected
-		        	disciplinesChoosen.removeElement(TypeOfMatch.BENCHPRESS);
-		        	if(disciplinesChoosen.getSize() == 0 && btnSubmitDisciplineSelection.isEnabled()) {
+		        	disciplinesChoosen.remove(TypeOfMatch.BENCHPRESS);
+		        	if(disciplinesChoosen.size() == 0 && btnSubmitDisciplineSelection.isEnabled()) {
 		        		btnSubmitDisciplineSelection.setEnabled(false);
 					}
 		        }
@@ -142,13 +101,13 @@ public class DisciplinePanel extends JPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
-					 disciplinesChoosen.addElement(TypeOfMatch.SQUAT);
+					 disciplinesChoosen.add(TypeOfMatch.SQUAT);
 					 if(!btnSubmitDisciplineSelection.isEnabled()) {
 						 btnSubmitDisciplineSelection.setEnabled(true);
 					 }
 		        } else {//checkbox has been deselected
-		        	disciplinesChoosen.removeElement(TypeOfMatch.SQUAT);
-		        	if(disciplinesChoosen.getSize() == 0 && btnSubmitDisciplineSelection.isEnabled()) {
+		        	disciplinesChoosen.remove(TypeOfMatch.SQUAT);
+		        	if(disciplinesChoosen.size() == 0 && btnSubmitDisciplineSelection.isEnabled()) {
 		        		btnSubmitDisciplineSelection.setEnabled(false);
 					}
 		        }
@@ -161,13 +120,13 @@ public class DisciplinePanel extends JPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				 if(e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
-					 disciplinesChoosen.addElement(TypeOfMatch.DEADLIFT);
+					 disciplinesChoosen.add(TypeOfMatch.DEADLIFT);
 					 if(!btnSubmitDisciplineSelection.isEnabled()) {
 						 btnSubmitDisciplineSelection.setEnabled(true);
 					 }
 		        } else {//checkbox has been deselected
-		        	disciplinesChoosen.removeElement(TypeOfMatch.DEADLIFT);
-		        	if(disciplinesChoosen.getSize() == 0 && btnSubmitDisciplineSelection.isEnabled()) {
+		        	disciplinesChoosen.remove(TypeOfMatch.DEADLIFT);
+		        	if(disciplinesChoosen.size() == 0 && btnSubmitDisciplineSelection.isEnabled()) {
 		        		btnSubmitDisciplineSelection.setEnabled(false);
 					}
 		        }
@@ -178,17 +137,16 @@ public class DisciplinePanel extends JPanel {
 		gl_disciplineSelectionPanel.setHorizontalGroup(
 			gl_disciplineSelectionPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_disciplineSelectionPanel.createSequentialGroup()
-					.addGroup(gl_disciplineSelectionPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_disciplineSelectionPanel.createSequentialGroup()
-							.addGap(52)
-							.addComponent(lblSelezionaDiscipline))
-						.addGroup(gl_disciplineSelectionPanel.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_disciplineSelectionPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(chckbxBenchPress, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-								.addComponent(chckbxDeadlift, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-								.addComponent(chckbxSquat, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))))
-					.addContainerGap())
+					.addGap(57)
+					.addComponent(lblSelezionaDiscipline)
+					.addContainerGap(38, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_disciplineSelectionPanel.createSequentialGroup()
+					.addGap(21)
+					.addGroup(gl_disciplineSelectionPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(chckbxSquat, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+						.addComponent(chckbxDeadlift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+						.addComponent(chckbxBenchPress, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+					.addGap(71))
 		);
 		gl_disciplineSelectionPanel.setVerticalGroup(
 			gl_disciplineSelectionPanel.createParallelGroup(Alignment.LEADING)
@@ -198,10 +156,10 @@ public class DisciplinePanel extends JPanel {
 					.addGap(18)
 					.addComponent(chckbxBenchPress)
 					.addGap(18)
-					.addComponent(chckbxSquat)
+					.addComponent(chckbxSquat, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(chckbxDeadlift)
-					.addContainerGap(142, Short.MAX_VALUE))
+					.addContainerGap(73, Short.MAX_VALUE))
 		);
 		disciplineSelectionPanel.setLayout(gl_disciplineSelectionPanel);
 		setLayout(groupLayout);
