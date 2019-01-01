@@ -44,7 +44,7 @@ public class Lifter {
 	}
 
 	public double getScore() {
-		return (Double)score==null?0.0:score;
+		return (Double) score == null ? 0.0 : score;
 	}
 
 	public void setScore(double score) {
@@ -53,7 +53,7 @@ public class Lifter {
 
 	public Double getAttemptWeight(Attempt a) {
 		Double weight = this.attemptsWeights.get(a);
-		return weight;//==null?0.0:weight;
+		return weight == null ? 0.0 : weight;
 	}
 
 	public void setAttemptWeight(Attempt a, double weight) {
@@ -62,7 +62,7 @@ public class Lifter {
 
 	public Boolean getAttemptResult(Attempt a) {
 		Boolean result = this.attemptsResults.get(a);
-		return result;//==null?false:result;
+		return result;// ==null?false:result;
 	}
 
 	public void setAttemptResult(Attempt a, boolean result) {
@@ -83,9 +83,12 @@ public class Lifter {
 		this.competitor = competitor;
 	}
 
-	public void setNextAttemptWeight(double weight) {
+	public boolean setNextAttemptWeight(double weight) {
 		if (this.setNextCurrentAttempt()) {
 			this.setAttemptWeight(this.currentAttempt, weight);
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -111,6 +114,12 @@ public class Lifter {
 		default:
 			return false;
 		}
+	}
+
+	public boolean hasMoreLift() {
+		if (this.currentAttempt.equals(Attempt.THIRD))
+			return false;
+		return true;
 	}
 
 	public Attempt getCurrentAttempt() {

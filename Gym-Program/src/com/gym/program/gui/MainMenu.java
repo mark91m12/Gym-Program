@@ -72,7 +72,7 @@ public class MainMenu extends JFrame implements ActionListener {
 			// new CreateEventMenu();
 
 			new MainFrame(new Manager());
-			// new InsertForm(this);
+
 			this.dispose();
 
 		} else if (e.getSource() == loadEventBtn) {

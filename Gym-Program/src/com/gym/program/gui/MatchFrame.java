@@ -79,8 +79,8 @@ public class MatchFrame extends JFrame {
 		JTabbedPane tabbed_pane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbed_pane);
 
-		tabbed_pane.add(" pedana ", new Card());
-		tabbed_pane.add(" ordine ", new OrderPanel());
+		tabbed_pane.add(" pedana ", new Card(this));
+		tabbed_pane.add(" ordine ", new OrderPanel(this));
 		tabbed_pane.add(" classifica ", new RankingPanel(this));
 		this.setVisible(true);
 		

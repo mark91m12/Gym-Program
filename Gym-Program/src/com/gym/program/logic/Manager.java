@@ -79,9 +79,10 @@ public class Manager {
 	public void setCompleted(TypeOfMatch completed) {
 		this.completed.add(completed);
 	}
-//	public Lifter getNextLifter() {
-//		return this.matches.get(this.getNextTypeOfMatch()).getNextLifter();
-//	}
+	
+	public Lifter getNextLifter() {
+		return this.matches.get(this.currentTypeOfMatch).getNextLifter();
+	}
 
 	public Lifter getCurrentLifter() {
 		return this.matches.get(this.currentTypeOfMatch).getCurrentLifter();
