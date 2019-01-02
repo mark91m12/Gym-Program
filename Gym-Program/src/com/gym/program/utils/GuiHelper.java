@@ -3,7 +3,9 @@ package com.gym.program.utils;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -54,28 +56,19 @@ public class GuiHelper {
 		}
 	}
 
-	public void setSwitch(JRadioButton b1, JRadioButton b2) {
+	public void setSwitch(Set<JRadioButton> radioBtns) {
+		for (JRadioButton rdBtn : radioBtns) {
+			rdBtn.addActionListener(new ActionListener() {
 
-		b1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				b2.setSelected(false);
-				b1.setSelected(true);
-			}
-		});
-
-		b2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				b1.setSelected(false);
-				b2.setSelected(true);
-			}
-		});
-		;
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					for (JRadioButton rdBtn2 : radioBtns) {
+						rdBtn2.setSelected(false);
+					}
+					rdBtn.setSelected(true);
+				}
+			});
+		}
 	}
 
 	public JScrollPane createTable(Object names[], List<Lifter> lifters) {
