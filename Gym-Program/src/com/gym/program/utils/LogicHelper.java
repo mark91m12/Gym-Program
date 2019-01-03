@@ -23,20 +23,20 @@ public class LogicHelper {
 	private static final double e_female = 0.00004731582;
 	private static final double f_female = -0.00000009054;
 
-	public static double getMaleResult(double bw, double weight_lifted) {
+	public static double getWilksResult(double bw, double weight_lifted, Sex sex) {
 
-		double coeff_male = 500 / (a_male + (b_male * bw) + (c_male * Math.pow(bw, 2)) + (d_male * Math.pow(bw, 3))
-				+ (e_male * Math.pow(bw, 4)) + (f_male * Math.pow(bw, 5)));
+		if (sex.equals(Sex.MALE)) {
+			double coeff_male = 500 / (a_male + (b_male * bw) + (c_male * Math.pow(bw, 2)) + (d_male * Math.pow(bw, 3))
+					+ (e_male * Math.pow(bw, 4)) + (f_male * Math.pow(bw, 5)));
 
-		return weight_lifted * coeff_male;
-	}
+			return weight_lifted * coeff_male;
+		} else {
+			double coeff_female = 500 / (a_female + (b_female * bw) + (c_female * Math.pow(bw, 2))
+					+ (d_female * Math.pow(bw, 3)) + (e_female * Math.pow(bw, 4)) + (f_female * Math.pow(bw, 5)));
 
-	public static double getFemaleResult(double bw, double weight_lifted) {
+			return weight_lifted * coeff_female;
+		}
 
-		double coeff_female = 500 / (a_female + (b_female * bw) + (c_female * Math.pow(bw, 2))
-				+ (d_female * Math.pow(bw, 3)) + (e_female * Math.pow(bw, 4)) + (f_female * Math.pow(bw, 5)));
-
-		return weight_lifted * coeff_female;
 	}
 
 	public static ArrayList<WeightDisc> calculateWeights(double weight, double bar) {

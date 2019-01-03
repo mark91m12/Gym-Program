@@ -10,6 +10,7 @@ import com.gym.program.utils.Category.Age;
 import com.gym.program.utils.Category.Weight;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.LogicHelper;
+import com.gym.program.utils.Sex;
 
 public class Lifter {
 
@@ -98,7 +99,13 @@ public class Lifter {
 
 	public void setCurrentAttemptResult(boolean result) {
 		this.setAttemptResult(this.currentAttempt, result);
-//		this.setNextCurrentAttempt();
+		// this.setNextCurrentAttempt();
+
+		if (result) {
+			this.setScore(getScore() + LogicHelper.getWilksResult(this.getCompetitor().getWeight(),
+					this.getCurrentAttemptWeight(), this.getCompetitor().getSex()));
+		}
+
 	}
 
 	private boolean setNextCurrentAttempt() {
@@ -123,8 +130,9 @@ public class Lifter {
 	}
 
 	public boolean hasFinished() {
-		return  !hasMoreLift() && (this.getAttemptResult(this.currentAttempt) != null);
+		return !hasMoreLift() && (this.getAttemptResult(this.currentAttempt) != null);
 	}
+
 	public Attempt getCurrentAttempt() {
 		return this.currentAttempt;
 	}

@@ -108,66 +108,67 @@ public class Match {
 //		}
 //	}
 
-	private void updateVerdictOfLift(Lifter lifter, boolean isGoodLift, int lift) {
-		switch (lift) {
-		case 1:
-			if (isGoodLift) {
-				Competitor competitor = lifter.getCompetitor();
-				switch (competitor.getSex()) {
-				case MALE:
-					lifter.setScore(LogicHelper.getMaleResult(competitor.getWeight(),
-							lifter.getAttemptWeight(Attempt.FIRST)));
-					break;
-				case FEMALE:
-					lifter.setScore(LogicHelper.getFemaleResult(competitor.getWeight(),
-							lifter.getAttemptWeight(Attempt.FIRST)));
-					break;
-				default:
-					break;
-				}
-			}
-			lifter.setAttemptResult(Attempt.FIRST, isGoodLift);
-			break;
-		case 2:
-			if (isGoodLift) {
-				Competitor competitor = lifter.getCompetitor();
-				switch (competitor.getSex()) {
-				case MALE:
-					lifter.setScore(LogicHelper.getMaleResult(competitor.getWeight(),
-							lifter.getAttemptWeight(Attempt.SECOND)));
-					break;
-				case FEMALE:
-					lifter.setScore(LogicHelper.getFemaleResult(competitor.getWeight(),
-							lifter.getAttemptWeight(Attempt.SECOND)));
-					break;
-				default:
-					break;
-				}
-			}
-			lifter.setAttemptResult(Attempt.SECOND, isGoodLift);
-			break;
-		case 3:
-			if (isGoodLift) {
-				Competitor competitor = lifter.getCompetitor();
-				switch (competitor.getSex()) {
-				case MALE:
-					lifter.setScore(LogicHelper.getMaleResult(competitor.getWeight(),
-							lifter.getAttemptWeight(Attempt.THIRD)));
-					break;
-				case FEMALE:
-					lifter.setScore(LogicHelper.getFemaleResult(competitor.getWeight(),
-							lifter.getAttemptWeight(Attempt.THIRD)));
-					break;
-				default:
-					break;
-				}
-			}
-			lifter.setAttemptResult(Attempt.THIRD, isGoodLift);
-			break;
-		default:
-			break;
-		}
-	}
+	// private void updateVerdictOfLift(Lifter lifter, boolean isGoodLift, int
+	// lift) {
+	// switch (lift) {
+	// case 1:
+	// if (isGoodLift) {
+	// Competitor competitor = lifter.getCompetitor();
+	// switch (competitor.getSex()) {
+	// case MALE:
+	// lifter.setScore(LogicHelper.getMaleResult(competitor.getWeight(),
+	// lifter.getAttemptWeight(Attempt.FIRST)));
+	// break;
+	// case FEMALE:
+	// lifter.setScore(LogicHelper.getFemaleResult(competitor.getWeight(),
+	// lifter.getAttemptWeight(Attempt.FIRST)));
+	// break;
+	// default:
+	// break;
+	// }
+	// }
+	// lifter.setAttemptResult(Attempt.FIRST, isGoodLift);
+	// break;
+	// case 2:
+	// if (isGoodLift) {
+	// Competitor competitor = lifter.getCompetitor();
+	// switch (competitor.getSex()) {
+	// case MALE:
+	// lifter.setScore(LogicHelper.getMaleResult(competitor.getWeight(),
+	// lifter.getAttemptWeight(Attempt.SECOND)));
+	// break;
+	// case FEMALE:
+	// lifter.setScore(LogicHelper.getFemaleResult(competitor.getWeight(),
+	// lifter.getAttemptWeight(Attempt.SECOND)));
+	// break;
+	// default:
+	// break;
+	// }
+	// }
+	// lifter.setAttemptResult(Attempt.SECOND, isGoodLift);
+	// break;
+	// case 3:
+	// if (isGoodLift) {
+	// Competitor competitor = lifter.getCompetitor();
+	// switch (competitor.getSex()) {
+	// case MALE:
+	// lifter.setScore(LogicHelper.getMaleResult(competitor.getWeight(),
+	// lifter.getAttemptWeight(Attempt.THIRD)));
+	// break;
+	// case FEMALE:
+	// lifter.setScore(LogicHelper.getFemaleResult(competitor.getWeight(),
+	// lifter.getAttemptWeight(Attempt.THIRD)));
+	// break;
+	// default:
+	// break;
+	// }
+	// }
+	// lifter.setAttemptResult(Attempt.THIRD, isGoodLift);
+	// break;
+	// default:
+	// break;
+	// }
+	// }
 
 	public void showViewForLifter(Lifter lifter) {
 		Competitor competitor = lifter.getCompetitor();
