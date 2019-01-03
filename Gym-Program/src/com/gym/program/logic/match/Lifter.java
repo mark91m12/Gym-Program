@@ -98,7 +98,7 @@ public class Lifter {
 
 	public void setCurrentAttemptResult(boolean result) {
 		this.setAttemptResult(this.currentAttempt, result);
-		this.setNextCurrentAttempt();
+//		this.setNextCurrentAttempt();
 	}
 
 	private boolean setNextCurrentAttempt() {
@@ -122,6 +122,9 @@ public class Lifter {
 		return true;
 	}
 
+	public boolean hasFinished() {
+		return  !hasMoreLift() && (this.getAttemptResult(this.currentAttempt) != null);
+	}
 	public Attempt getCurrentAttempt() {
 		return this.currentAttempt;
 	}

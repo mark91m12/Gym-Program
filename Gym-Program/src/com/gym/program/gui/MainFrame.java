@@ -1,7 +1,8 @@
 package com.gym.program.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -11,27 +12,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import com.gym.program.logic.Manager;
+import com.gym.program.logic.competitor.Competitor;
+import com.gym.program.logic.competitor.CompetitorBuilder;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
+import com.gym.program.utils.Choice;
 import com.gym.program.utils.GuiHelper;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Toolkit;
-
-import javax.swing.JRadioButton;
+import com.gym.program.utils.Sex;
 
 public class MainFrame extends JFrame implements PanelSwitcher {
 
@@ -46,6 +46,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	private JRadioButton rdbtnDeadLift;
 	private JButton btnStart;
 
+	private JButton btnTest;
+	
 	private MatchFrame matchFrame;
 
 	/**
@@ -64,7 +66,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(final WindowEvent e) {
-				final int i = JOptionPane.showConfirmDialog(MainFrame.this, "Vuoi davvero uscire?", "ESCI",
+				final int i = JOptionPane.showConfirmDialog(MainFrame.this, "Sei sicuro di voler chiudere l'applicazione?", "ESCI",
 						JOptionPane.YES_NO_OPTION);
 				if (i == JOptionPane.YES_OPTION) {
 					System.exit(0);
@@ -131,11 +133,11 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnBenchPress.isSelected()) {
-					manager.setCurrentTypeOfMatch(TypeOfMatch.BENCHPRESS);
+					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.BENCHPRESS);
 				} else if (rdbtnSquat.isSelected()) {
-					manager.setCurrentTypeOfMatch(TypeOfMatch.BENCHPRESS);
+					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.BENCHPRESS);
 				} else if (rdbtnDeadLift.isSelected()) {
-					manager.setCurrentTypeOfMatch(TypeOfMatch.BENCHPRESS);
+					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.BENCHPRESS);
 				}
 				matchFrame = new MatchFrame(MainFrame.this);
 				MainFrame.this.setVisible(false);
@@ -143,41 +145,103 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		});
 
 		btnChooseDisciplines = new JButton("Scegli discipline");
+		btnChooseDisciplines.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchTo(disciplinePanel);
+			}
+		});
+		
+		btnTest = new JButton("Crea istanza Test");
+		btnTest.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.this.manager = new Manager();
+				Match m1 = new Match(TypeOfMatch.BENCHPRESS);
+				Match m2 = new Match(TypeOfMatch.DEADLIFT);
+				Match m3 = new Match(TypeOfMatch.SQUAT);
+				
+				CompetitorBuilder builder = CompetitorBuilder.newBuilder().setName("Davide").setSurname("Amato")
+						.setSex(Sex.MALE).setAge(24).setTeam("kc").setWeight(83.40);
+		
+				Competitor c1 = builder.build();
+				Competitor c2 = builder.setName("Marco").setAge(27).setWeight(78).build();
+				Competitor c3 = builder.setName("Andrea").setAge(29).setWeight(62).build();
+				Competitor c4 = builder.setName("Chiara").setAge(16).setWeight(55).build();
+				Competitor c5 = builder.setName("Mimmo").setAge(58).setWeight(90).build();
+		
+				// c1 c3 c5 to all matches
+				manager.addMatch(m1);
+				manager.addMatch(m2);
+		
+				MainFrame.this.manager.setMatches(new HashMap<>());
+				MainFrame.this.manager.addMatch(m1);
+				MainFrame.this.manager.addMatch(m2);
+				MainFrame.this.manager.addMatch(m3);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c1, Choice.CLSS_WEIGHT, 120);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.SQUAT).signUp(c1, Choice.CLSS_WEIGHT, 140);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c1, Choice.CLSS_WEIGHT, 160);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c2, Choice.CLSS_AGE, 130);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.SQUAT).signUp(c2, Choice.CLSS_WEIGHT, 150);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c2, Choice.CLSS_AGE, 160);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c3, Choice.CLSS_AGE, 100);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.SQUAT).signUp(c3, Choice.CLSS_WEIGHT, 120);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c3, Choice.CLSS_AGE, 120);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c5, Choice.CLSS_AGE, 70);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c4, Choice.CLSS_AGE, 60);
+				
+				MainFrame.this.update();
+				btnStart.setEnabled(true);
+			}
+		});
 		GroupLayout gl_menuPanel = new GroupLayout(menuPanel);
 		gl_menuPanel.setHorizontalGroup(
-				gl_menuPanel.createParallelGroup(Alignment.TRAILING).addGroup(gl_menuPanel.createSequentialGroup()
-						.addGroup(gl_menuPanel
-								.createParallelGroup(Alignment.LEADING).addGroup(gl_menuPanel
-										.createSequentialGroup().addContainerGap().addGroup(gl_menuPanel
-												.createParallelGroup(Alignment.LEADING).addComponent(rdbtnBenchPress)
-												.addGroup(
-														gl_menuPanel.createParallelGroup(Alignment.TRAILING)
-																.addGroup(Alignment.LEADING,
-																		gl_menuPanel.createSequentialGroup().addGap(24)
-																				.addComponent(btnStart))
-																.addGroup(Alignment.LEADING, gl_menuPanel
-																		.createParallelGroup(Alignment.TRAILING, false)
-																		.addComponent(rdbtnSquat, Alignment.LEADING,
-																				GroupLayout.DEFAULT_SIZE,
-																				GroupLayout.DEFAULT_SIZE,
-																				Short.MAX_VALUE)
-																		.addComponent(rdbtnDeadLift, Alignment.LEADING,
-																				GroupLayout.DEFAULT_SIZE, 108,
-																				Short.MAX_VALUE)))))
-								.addGroup(gl_menuPanel.createSequentialGroup().addGap(53)
-										.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(btnChooseDisciplines).addComponent(btnInsertLifters,
-														GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(
-										gl_menuPanel.createSequentialGroup().addGap(63).addComponent(lblSelezionaGara)))
-						.addContainerGap(57, Short.MAX_VALUE)));
-		gl_menuPanel.setVerticalGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_menuPanel.createSequentialGroup().addContainerGap().addComponent(btnChooseDisciplines)
-						.addGap(56).addComponent(btnInsertLifters).addGap(90).addComponent(lblSelezionaGara)
-						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(rdbtnBenchPress)
-						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(rdbtnSquat)
-						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(rdbtnDeadLift).addGap(18)
-						.addComponent(btnStart).addContainerGap(661, Short.MAX_VALUE)));
+			gl_menuPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_menuPanel.createSequentialGroup()
+					.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_menuPanel.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(rdbtnBenchPress)
+								.addGroup(gl_menuPanel.createSequentialGroup()
+									.addGap(24)
+									.addComponent(btnStart))
+								.addGroup(gl_menuPanel.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(rdbtnSquat, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(rdbtnDeadLift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))))
+						.addGroup(gl_menuPanel.createSequentialGroup()
+							.addGap(53)
+							.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnChooseDisciplines)
+								.addComponent(btnInsertLifters, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnTest)))
+						.addGroup(gl_menuPanel.createSequentialGroup()
+							.addGap(63)
+							.addComponent(lblSelezionaGara)))
+					.addContainerGap(57, Short.MAX_VALUE))
+		);
+		gl_menuPanel.setVerticalGroup(
+			gl_menuPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_menuPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(btnChooseDisciplines)
+					.addGap(56)
+					.addComponent(btnInsertLifters)
+					.addGap(18)
+					.addComponent(btnTest)
+					.addGap(47)
+					.addComponent(lblSelezionaGara)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(rdbtnBenchPress)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(rdbtnSquat)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(rdbtnDeadLift)
+					.addGap(18)
+					.addComponent(btnStart)
+					.addContainerGap(661, Short.MAX_VALUE))
+		);
 		menuPanel.setLayout(gl_menuPanel);
 		contentPane.setLayout(gl_contentPane);
 		switchTo(disciplinePanel);
@@ -203,9 +267,6 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	}
 
 	public void setStartBtnEnabled(boolean b) {
-		if (btnChooseDisciplines.isEnabled()) {
-			btnChooseDisciplines.setEnabled(false);
-		}
 		updateRdBtnsMatchesToStart();
 		btnStart.setEnabled(b);
 	}

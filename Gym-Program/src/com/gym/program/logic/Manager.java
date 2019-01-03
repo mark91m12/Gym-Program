@@ -50,13 +50,13 @@ public class Manager {
 		return true;
 	}
 
-	public void start() {
-		for (TypeOfMatch typeOfMatch : this.matches.keySet()) {
-			System.out.println("START MATCH TYPE:" + typeOfMatch);
-			System.out.println("INITIAL RANKING:\n" + this.matches.get(typeOfMatch).getMatchRanking());
-			this.matches.get(typeOfMatch).start();
-		}
-	}
+//	public void start() {
+//		for (TypeOfMatch typeOfMatch : this.matches.keySet()) {
+//			System.out.println("START MATCH TYPE:" + typeOfMatch);
+//			System.out.println("INITIAL RANKING:\n" + this.matches.get(typeOfMatch).getMatchRanking());
+//			this.matches.get(typeOfMatch).start();
+//		}
+//	}
 
 	public void signupLifter(List<TypeOfMatch> typeOfMatches, Competitor competitor, Choice choice, double first_lift) {
 		for (TypeOfMatch typeOfMatch : typeOfMatches) {
@@ -80,9 +80,9 @@ public class Manager {
 		this.completed.add(completed);
 	}
 	
-	public Lifter getNextLifter() {
-		return this.matches.get(this.currentTypeOfMatch).getNextLifter();
-	}
+//	public Lifter getNextLifter() {
+//		return this.matches.get(this.currentTypeOfMatch).getNextLifter();
+//	}
 
 	public Lifter getCurrentLifter() {
 		return this.matches.get(this.currentTypeOfMatch).getCurrentLifter();

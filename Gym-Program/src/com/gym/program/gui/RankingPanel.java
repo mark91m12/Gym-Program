@@ -69,8 +69,8 @@ public class RankingPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Set<Category> categories = new HashSet();
-				for (Lifter lifter: matchFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getLifters()) {
-					categories.add(lifter.getCategory());
+				for (Category c: matchFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().keySet()) {
+					categories.add(c);
 				}
 				System.out.println("ACTION MATCH LIST:"+categories+"--"+comboBoxMatchList.getSelectedItem());
 				categoryListModel = new DefaultComboBoxModel(categories.toArray());

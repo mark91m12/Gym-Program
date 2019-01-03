@@ -69,33 +69,44 @@ public class Match {
 //		Collections.sort(this.getLifters(), new CallComparator());
 //	}
 
+	public void updateLifters() {
+		Iterator<Lifter> i = lifters.iterator();
+		Lifter lifter = null;
+		while(i.hasNext()) {
+			lifter = i.next();
+			if(lifter.hasFinished()) {
+				i.remove();
+			}
+		}
+		sortLifters();
+	}
 	public void sortLifters() {
 		this.lifters.sort(new CallComparator());
 	}
 
-	public void start() {
-		this.sortLifters();
-		int lift = 1;
-		// Create enum for lift FIRST-SECOND-Third ?
-		while (lift < 4) {
-			System.out.println("------------------------------------------------------------ LIFT TURN:" + lift
-					+ "-----------------------------------------------------------------------------");
-			Iterator<Lifter> lifterIter = this.lifters.iterator();
-			while (lifterIter.hasNext()) {
-				Lifter lifter = lifterIter.next();
-				this.showViewForLifter(lifter);
-				boolean verdict = true;
-				this.updateVerdictOfLift(lifter, verdict, lift);
-				if (verdict) {
-					this.matchRanking.updateLifter(lifter);
-				} else {
-
-				}
-
-			}
-			lift++;
-		}
-	}
+//	public void start() {
+//		this.sortLifters();
+//		int lift = 1;
+//		// Create enum for lift FIRST-SECOND-Third ?
+//		while (lift < 4) {
+//			System.out.println("------------------------------------------------------------ LIFT TURN:" + lift
+//					+ "-----------------------------------------------------------------------------");
+//			Iterator<Lifter> lifterIter = this.lifters.iterator();
+//			while (lifterIter.hasNext()) {
+//				Lifter lifter = lifterIter.next();
+//				this.showViewForLifter(lifter);
+//				boolean verdict = true;
+//				this.updateVerdictOfLift(lifter, verdict, lift);
+//				if (verdict) {
+//					this.matchRanking.updateLifter(lifter);
+//				} else {
+//
+//				}
+//
+//			}
+//			lift++;
+//		}
+//	}
 
 	private void updateVerdictOfLift(Lifter lifter, boolean isGoodLift, int lift) {
 		switch (lift) {
@@ -175,17 +186,17 @@ public class Match {
 	}
 
 	public Lifter getCurrentLifter() {
-		return this.lifters.get(0);
+		return this.lifters.isEmpty()? null:this.lifters.get(0);
 	}
 
-	public Lifter getNextLifter() {
-		this.lifters.remove(0);
-		Lifter lifter = null;
-		try {
-			lifter = this.lifters.get(0);
-		} catch (Exception e) {
-
-		}
-		return lifter;
-	}
+//	public Lifter getNextLifter() {
+//		this.lifters.remove(0);
+//		Lifter lifter = null;
+//		try {
+//			lifter = this.lifters.get(0);
+//		} catch (Exception e) {
+//
+//		}
+//		return lifter;
+//	}
 }

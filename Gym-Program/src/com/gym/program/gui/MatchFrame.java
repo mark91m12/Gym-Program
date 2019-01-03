@@ -100,7 +100,7 @@ public class MatchFrame extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(final WindowEvent e) {
-					final int i = JOptionPane.showConfirmDialog(MatchFrame.this, "Do you really want to exit?", "Exit?",
+					final int i = JOptionPane.showConfirmDialog(MatchFrame.this, "Sei sicuro di voler chiudere l'applicazione?", "ESCI",
 							JOptionPane.YES_NO_OPTION);
 					if (i == JOptionPane.YES_OPTION) {
 						MatchFrame.this.mainFrame.setVisible(true);
