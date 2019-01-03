@@ -395,6 +395,9 @@ public class Card extends JPanel {
 
 		// if(current_lifter.hasMoreLift()){
 		current_lifter.setCurrentAttemptResult(isValid);
+		if(isValid) {
+			match_frame.getManager().getMatches().get(match_frame.getManager().getCurrentTypeOfMatch()).getMatchRanking().getRankings().get(match_frame.getManager().getCurrentLifter().getCategory()).sortRanking();
+		}
 		if (current_lifter.hasMoreLift()) {
 
 			boolean is_valid = false;

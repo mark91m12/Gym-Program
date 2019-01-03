@@ -27,9 +27,9 @@ public class RankingPerCategory extends LinkedList<Lifter> {
 			@Override
 			public int compare(Lifter o1, Lifter o2) {
 				if (o1.getScore() > o2.getScore()) { // o1.score > o2.score
-					return 1;
-				} else if (o2.getScore() > o1.getScore()) { // o2.score > o1.score
 					return -1;
+				} else if (o2.getScore() > o1.getScore()) { // o2.score > o1.score
+					return 1;
 				} else { // o1.score == o2.score TODO order by name or age?
 					return 0;// 01 score
 				}
