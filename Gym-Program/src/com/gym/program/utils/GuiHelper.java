@@ -1,6 +1,7 @@
 package com.gym.program.utils;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
 import com.gym.program.logic.match.Lifter;
@@ -100,11 +102,11 @@ public class GuiHelper {
 
 		return scroll;
 	}
-	
-	public JScrollPane createTableForRanking( List<Lifter> lifters) {
 
-		Object names[] = { " Posizione "," Cognome "," Nome ","Punteggio"," Squadra "," Età "," Peso Corporeo "," Categoria ",
-				" Peso prima alzta "," Esito prima alzta "," Peso seconda alzta "," Esito seconda alzta "," Peso terza alzta "," Esito terza alzta " };
+	public JScrollPane createTableForRanking(List<Lifter> lifters) {
+
+		Object names[] = { " Posizione ", " Cognome ", " Nome ", "Punteggio", " Squadra ", " Età ", " Peso Corporeo ",
+				" Categoria ", " Prima alzta ", " Seconda alzta ", " Terza alzta " };
 		Object rowData[][] = new Object[lifters.size()][names.length];
 
 		for (int i = 0; i < lifters.size(); i++) {
@@ -116,18 +118,61 @@ public class GuiHelper {
 			rowData[i][5] = lifters.get(i).getCompetitor().getAge();
 			rowData[i][6] = lifters.get(i).getCompetitor().getWeight();
 			rowData[i][7] = lifters.get(i).getCategory();
-			rowData[i][8] = lifters.get(i).getAttemptWeight(Attempt.FIRST)==null?"-":lifters.get(i).getAttemptWeight(Attempt.FIRST);
-			rowData[i][9] = lifters.get(i).getAttemptResult(Attempt.FIRST)==null?"-":(lifters.get(i).getAttemptResult(Attempt.FIRST)==false?"negativo":"positivo");
-			rowData[i][10] = lifters.get(i).getAttemptWeight(Attempt.SECOND)==null?"-":lifters.get(i).getAttemptWeight(Attempt.SECOND);
-			rowData[i][11] = lifters.get(i).getAttemptResult(Attempt.SECOND)==null?"-":(lifters.get(i).getAttemptResult(Attempt.SECOND)==false?"negativo":"positivo");
-			rowData[i][12] = lifters.get(i).getAttemptWeight(Attempt.THIRD)==null?"-":lifters.get(i).getAttemptWeight(Attempt.THIRD);
-			rowData[i][13] = lifters.get(i).getAttemptResult(Attempt.THIRD)==null?"-":(lifters.get(i).getAttemptResult(Attempt.THIRD)==false?"negativo":"positivo");
+			rowData[i][8] = lifters.get(i).getAttemptWeight(Attempt.FIRST) == null ? "-"
+					: lifters.get(i).getAttemptWeight(Attempt.FIRST);
+			rowData[i][9] = lifters.get(i).getAttemptWeight(Attempt.SECOND) == null ? "-"
+					: lifters.get(i).getAttemptWeight(Attempt.SECOND);
+			rowData[i][10] = lifters.get(i).getAttemptWeight(Attempt.THIRD) == null ? "-"
+					: lifters.get(i).getAttemptWeight(Attempt.THIRD);
+
 		}
+
+		TableCellRenderer tableCellRenderer = new TableCellRenderer() {
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				JLabel label = new JLabel();
+				if (value != null)
+					label.setText(value.toString());
+
+				switch (column) {
+				case 8:
+					return coloredCell(lifters, row, label, Attempt.FIRST);
+				case 9:
+					return coloredCell(lifters, row, label, Attempt.SECOND);
+				case 10:
+					return coloredCell(lifters, row, label, Attempt.THIRD);
+				default:
+					break;
+				}
+
+				return label;
+			}
+		};
 
 		TableModel model = new DefaultTableModel(rowData, names);
 		JTable table = new JTable(model);
+		for (int i = 0; i <= 10; i++) {
+			table.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
+		}
+
 		table.getTableHeader().setReorderingAllowed(false);
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;
 	}
+
+	private JLabel coloredCell(List<Lifter> lifters, int row, JLabel label, Attempt attempt) {
+
+		if (lifters.get(row).getAttemptResult(attempt) != null) {
+			label.setOpaque(true);
+			if (lifters.get(row).getAttemptResult(attempt) == true) {
+				label.setBackground(Color.GREEN);
+				// label.setForeground(Color.WHITE);
+			} else {
+				label.setBackground(Color.red);
+				// label.setForeground(Color.WHITE);
+			}
+		}
+		return label;
+	}
+
 }
