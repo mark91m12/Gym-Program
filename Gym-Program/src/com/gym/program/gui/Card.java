@@ -460,17 +460,21 @@ public class Card extends JPanel {
 					null);
 
 			while (!is_valid) {
-
 				try {
-					current_lifter.setNextAttemptWeight(Double.parseDouble(weight));
-					is_valid = true;
+					double temp = Double.parseDouble(weight);
+					if (current_lifter.getCurrentAttemptWeight() > temp) {
+						weight = JOptionPane.showInputDialog(getParent(),
+								"Inserire il peso maggiore o ugale al precedente", null);
+					} else {
+						current_lifter.setNextAttemptWeight(temp);
+						is_valid = true;
+					}
 				} catch (NumberFormatException e) {
 					weight = JOptionPane.showInputDialog(getParent(), "Inserire il peso correttamente", null);
 				}
 			}
 		}
 		updateCard();
-		// }
 	}
 
 	private void updateCard() {
