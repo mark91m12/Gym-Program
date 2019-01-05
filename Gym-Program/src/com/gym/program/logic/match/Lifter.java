@@ -49,7 +49,8 @@ public class Lifter {
 	}
 
 	public void setScore(double score) {
-		this.score = score;
+
+		this.score = LogicHelper.rounded(score);
 	}
 
 	public Double getAttemptWeight(Attempt a) {
@@ -102,8 +103,8 @@ public class Lifter {
 		// this.setNextCurrentAttempt();
 
 		if (result) {
-			this.setScore(getScore() + LogicHelper.getWilksResult(this.getCompetitor().getWeight(),
-					this.getCurrentAttemptWeight(), this.getCompetitor().getSex()));
+			this.setScore(LogicHelper.getWilksResult(this.getCompetitor().getWeight(), this.getCurrentAttemptWeight(),
+					this.getCompetitor().getSex()));
 		}
 
 	}

@@ -137,4 +137,7 @@ public class LogicHelper {
 		return result;
 	}
 
+	public static double rounded(double number) {
+		return (double) Math.round(number * 100) / 100;
+	}
 }

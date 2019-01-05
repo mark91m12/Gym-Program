@@ -51,6 +51,7 @@ public class Card extends JPanel {
 	private JButton btnNegative;
 	private MatchFrame match_frame;
 	private Lifter current_lifter;
+	private double bar_weight;
 
 	/**
 	 * Create the frame.
@@ -338,6 +339,10 @@ public class Card extends JPanel {
 		button_panel.setLayout(gl_button_panel);
 		this.setLayout(gl_contentPane);
 
+		// TODO
+		// this.bar_weight = match_frame.getBarWeight();
+		this.bar_weight = 25.00;
+
 		this.updateCard();
 	}
 
@@ -460,7 +465,7 @@ public class Card extends JPanel {
 		if (current_lifter != null) {
 			setLifterData();
 			ArrayList<WeightDisc> result = LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(),
-					20.00);
+					this.bar_weight);
 			this.addPlates(result);
 		} else { // no more lifters
 			match_frame.dispose();
