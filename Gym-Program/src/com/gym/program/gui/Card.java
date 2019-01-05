@@ -52,6 +52,8 @@ public class Card extends JPanel {
 	private MatchFrame match_frame;
 	private Lifter current_lifter;
 	private double bar_weight;
+	private JLabel collar_label;
+	private JLabel light_collar_label;
 
 	/**
 	 * Create the frame.
@@ -68,6 +70,14 @@ public class Card extends JPanel {
 
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
+
+		collar_label = this.createLabel();
+		collar_label.setIcon(new ImageIcon("images/fermo2_5kg50px.png"));
+		collar_label.setText(" ");
+
+		light_collar_label = this.createLabel();
+		light_collar_label.setIcon(new ImageIcon("images/fermo100px.png"));
+		light_collar_label.setText(" ");
 
 		// setBounds(100, 100, 450, 300);
 		// contentPane = new JPanel();
@@ -355,8 +365,11 @@ public class Card extends JPanel {
 			disc_label.setText(weightDisc.getLabel() + " x " + weightDisc.getOccurrance());
 			disc_label.setIcon(new ImageIcon(weightDisc.getPathImage()));
 			this.plates_panel.add(disc_label);
-			this.plates_panel.revalidate();
 		}
+
+		this.plates_panel.add(this.collar_label);
+		this.plates_panel.add(this.light_collar_label);
+		this.plates_panel.revalidate();
 
 	}
 
