@@ -464,10 +464,16 @@ public class Card extends JPanel {
 					double temp = Double.parseDouble(weight);
 					if (current_lifter.getCurrentAttemptWeight() > temp) {
 						weight = JOptionPane.showInputDialog(getParent(),
-								"Inserire il peso maggiore o ugale al precedente", null);
+								"Inserire un peso maggiore o ugale al precedente", null);
 					} else {
-						current_lifter.setNextAttemptWeight(temp);
-						is_valid = true;
+						int confirm = JOptionPane.YES_OPTION;
+						if(temp >= (current_lifter.getCompetitor().getWeight()*2.5)) {
+							confirm = JOptionPane.showConfirmDialog(getParent(), "Il peso inserito sembrerebbe eccessivo. Sicuro che la scelta sia coretta?", "ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						}
+						if(confirm == JOptionPane.YES_OPTION) {
+							current_lifter.setNextAttemptWeight(temp);
+							is_valid = true;
+						}
 					}
 				} catch (NumberFormatException e) {
 					weight = JOptionPane.showInputDialog(getParent(), "Inserire il peso correttamente", null);

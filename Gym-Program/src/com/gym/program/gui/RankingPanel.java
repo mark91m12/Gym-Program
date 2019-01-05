@@ -56,7 +56,7 @@ public class RankingPanel extends JPanel {
 					.addComponent(categoryPanel, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
 		);
 		
-		JLabel lblMatchList = new JLabel("Lista gare");
+		JLabel lblMatchList = new JLabel("Seleziona disciplina");
 		
 		comboBoxMatchList = new JComboBox();
 		matchListModel = new DefaultComboBoxModel();
@@ -81,7 +81,7 @@ public class RankingPanel extends JPanel {
 		
 		JPanel tableContainerPanel = new JPanel();
 		tableContainerPanel.setBackground(Color.WHITE);
-		JLabel lblCategory = new JLabel("Categorie");
+		JLabel lblCategory = new JLabel("Seleziona categoria");
 		comboBoxCategoryList = new JComboBox();
 		comboBoxCategoryList.addActionListener(new ActionListener() {
 			
