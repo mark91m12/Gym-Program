@@ -474,26 +474,21 @@ public class Card extends JPanel {
 							null);
 					tooHigh = false;
 				}else if(tooSmall) {
-					weight = JOptionPane.showInputDialog(getParent(), "Inserire la prossima alzata per l'atleta \n"
-							+ current_lifter.getCompetitor().getName() + " " + current_lifter.getCompetitor().getSurname(),
-							null);
+					weight = JOptionPane.showInputDialog(getParent(),"Il peso che hai inserito è inferiore o uguale al miglior tentativo dell'atleta. Prego inserire peso maggiore", null);
 					tooSmall = false;
 				}else {
 					try {
 						double temp = Double.parseDouble(weight);
-						if (temp <= current_lifter.getCurrentAttemptWeight()) {
-							if(current_lifter.getCurrentAttemptResult()) {
-								weight = JOptionPane.showInputDialog(getParent(),"Inserire un peso maggiore o ugale al precedente", null);
-								temp = Double.parseDouble(weight);
-							}else {
-								if(temp <= current_lifter.getBestAttemptWeight()) {
-									weight = JOptionPane.showInputDialog(getParent(),"Il peso che hai inserito è inferiore al miglior tentativo dell'atleta. Prego inserire peso maggiore", null);
-									temp = Double.parseDouble(weight);
-									tooSmall = true;
-								}
-							}
+						int confirm = JOptionPane.YES_OPTION;
+						if (temp <= current_lifter.getCurrentAttemptWeight() && (current_lifter.getCurrentAttemptResult() || temp <= current_lifter.getBestAttemptWeight())) {
+//							if(current_lifter.getCurrentAttemptResult()) {
+								tooSmall = true;
+//							}else {
+//								if(temp <= current_lifter.getBestAttemptWeight()) {
+//									tooSmall = true;
+//								}
+//							}
 						} else {
-							int confirm = JOptionPane.YES_OPTION;
 							if(temp >= (current_lifter.getCompetitor().getWeight()*2.5)) {
 								confirm = JOptionPane.showConfirmDialog(getParent(), "Il peso inserito sembrerebbe eccessivo. Sicuro che la scelta sia coretta?", "ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 							}
