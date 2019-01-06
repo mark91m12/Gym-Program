@@ -2,9 +2,9 @@ package com.gym.program.utils;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +48,8 @@ public class GuiHelper {
 	public void addBgImageJP(JPanel panel, String path) {
 
 		ImageIcon imageBg = new ImageIcon(path);
-		JLabel picture = new JLabel(new ImageIcon(imageBg.getImage()));
+		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width,panel.getPreferredSize().height,Image.SCALE_SMOOTH);
+		JLabel picture = new JLabel(new ImageIcon(scaledImage));
 		panel.add(picture);
 	}
 

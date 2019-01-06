@@ -1,6 +1,7 @@
 package com.gym.program.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 import com.gym.program.logic.match.Lifter;
 import com.gym.program.utils.Attempt;
@@ -51,6 +53,8 @@ public class Card extends JPanel {
 	private JLabel collar_label;
 	private JLabel light_collar_label;
 
+	private Timer timer;
+	private int time;
 	/**
 	 * Create the frame.
 	 */
@@ -132,11 +136,12 @@ public class Card extends JPanel {
 
 		image_exercise_panel = new JPanel();
 		image_exercise_panel.setBackground(Color.WHITE);
-
+		image_exercise_panel.setPreferredSize(new Dimension(500, 500));
 		JLabel time_label = new JLabel("Time :");
 		time_label.setFont(new Font("Serif", Font.PLAIN, 40));
 
-		seconds_left_label = new JLabel();
+		time = 60;
+		seconds_left_label = new JLabel(""+time+"s");
 		seconds_left_label.setFont(new Font("Serif", Font.PLAIN, 40));
 		seconds_left_label.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -149,10 +154,31 @@ public class Card extends JPanel {
 		exercise_label = new JLabel();
 		exercise_label.setFont(new Font("Serif", Font.PLAIN, 40));
 		
-		JButton btnStart = new JButton("Start");
+		ActionListener timerAL = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					if(time>0) {
+						Card.this.logic();
+						seconds_left_label.repaint();
+					}else {
+						timer.stop();
+					}
+			}
+		};
+		timer = new Timer(1000, timerAL);
+		JButton btnStartStop = new JButton("Start/Stop");
+		btnStartStop.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(timer.isRunning()) {
+					timer.stop();
+				}else {
+					timer.start();
+				}
+			}
+		});
 		
-		JButton btnStop = new JButton("Stop");
-
 		GroupLayout gl_target_panel = new GroupLayout(target_panel);
 		gl_target_panel.setHorizontalGroup(
 			gl_target_panel.createParallelGroup(Alignment.LEADING)
@@ -173,11 +199,10 @@ public class Card extends JPanel {
 						.addGroup(gl_target_panel.createSequentialGroup()
 							.addGap(10)
 							.addGroup(gl_target_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(btnStart)
+								.addComponent(btnStartStop)
 								.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnStop)
 								.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap())
 		);
@@ -197,8 +222,7 @@ public class Card extends JPanel {
 						.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
 					.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnStart)
-						.addComponent(btnStop))
+						.addComponent(btnStartStop))
 					.addContainerGap())
 		);
 		target_panel.setLayout(gl_target_panel);
@@ -438,13 +462,13 @@ public class Card extends JPanel {
 		
 		switch(match_frame.getManager().getCurrentTypeOfMatch()) {
 			case BENCHPRESS:
-				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/benchpress.jpg");
+				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/benchpress.png");
 				break;
 			case DEADLIFT:
-				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/deadlift.jpg");
+				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/deadlift.png");
 				break;
 			case SQUAT:
-				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/squat.jpg");
+				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/squat.png");
 				break;
 			default:
 				break;
@@ -552,5 +576,10 @@ public class Card extends JPanel {
 		this.match_frame.getManager().getMatches().get(this.match_frame.getManager().getCurrentTypeOfMatch())
 				.updateLifters();
 		this.current_lifter = this.match_frame.getManager().getCurrentLifter();
+	}
+	
+	private void logic(){
+		time--;
+		seconds_left_label.setText(""+time+"s");
 	}
 }
