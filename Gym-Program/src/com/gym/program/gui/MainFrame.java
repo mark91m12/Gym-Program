@@ -30,6 +30,7 @@ import com.gym.program.logic.competitor.CompetitorBuilder;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Choice;
+import com.gym.program.utils.CollarType;
 import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.Sex;
 
@@ -49,6 +50,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	private JButton btnTest;
 	
 	private MatchFrame matchFrame;
+	private CollarType collarType;
 
 	/**
 	 * Create the frame.
@@ -191,6 +193,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c5, Choice.CLSS_AGE, 70);
 				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c4, Choice.CLSS_AGE, 60);
 				
+				MainFrame.this.setCollar(CollarType.WEIGHT);
 				MainFrame.this.update();
 				btnStart.setEnabled(true);
 			}
@@ -307,5 +310,13 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				rdbtnDeadLift.setSelected(true);
 			}
 		}
+	}
+
+	public void setCollar(CollarType cT) {
+		this.collarType = cT;
+	}
+	
+	public CollarType getCollar() {
+		return this.collarType;
 	}
 }

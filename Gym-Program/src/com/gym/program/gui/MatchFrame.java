@@ -14,6 +14,7 @@ import com.gym.program.logic.competitor.CompetitorBuilder;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Choice;
+import com.gym.program.utils.CollarType;
 import com.gym.program.utils.Sex;
 
 import java.awt.FlowLayout;
@@ -28,6 +29,7 @@ public class MatchFrame extends JFrame {
 	private JPanel contentPane;
 	private MainFrame mainFrame;
 	private Manager manager;
+	private CollarType collarType;
 
 //	public static void main(String[] args) {
 //		MatchFrame m = new MatchFrame(new Manager());
@@ -90,7 +92,7 @@ public class MatchFrame extends JFrame {
 
 		JTabbedPane tabbed_pane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbed_pane);
-
+		this.setCollar(mF.getCollar());
 		tabbed_pane.add(" pedana ", new Card(this));
 		tabbed_pane.add(" ordine ", new OrderPanel(this));
 		tabbed_pane.add(" classifica ", new RankingPanel(this));
@@ -118,5 +120,13 @@ public class MatchFrame extends JFrame {
 		this.mainFrame.setVisible(true);
 		this.mainFrame.update();
 		this.dispose();
+	}
+
+	public void setCollar(CollarType cT) {
+		this.collarType = cT;
+	}
+	
+	public CollarType getCollar() {
+		return this.collarType;
 	}
 }
