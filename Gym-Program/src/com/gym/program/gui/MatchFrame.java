@@ -103,11 +103,10 @@ public class MatchFrame extends JFrame {
 					final int i = JOptionPane.showConfirmDialog(MatchFrame.this, "Sei sicuro di voler chiudere l'applicazione?", "ESCI",
 							JOptionPane.YES_NO_OPTION);
 					if (i == JOptionPane.YES_OPTION) {
-						MatchFrame.this.mainFrame.setVisible(true);
-						MatchFrame.this.mainFrame.update();
-						MatchFrame.this.dispose();
+						comeBackToMainFrame();
 					}
 			}
+
 		});
 	}
 
@@ -115,4 +114,9 @@ public class MatchFrame extends JFrame {
 		return manager;
 	}
 
+	public void comeBackToMainFrame() {
+		this.mainFrame.setVisible(true);
+		this.mainFrame.update();
+		this.dispose();
+	}
 }

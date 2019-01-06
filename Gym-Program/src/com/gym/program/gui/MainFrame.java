@@ -135,9 +135,9 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				if (rdbtnBenchPress.isSelected()) {
 					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.BENCHPRESS);
 				} else if (rdbtnSquat.isSelected()) {
-					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.BENCHPRESS);
+					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.SQUAT);
 				} else if (rdbtnDeadLift.isSelected()) {
-					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.BENCHPRESS);
+					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.DEADLIFT);
 				}
 				matchFrame = new MatchFrame(MainFrame.this);
 				MainFrame.this.setVisible(false);

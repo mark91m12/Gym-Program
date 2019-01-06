@@ -16,6 +16,8 @@ public class Lifter {
 
 	private double score;
 
+	private double bestAttemptWeight;
+	
 	private Map<Attempt, Double> attemptsWeights;
 	private Map<Attempt, Boolean> attemptsResults;
 	private Attempt currentAttempt;
@@ -29,6 +31,7 @@ public class Lifter {
 		this.attemptsWeights = new HashMap<Attempt, Double>();
 		this.attemptsResults = new HashMap<Attempt, Boolean>();
 		this.currentAttempt = Attempt.FIRST;
+		this.bestAttemptWeight = 0;
 	}
 
 	public void setCategory(Choice choice) {
@@ -98,6 +101,10 @@ public class Lifter {
 		return this.getAttemptWeight(this.currentAttempt);
 	}
 
+	public Boolean getCurrentAttemptResult() {
+		return this.getAttemptResult(this.currentAttempt);
+	}
+	
 	public void setCurrentAttemptResult(boolean result) {
 		this.setAttemptResult(this.currentAttempt, result);
 		// this.setNextCurrentAttempt();
@@ -105,6 +112,7 @@ public class Lifter {
 		if (result) {
 			this.setScore(LogicHelper.getWilksResult(this.getCompetitor().getWeight(), this.getCurrentAttemptWeight(),
 					this.getCompetitor().getSex()));
+			this.setBestAttemptWeight(getCurrentAttemptWeight());
 		}
 
 	}
@@ -140,5 +148,13 @@ public class Lifter {
 
 	public void setCurrentAttempt(Attempt currentAttempt) {
 		this.currentAttempt = currentAttempt;
+	}
+	
+	public double getBestAttemptWeight() {
+		return bestAttemptWeight;
+	}
+
+	public void setBestAttemptWeight(double bestAttemptWeight) {
+		this.bestAttemptWeight = bestAttemptWeight;
 	}
 }

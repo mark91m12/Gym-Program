@@ -12,21 +12,17 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
-import com.gym.program.logic.Manager;
 import com.gym.program.logic.match.Lifter;
-import com.gym.program.logic.match.Match;
 import com.gym.program.utils.Attempt;
+import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.LogicHelper;
 import com.gym.program.utils.WeightDisc;
-import java.awt.Dimension;
 
 public class Card extends JPanel {
 
@@ -135,9 +131,7 @@ public class Card extends JPanel {
 				.addComponent(button_panel, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE).addGap(43)));
 
 		image_exercise_panel = new JPanel();
-		image_exercise_panel.setBackground(Color.GREEN);
-		// GuiHelper.getInstance().addBgImageJP(image_exercise_panel,
-		// "images/squat_bg.jpg");
+		image_exercise_panel.setBackground(Color.WHITE);
 
 		JLabel time_label = new JLabel("Time :");
 		time_label.setFont(new Font("Serif", Font.PLAIN, 40));
@@ -337,7 +331,6 @@ public class Card extends JPanel {
 		btnNegative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setLiftValidation(false);
-
 			}
 		});
 		GroupLayout gl_button_panel = new GroupLayout(button_panel);
@@ -413,7 +406,20 @@ public class Card extends JPanel {
 
 		ArrayList<WeightDisc> result = LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(), 20.00);
 		this.addPlates(result);
-
+		
+		switch(match_frame.getManager().getCurrentTypeOfMatch()) {
+			case BENCHPRESS:
+				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/benchpress.jpg");
+				break;
+			case DEADLIFT:
+				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/deadlift.jpg");
+				break;
+			case SQUAT:
+				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/squat.jpg");
+				break;
+			default:
+				break;
+		}
 	}
 
 	private void updateLabelAttempts() {
@@ -459,24 +465,48 @@ public class Card extends JPanel {
 					+ current_lifter.getCompetitor().getName() + " " + current_lifter.getCompetitor().getSurname(),
 					null);
 
+			boolean tooHigh = false;
+			boolean tooSmall = false;
 			while (!is_valid) {
-				try {
-					double temp = Double.parseDouble(weight);
-					if (current_lifter.getCurrentAttemptWeight() > temp) {
-						weight = JOptionPane.showInputDialog(getParent(),
-								"Inserire un peso maggiore o ugale al precedente", null);
-					} else {
-						int confirm = JOptionPane.YES_OPTION;
-						if(temp >= (current_lifter.getCompetitor().getWeight()*2.5)) {
-							confirm = JOptionPane.showConfirmDialog(getParent(), "Il peso inserito sembrerebbe eccessivo. Sicuro che la scelta sia coretta?", "ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				if(tooHigh) {
+					weight = JOptionPane.showInputDialog(getParent(), "Inserire la prossima alzata per l'atleta \n"
+							+ current_lifter.getCompetitor().getName() + " " + current_lifter.getCompetitor().getSurname(),
+							null);
+					tooHigh = false;
+				}else if(tooSmall) {
+					weight = JOptionPane.showInputDialog(getParent(), "Inserire la prossima alzata per l'atleta \n"
+							+ current_lifter.getCompetitor().getName() + " " + current_lifter.getCompetitor().getSurname(),
+							null);
+					tooSmall = false;
+				}else {
+					try {
+						double temp = Double.parseDouble(weight);
+						if (temp <= current_lifter.getCurrentAttemptWeight()) {
+							if(current_lifter.getCurrentAttemptResult()) {
+								weight = JOptionPane.showInputDialog(getParent(),"Inserire un peso maggiore o ugale al precedente", null);
+								temp = Double.parseDouble(weight);
+							}else {
+								if(temp <= current_lifter.getBestAttemptWeight()) {
+									weight = JOptionPane.showInputDialog(getParent(),"Il peso che hai inserito è inferiore al miglior tentativo dell'atleta. Prego inserire peso maggiore", null);
+									temp = Double.parseDouble(weight);
+									tooSmall = true;
+								}
+							}
+						} else {
+							int confirm = JOptionPane.YES_OPTION;
+							if(temp >= (current_lifter.getCompetitor().getWeight()*2.5)) {
+								confirm = JOptionPane.showConfirmDialog(getParent(), "Il peso inserito sembrerebbe eccessivo. Sicuro che la scelta sia coretta?", "ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+							}
+							if(confirm == JOptionPane.YES_OPTION) {
+								current_lifter.setNextAttemptWeight(temp);
+								is_valid = true;
+							}else {
+								tooHigh = true;
+							}
 						}
-						if(confirm == JOptionPane.YES_OPTION) {
-							current_lifter.setNextAttemptWeight(temp);
-							is_valid = true;
-						}
+					} catch (NumberFormatException e) {
+						weight = JOptionPane.showInputDialog(getParent(), "Inserire il peso correttamente", null);
 					}
-				} catch (NumberFormatException e) {
-					weight = JOptionPane.showInputDialog(getParent(), "Inserire il peso correttamente", null);
 				}
 			}
 		}
@@ -491,7 +521,7 @@ public class Card extends JPanel {
 					this.bar_weight);
 			this.addPlates(result);
 		} else { // no more lifters
-			match_frame.dispose();
+			match_frame.comeBackToMainFrame();
 		}
 	}
 
