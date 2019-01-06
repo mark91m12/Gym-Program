@@ -20,10 +20,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import com.gym.program.logic.Manager;
 import com.gym.program.logic.match.Lifter;
+import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Attempt;
 import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.LogicHelper;
+import com.gym.program.utils.RecordKey;
+import com.gym.program.utils.RecordsDB;
 import com.gym.program.utils.WeightDisc;
 
 public class Card extends JPanel {
@@ -454,13 +458,13 @@ public class Card extends JPanel {
 		updateLabelAttempts();
 
 		this.exercise_label.setText(this.match_frame.getManager().getCurrentTypeOfMatch().toString());
-		// this.image_exercise_panel
 		this.current_lift_label.setText(Double.toString(current_lifter.getCurrentAttemptWeight()));
 
 		ArrayList<WeightDisc> result = LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(), 20.00);
 		this.addPlates(result);
 		
-		switch(match_frame.getManager().getCurrentTypeOfMatch()) {
+		Manager manager = match_frame.getManager();
+		switch(manager.getCurrentTypeOfMatch()) {
 			case BENCHPRESS:
 				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/benchpress.png");
 				break;
@@ -473,11 +477,10 @@ public class Card extends JPanel {
 			default:
 				break;
 		}
+		record_weights_label.setText(""+RecordsDB.getInstance().getRecord(new RecordKey(manager.getCurrentTypeOfMatch(), current_lifter.getCategory())));
 	}
 
 	private void updateLabelAttempts() {
-		// TODO Auto-generated method stub
-
 		try {
 			this.setPositiveIcon(first_attempt_label, current_lifter.getAttemptResult(Attempt.FIRST));
 		} catch (Exception e) {
@@ -502,7 +505,10 @@ public class Card extends JPanel {
 
 	private void setLiftValidation(boolean isValid) {
 
-		// if(current_lifter.hasMoreLift()){
+		if(current_lifter.getCurrentAttemptWeight() >= RecordsDB.getInstance().getRecord(new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(), current_lifter.getCategory()))) {
+			current_lifter.setBonusAttempt();
+			System.out.println("SET BONUS");
+		}
 		current_lifter.setCurrentAttemptResult(isValid);
 		if (isValid) {
 			match_frame.getManager().getMatches().get(match_frame.getManager().getCurrentTypeOfMatch())
@@ -533,13 +539,7 @@ public class Card extends JPanel {
 						double temp = Double.parseDouble(weight);
 						int confirm = JOptionPane.YES_OPTION;
 						if (temp <= current_lifter.getCurrentAttemptWeight() && (current_lifter.getCurrentAttemptResult() || temp <= current_lifter.getBestAttemptWeight())) {
-//							if(current_lifter.getCurrentAttemptResult()) {
 								tooSmall = true;
-//							}else {
-//								if(temp <= current_lifter.getBestAttemptWeight()) {
-//									tooSmall = true;
-//								}
-//							}
 						} else {
 							if(temp >= (current_lifter.getCompetitor().getWeight()*2.5)) {
 								confirm = JOptionPane.showConfirmDialog(getParent(), "Il peso inserito sembrerebbe eccessivo. Sicuro che la scelta sia coretta?", "ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);

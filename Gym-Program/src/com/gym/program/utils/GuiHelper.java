@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
+import com.gym.program.gui.ZebraJTable;
 import com.gym.program.logic.match.Lifter;
 
 public class GuiHelper {
@@ -107,7 +108,7 @@ public class GuiHelper {
 	public JScrollPane createTableForRanking(List<Lifter> lifters) {
 
 		Object names[] = { " Posizione ", " Cognome ", " Nome ", "Punteggio", " Squadra ", " Età ", " Peso Corporeo ",
-				" Categoria ", " Prima alzta ", " Seconda alzta ", " Terza alzta " };
+				" Categoria ", " Prima alzta ", " Seconda alzta ", " Terza alzta ", "alzata Bonus" };
 		Object rowData[][] = new Object[lifters.size()][names.length];
 
 		for (int i = 0; i < lifters.size(); i++) {
@@ -119,12 +120,18 @@ public class GuiHelper {
 			rowData[i][5] = lifters.get(i).getCompetitor().getAge();
 			rowData[i][6] = lifters.get(i).getCompetitor().getWeight();
 			rowData[i][7] = lifters.get(i).getCategory();
-			rowData[i][8] = lifters.get(i).getAttemptWeight(Attempt.FIRST) == null ? "-"
-					: lifters.get(i).getAttemptWeight(Attempt.FIRST);
-			rowData[i][9] = lifters.get(i).getAttemptWeight(Attempt.SECOND) == null ? "-"
-					: lifters.get(i).getAttemptWeight(Attempt.SECOND);
-			rowData[i][10] = lifters.get(i).getAttemptWeight(Attempt.THIRD) == null ? "-"
-					: lifters.get(i).getAttemptWeight(Attempt.THIRD);
+			
+			Double firstAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.FIRST);
+			rowData[i][8] = firstAttemptWeight == null || firstAttemptWeight == 0 ? "-": firstAttemptWeight;
+			
+			Double secondAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.SECOND);
+			rowData[i][9] = secondAttemptWeight == null || secondAttemptWeight == 0 ? "-": secondAttemptWeight;
+			
+			Double thirdAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.THIRD);
+			rowData[i][10] = thirdAttemptWeight == null || thirdAttemptWeight == 0 ? "-": thirdAttemptWeight;
+			
+			Double bonusAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.BONUS);
+			rowData[i][11] = bonusAttemptWeight == null || bonusAttemptWeight == 0 ? "-": bonusAttemptWeight;
 
 		}
 
@@ -142,6 +149,8 @@ public class GuiHelper {
 					return coloredCell(lifters, row, label, Attempt.SECOND);
 				case 10:
 					return coloredCell(lifters, row, label, Attempt.THIRD);
+				case 11:
+					return coloredCell(lifters, row, label, Attempt.BONUS);
 				default:
 					break;
 				}
@@ -150,12 +159,17 @@ public class GuiHelper {
 			}
 		};
 
-		TableModel model = new DefaultTableModel(rowData, names);
+		TableModel model = new DefaultTableModel(rowData, names) {
+			public boolean isCellEditable(int row, int column)
+		    {
+		      return false;//This causes all cells to be not editable
+		    }
+		};
+//		ZebraJTable table = new ZebraJTable(model);
 		JTable table = new JTable(model);
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i < names.length; i++) {
 			table.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
 		}
-
 		table.getTableHeader().setReorderingAllowed(false);
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;
@@ -171,7 +185,7 @@ public class GuiHelper {
 			} else {
 				label.setBackground(Color.red);
 				// label.setForeground(Color.WHITE);
-			}
+			} 
 		}
 		return label;
 	}

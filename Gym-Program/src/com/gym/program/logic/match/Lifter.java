@@ -25,6 +25,8 @@ public class Lifter {
 	private Competitor competitor;
 	private Category category;
 
+	private boolean hasBonusAttempt;
+	
 	public Lifter(Competitor competitor, Choice choice) {
 		this.competitor = competitor;
 		this.setCategory(choice);
@@ -32,6 +34,7 @@ public class Lifter {
 		this.attemptsResults = new HashMap<Attempt, Boolean>();
 		this.currentAttempt = Attempt.FIRST;
 		this.bestAttemptWeight = 0;
+		this.hasBonusAttempt = false;
 	}
 
 	public void setCategory(Choice choice) {
@@ -108,13 +111,11 @@ public class Lifter {
 	public void setCurrentAttemptResult(boolean result) {
 		this.setAttemptResult(this.currentAttempt, result);
 		// this.setNextCurrentAttempt();
-
 		if (result) {
 			this.setScore(LogicHelper.getWilksResult(this.getCompetitor().getWeight(), this.getCurrentAttemptWeight(),
 					this.getCompetitor().getSex()));
 			this.setBestAttemptWeight(getCurrentAttemptWeight());
 		}
-
 	}
 
 	private boolean setNextCurrentAttempt() {
@@ -126,6 +127,13 @@ public class Lifter {
 			this.currentAttempt = Attempt.THIRD;
 			return true;
 		case THIRD:
+			if(hasBonusAttempt) {
+				this.currentAttempt = Attempt.BONUS;
+				return true;
+			}else {
+				return false;
+			}
+		case BONUS:
 			return false;
 		default:
 			return false;
@@ -133,8 +141,9 @@ public class Lifter {
 	}
 
 	public boolean hasMoreLift() {
-		if (this.currentAttempt.equals(Attempt.THIRD))
+		if ((this.currentAttempt.equals(Attempt.THIRD) && !hasBonusAttempt) || this.currentAttempt.equals(Attempt.BONUS)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -156,5 +165,15 @@ public class Lifter {
 
 	public void setBestAttemptWeight(double bestAttemptWeight) {
 		this.bestAttemptWeight = bestAttemptWeight;
+	}
+
+	public boolean hasBonusAttempt() {
+		return hasBonusAttempt;
+	}
+
+	public void setBonusAttempt() {
+		if(!hasBonusAttempt) {
+			this.hasBonusAttempt = true;
+		}
 	}
 }

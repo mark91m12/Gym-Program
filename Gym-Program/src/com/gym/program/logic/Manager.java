@@ -12,6 +12,7 @@ import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Attempt;
 import com.gym.program.utils.Choice;
+import com.gym.program.utils.RecordKey;
 
 public class Manager {
 
@@ -19,7 +20,7 @@ public class Manager {
 	private Map<TypeOfMatch, Match> matches;
 	private TypeOfMatch currentTypeOfMatch;
 	private Set<TypeOfMatch> completed;
-
+	
 	public Manager() {
 		this.matches = new HashMap<>();
 		completed = new HashSet<>();
