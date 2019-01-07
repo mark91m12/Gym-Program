@@ -19,6 +19,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.GuiHelper;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 public class DisputePanel extends JPanel {
 
@@ -85,7 +87,8 @@ public class DisputePanel extends JPanel {
 					.addComponent(tableContainerPanel, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(16, Short.MAX_VALUE))
 		);
+		tableContainerPanel.setLayout(new BorderLayout(0, 0));
 		setLayout(groupLayout);
-		setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		setSize(new Dimension(1956, 1055));
 	}
 }
