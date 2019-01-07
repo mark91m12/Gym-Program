@@ -44,7 +44,7 @@ public class RankingPanel extends JPanel {
 		JPanel categoryPanel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addComponent(matchListPanel, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
 				.addComponent(categoryPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
 		);
@@ -110,8 +110,8 @@ public class RankingPanel extends JPanel {
 					.addGap(203))
 				.addGroup(gl_categoryPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tableContainerPanel, GroupLayout.PREFERRED_SIZE, 425, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(70, Short.MAX_VALUE))
+					.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		gl_categoryPanel.setVerticalGroup(
 			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
@@ -150,6 +150,5 @@ public class RankingPanel extends JPanel {
 		);
 		matchListPanel.setLayout(gl_matchListPanel);
 		setLayout(groupLayout);
-
 	}
 }
