@@ -129,4 +129,5 @@ public class MatchFrame extends JFrame {
 	public CollarType getCollar() {
 		return this.collarType;
 	}
+	
 }

@@ -5,13 +5,16 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -21,6 +24,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
 import com.gym.program.gui.ZebraJTable;
+import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.match.Lifter;
 
 public class GuiHelper {
@@ -188,6 +192,96 @@ public class GuiHelper {
 			} 
 		}
 		return label;
+	}
+
+	public JScrollPane createTableForDispute(List<Lifter> lifters) {
+		lifters.sort(new Comparator<Lifter>() {//lexicographic order
+			@Override
+			public int compare(Lifter o1, Lifter o2) {
+				Competitor competitor1 = o1.getCompetitor();
+				Competitor competitor2 = o2.getCompetitor();
+				int result = competitor1.getSurname().compareToIgnoreCase(competitor2.getSurname());
+				if(result == 0) {
+					result = competitor1.getName().compareToIgnoreCase(competitor2.getName());
+					if(result == 0) {
+						return Integer.compare(competitor1.getAge(),competitor2.getAge());
+					}else {
+						return result;
+					}
+				}
+				else {
+					return result;
+				}
+			}
+		});
+		
+		Object names[] = {" Cognome ", " Nome ", "Punteggio", " Squadra ", " Età "," Categoria ", " Prima alzta ", " Seconda alzta ", " Terza alzta ", "Avvia Contestazione" };
+		Object rowData[][] = new Object[lifters.size()][names.length];
+
+		for (int i = 0; i < lifters.size(); i++) {
+			rowData[i][0] = lifters.get(i).getCompetitor().getSurname();
+			rowData[i][1] = lifters.get(i).getCompetitor().getName();
+			rowData[i][2] = lifters.get(i).getScore();
+			rowData[i][3] = lifters.get(i).getCompetitor().getTeam();
+			rowData[i][4] = lifters.get(i).getCompetitor().getAge();
+			rowData[i][5] = lifters.get(i).getCategory();
+			
+			Double firstAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.FIRST);
+			rowData[i][6] = firstAttemptWeight == null || firstAttemptWeight == 0 ? "-": firstAttemptWeight;
+			
+			Double secondAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.SECOND);
+			rowData[i][7] = secondAttemptWeight == null || secondAttemptWeight == 0 ? "-": secondAttemptWeight;
+			
+			Double thirdAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.THIRD);
+			rowData[i][8] = thirdAttemptWeight == null || thirdAttemptWeight == 0 ? "-": thirdAttemptWeight;
+			
+			JButton btnDispute = new JButton("Contesta");
+			btnDispute.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("**************AVVIARE CONTESTAZIONE**************");
+				}
+			});
+			rowData[i][9] = btnDispute;
+
+		}
+
+		TableCellRenderer tableCellRenderer = new TableCellRenderer() {
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				JLabel label = new JLabel();
+				if (value != null)
+					label.setText(value.toString());
+
+				switch (column) {
+				case 6:
+					return coloredCell(lifters, row, label, Attempt.FIRST);
+				case 7:
+					return coloredCell(lifters, row, label, Attempt.SECOND);
+				case 8:
+					return coloredCell(lifters, row, label, Attempt.THIRD);
+				default:
+					break;
+				}
+
+				return label;
+			}
+		};
+
+		TableModel model = new DefaultTableModel(rowData, names) {
+			public boolean isCellEditable(int row, int column)
+		    {
+		      return false;//This causes all cells to be not editable
+		    }
+		};
+//		ZebraJTable table = new ZebraJTable(model);
+		JTable table = new JTable(model);
+		for (int i = 0; i < names.length-1; i++) {
+			table.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
+		}
+		table.getTableHeader().setReorderingAllowed(false);
+		JScrollPane scroll = new JScrollPane(table);
+		return scroll;
 	}
 
 }

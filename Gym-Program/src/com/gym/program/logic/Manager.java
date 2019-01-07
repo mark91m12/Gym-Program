@@ -93,4 +93,7 @@ public class Manager {
 		this.getCurrentLifter().setAttemptResult(a, result);
 	}
 
+	public Match getCurrentMatch() {
+		return this.matches.get(currentTypeOfMatch);
+	}
 }

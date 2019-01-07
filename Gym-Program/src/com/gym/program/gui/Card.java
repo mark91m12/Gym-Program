@@ -556,6 +556,8 @@ public class Card extends JPanel {
 					}
 				}
 			}
+		}else if(current_lifter.getCurrentAttempt().equals(Attempt.THIRD) && !isValid){
+			match_frame.getManager().getCurrentMatch().addLifterCanDispute(current_lifter);
 		}
 		updateCard();
 	}

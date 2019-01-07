@@ -103,7 +103,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 			}
 		});
 
-		JLabel lblSelezionaGara = new JLabel("Seleziona gara");
+		JLabel lblSelezionaGara = new JLabel("Seleziona gara:");
 		lblSelezionaGara.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblSelezionaGara.setForeground(Color.WHITE);
 
@@ -198,6 +198,14 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				btnStart.setEnabled(true);
 			}
 		});
+		
+		JButton btnShowDisputePanel = new JButton("Segnala Contestazione");
+		btnShowDisputePanel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showDisputeForm();
+			}
+		});
 		GroupLayout gl_menuPanel = new GroupLayout(menuPanel);
 		gl_menuPanel.setHorizontalGroup(
 			gl_menuPanel.createParallelGroup(Alignment.TRAILING)
@@ -209,20 +217,21 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 								.addComponent(rdbtnBenchPress)
 								.addGroup(gl_menuPanel.createSequentialGroup()
 									.addGap(24)
-									.addComponent(btnStart))
+									.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnShowDisputePanel)
+										.addComponent(btnStart)))
 								.addGroup(gl_menuPanel.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(lblSelezionaGara, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 									.addComponent(rdbtnSquat, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(rdbtnDeadLift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))))
+									.addComponent(rdbtnDeadLift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)))
+							.addPreferredGap(ComponentPlacement.RELATED))
 						.addGroup(gl_menuPanel.createSequentialGroup()
 							.addGap(53)
 							.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnChooseDisciplines)
 								.addComponent(btnInsertLifters, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnTest)))
-						.addGroup(gl_menuPanel.createSequentialGroup()
-							.addGap(63)
-							.addComponent(lblSelezionaGara)))
-					.addContainerGap(57, Short.MAX_VALUE))
+								.addComponent(btnTest))))
+					.addContainerGap(43, Short.MAX_VALUE))
 		);
 		gl_menuPanel.setVerticalGroup(
 			gl_menuPanel.createParallelGroup(Alignment.LEADING)
@@ -243,7 +252,9 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 					.addComponent(rdbtnDeadLift)
 					.addGap(18)
 					.addComponent(btnStart)
-					.addContainerGap(661, Short.MAX_VALUE))
+					.addGap(124)
+					.addComponent(btnShowDisputePanel)
+					.addContainerGap(512, Short.MAX_VALUE))
 		);
 		menuPanel.setLayout(gl_menuPanel);
 		contentPane.setLayout(gl_contentPane);
@@ -318,5 +329,9 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	
 	public CollarType getCollar() {
 		return this.collarType;
+	}
+	
+	public void showDisputeForm() {
+		switchTo(new DisputePanel(this));
 	}
 }

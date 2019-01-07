@@ -102,7 +102,7 @@ public class RankingPanel extends JPanel {
 			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_categoryPanel.createSequentialGroup()
 					.addGap(124)
-					.addComponent(comboBoxCategoryList, 0, 201, Short.MAX_VALUE)
+					.addComponent(comboBoxCategoryList, 0, 258, Short.MAX_VALUE)
 					.addGap(125))
 				.addGroup(gl_categoryPanel.createSequentialGroup()
 					.addGap(192)
@@ -110,8 +110,8 @@ public class RankingPanel extends JPanel {
 					.addGap(203))
 				.addGroup(gl_categoryPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-					.addGap(14))
+					.addComponent(tableContainerPanel, GroupLayout.PREFERRED_SIZE, 425, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(70, Short.MAX_VALUE))
 		);
 		gl_categoryPanel.setVerticalGroup(
 			gl_categoryPanel.createParallelGroup(Alignment.LEADING)

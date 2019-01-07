@@ -17,11 +17,13 @@ public class Match {
 	}
 
 	private List<Lifter> lifters;
+	private List<Lifter> liftersCanDispute;//lifters that have done last attempt with negative validation
 	private TypeOfMatch type;
 	private MatchRanking matchRanking;
 
 	public Match(TypeOfMatch type) {
 		this.lifters = new ArrayList<>();
+		this.liftersCanDispute = new ArrayList<>();
 		this.setType(type);
 		this.matchRanking = new MatchRanking(this.lifters);
 	}
@@ -190,6 +192,18 @@ public class Match {
 		return this.lifters.isEmpty()? null:this.lifters.get(0);
 	}
 
+	public List<Lifter> getLiftersCanDispute() {
+		return liftersCanDispute;
+	}
+
+	public void setLiftersCanDispute(List<Lifter> liftersCanDispute) {
+		this.liftersCanDispute = liftersCanDispute;
+	}
+
+	public boolean addLifterCanDispute(Lifter toAdd) {
+		return this.liftersCanDispute.add(toAdd);
+	}
+	
 //	public Lifter getNextLifter() {
 //		this.lifters.remove(0);
 //		Lifter lifter = null;
