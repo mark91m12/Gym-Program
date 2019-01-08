@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -56,7 +58,8 @@ public class GuiHelper {
 	public void addBgImageJP(JPanel panel, String path) {
 
 		ImageIcon imageBg = new ImageIcon(path);
-		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width,panel.getPreferredSize().height,Image.SCALE_SMOOTH);
+		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width,
+				panel.getPreferredSize().height, Image.SCALE_SMOOTH);
 		JLabel picture = new JLabel(new ImageIcon(scaledImage));
 		panel.add(picture);
 	}
@@ -127,18 +130,18 @@ public class GuiHelper {
 			rowData[i][5] = lifters.get(i).getCompetitor().getAge();
 			rowData[i][6] = lifters.get(i).getCompetitor().getWeight();
 			rowData[i][7] = lifters.get(i).getCategory();
-			
+
 			Double firstAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.FIRST);
-			rowData[i][8] = firstAttemptWeight == null || firstAttemptWeight == 0 ? "-": firstAttemptWeight;
-			
+			rowData[i][8] = firstAttemptWeight == null || firstAttemptWeight == 0 ? "-" : firstAttemptWeight;
+
 			Double secondAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.SECOND);
-			rowData[i][9] = secondAttemptWeight == null || secondAttemptWeight == 0 ? "-": secondAttemptWeight;
-			
+			rowData[i][9] = secondAttemptWeight == null || secondAttemptWeight == 0 ? "-" : secondAttemptWeight;
+
 			Double thirdAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.THIRD);
-			rowData[i][10] = thirdAttemptWeight == null || thirdAttemptWeight == 0 ? "-": thirdAttemptWeight;
-			
+			rowData[i][10] = thirdAttemptWeight == null || thirdAttemptWeight == 0 ? "-" : thirdAttemptWeight;
+
 			Double bonusAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.BONUS);
-			rowData[i][11] = bonusAttemptWeight == null || bonusAttemptWeight == 0 ? "-": bonusAttemptWeight;
+			rowData[i][11] = bonusAttemptWeight == null || bonusAttemptWeight == 0 ? "-" : bonusAttemptWeight;
 
 		}
 
@@ -167,12 +170,11 @@ public class GuiHelper {
 		};
 
 		TableModel model = new DefaultTableModel(rowData, names) {
-			public boolean isCellEditable(int row, int column)
-		    {
-		      return false;//This causes all cells to be not editable
-		    }
+			public boolean isCellEditable(int row, int column) {
+				return false;// This causes all cells to be not editable
+			}
 		};
-//		ZebraJTable table = new ZebraJTable(model);
+		// ZebraJTable table = new ZebraJTable(model);
 		JTable table = new JTable(model);
 		for (int i = 0; i < names.length; i++) {
 			table.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
@@ -192,33 +194,33 @@ public class GuiHelper {
 			} else {
 				label.setBackground(Color.red);
 				// label.setForeground(Color.WHITE);
-			} 
+			}
 		}
 		return label;
 	}
 
 	public JScrollPane createTableForDispute(List<Lifter> lifters) {
-		lifters.sort(new Comparator<Lifter>() {//lexicographic order
+		lifters.sort(new Comparator<Lifter>() {// lexicographic order
 			@Override
 			public int compare(Lifter o1, Lifter o2) {
 				Competitor competitor1 = o1.getCompetitor();
 				Competitor competitor2 = o2.getCompetitor();
 				int result = competitor1.getSurname().compareToIgnoreCase(competitor2.getSurname());
-				if(result == 0) {
+				if (result == 0) {
 					result = competitor1.getName().compareToIgnoreCase(competitor2.getName());
-					if(result == 0) {
-						return Integer.compare(competitor1.getAge(),competitor2.getAge());
-					}else {
+					if (result == 0) {
+						return Integer.compare(competitor1.getAge(), competitor2.getAge());
+					} else {
 						return result;
 					}
-				}
-				else {
+				} else {
 					return result;
 				}
 			}
 		});
-		
-		Object names[] = {" Cognome ", " Nome ", "Punteggio", " Squadra ", " Età "," Categoria ", " Prima alzta ", " Seconda alzta ", " Terza alzta ", "Avvia Contestazione" };
+
+		Object names[] = { " Cognome ", " Nome ", "Punteggio", " Squadra ", " Età ", " Categoria ", " Prima alzta ",
+				" Seconda alzta ", " Terza alzta ", "Avvia Contestazione" };
 		Object rowData[][] = new Object[lifters.size()][names.length];
 
 		for (int i = 0; i < lifters.size(); i++) {
@@ -228,17 +230,17 @@ public class GuiHelper {
 			rowData[i][3] = lifters.get(i).getCompetitor().getTeam();
 			rowData[i][4] = lifters.get(i).getCompetitor().getAge();
 			rowData[i][5] = lifters.get(i).getCategory();
-			
+
 			Double firstAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.FIRST);
-			rowData[i][6] = firstAttemptWeight == null || firstAttemptWeight == 0 ? "-": firstAttemptWeight;
-			
+			rowData[i][6] = firstAttemptWeight == null || firstAttemptWeight == 0 ? "-" : firstAttemptWeight;
+
 			Double secondAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.SECOND);
-			rowData[i][7] = secondAttemptWeight == null || secondAttemptWeight == 0 ? "-": secondAttemptWeight;
-			
+			rowData[i][7] = secondAttemptWeight == null || secondAttemptWeight == 0 ? "-" : secondAttemptWeight;
+
 			Double thirdAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.THIRD);
-			rowData[i][8] = thirdAttemptWeight == null || thirdAttemptWeight == 0 ? "-": thirdAttemptWeight;
-			
-			JButton btnDispute = new JButton("Contesta");
+			rowData[i][8] = thirdAttemptWeight == null || thirdAttemptWeight == 0 ? "-" : thirdAttemptWeight;
+
+			final JButton btnDispute = new JButton("Contesta");
 			btnDispute.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -272,18 +274,20 @@ public class GuiHelper {
 		};
 
 		TableModel model = new DefaultTableModel(rowData, names) {
-			public boolean isCellEditable(int row, int column)
-		    {
-		      return false;//This causes all cells to be not editable
-		    }
+			public boolean isCellEditable(int row, int column) {
+				return false;// This causes all cells to be not editable
+			}
 		};
-//		ZebraJTable table = new ZebraJTable(model);
+		// ZebraJTable table = new ZebraJTable(model);
 		JTable table = new JTable(model);
-		for (int i = 0; i < names.length-1; i++) {
+		for (int i = 0; i < names.length - 1; i++) {
 			table.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
 		}
-		table.getColumn("Avvia Contestazione").setCellRenderer(new ButtonRenderer());
-        table.getColumn("Avvia Contestazione").setCellEditor(new ButtonEditor(new JCheckBox()));
+
+		TableCellRenderer btnRenderer = new JTableButtonRenderer();
+		table.getColumn("Avvia Contestazione").setCellRenderer(btnRenderer);
+		table.getColumn("Avvia Contestazione").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.getTableHeader().setReorderingAllowed(false);
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;
@@ -291,74 +295,109 @@ public class GuiHelper {
 
 }
 
+// class ButtonRenderer extends JButton implements TableCellRenderer {
+//
+// public ButtonRenderer() {
+// setOpaque(true);
+// }
+//
+// @Override
+// public Component getTableCellRendererComponent(JTable table, Object value,
+// boolean isSelected, boolean hasFocus, int row, int column) {
+// if (isSelected) {
+// setForeground(table.getSelectionForeground());
+// setBackground(table.getSelectionBackground());
+// } else {
+// setForeground(table.getForeground());
+// setBackground(UIManager.getColor("Button.background"));
+// }
+// setText((value == null) ? "" : value.toString());
+// return this;
+// }
+// }
 
-class ButtonRenderer extends JButton implements TableCellRenderer {
+class JTableButtonMouseListener extends MouseAdapter {
+	private final JTable table;
 
-    public ButtonRenderer() {
-        setOpaque(true);
-    }
+	public JTableButtonMouseListener(JTable table) {
+		this.table = table;
+	}
 
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
-        if (isSelected) {
-            setForeground(table.getSelectionForeground());
-            setBackground(table.getSelectionBackground());
-        } else {
-            setForeground(table.getForeground());
-            setBackground(UIManager.getColor("Button.background"));
-        }
-        setText((value == null) ? "" : value.toString());
-        return this;
-    }
+	public void mouseClicked(MouseEvent e) {
+		int column = table.getColumnModel().getColumnIndexAtX(e.getX()); // get
+																			// the
+																			// coloum
+																			// of
+																			// the
+																			// button
+		int row = e.getY() / table.getRowHeight(); // get the row of the button
+
+		/* Checking the row or column is valid or not */
+		if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
+			Object value = table.getValueAt(row, column);
+			if (value instanceof JButton) {
+				/* perform a click event */
+				((JButton) value).doClick();
+			}
+		}
+	}
+}
+
+class JTableButtonRenderer implements TableCellRenderer {
+	@Override
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		JButton button = (JButton) value;
+
+		return button;
+	}
 }
 
 class ButtonEditor extends DefaultCellEditor {
 
-    protected JButton button;
-    private String label;
-    private boolean isPushed;
+	protected JButton button;
+	private String label;
+	private boolean isPushed;
 
-    public ButtonEditor(JCheckBox checkBox) {
-        super(checkBox);
-        button = new JButton();
-        button.setOpaque(true);
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fireEditingStopped();
-            }
-        });
-    }
+	public ButtonEditor(JCheckBox checkBox) {
+		super(checkBox);
+		button = new JButton();
+		button.setOpaque(true);
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fireEditingStopped();
+			}
+		});
+	}
 
-    @Override
-    public Component getTableCellEditorComponent(JTable table, Object value,
-            boolean isSelected, int row, int column) {
-        if (isSelected) {
-            button.setForeground(table.getSelectionForeground());
-            button.setBackground(table.getSelectionBackground());
-        } else {
-            button.setForeground(table.getForeground());
-            button.setBackground(table.getBackground());
-        }
-        label = (value == null) ? "" : value.toString();
-        button.setText("Contesta");
-        isPushed = true;
-        return button;
-    }
+	@Override
+	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+		if (isSelected) {
+			button.setForeground(table.getSelectionForeground());
+			button.setBackground(table.getSelectionBackground());
+		} else {
+			button.setForeground(table.getForeground());
+			button.setBackground(table.getBackground());
+		}
+		label = (value == null) ? "" : value.toString();
+		button.setText("Contesta");
+		isPushed = true;
+		return button;
+	}
 
-    @Override
-    public Object getCellEditorValue() {
-        if (isPushed) {
-            JOptionPane.showMessageDialog(button, label + ": Ouch!");
-        }
-        isPushed = false;
-        return label;
-    }
+	@Override
+	public Object getCellEditorValue() {
+		if (isPushed) {
+			JOptionPane.showMessageDialog(button, label + ": Ouch!");
+		}
+		isPushed = false;
+		return label;
+	}
 
-    @Override
-    public boolean stopCellEditing() {
-        isPushed = false;
-        return super.stopCellEditing();
-    }
+	@Override
+	public boolean stopCellEditing() {
+		isPushed = false;
+		return super.stopCellEditing();
+	}
 }
