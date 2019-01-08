@@ -237,6 +237,7 @@ public class Card extends JPanel {
 						.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnStartStop))
 				.addContainerGap(40, Short.MAX_VALUE)));
+		image_exercise_panel.setLayout(new BorderLayout(0, 0));
 		target_panel.setLayout(gl_target_panel);
 
 		lifter_team_label = new JLabel();

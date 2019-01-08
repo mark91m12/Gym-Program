@@ -58,8 +58,8 @@ public class GuiHelper {
 	public void addBgImageJP(JPanel panel, String path) {
 
 		ImageIcon imageBg = new ImageIcon(path);
-		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width,
-				panel.getPreferredSize().height, Image.SCALE_SMOOTH);
+		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width-150,
+				panel.getPreferredSize().height-150, Image.SCALE_SMOOTH);
 		JLabel picture = new JLabel(new ImageIcon(scaledImage));
 		panel.add(picture);
 	}
