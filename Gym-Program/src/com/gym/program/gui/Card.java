@@ -57,11 +57,13 @@ public class Card extends JPanel {
 	private double bar_weight;
 	private JLabel collar_label;
 	private JLabel light_collar_label;
+	private JPanel bonus_lift_panel;
 
 	private Timer timer;
 	private int time;
 	private JLabel fixed_bonus_attempt_label;
 	private JLabel bonus_attempt_label;
+
 	/**
 	 * Create the frame.
 	 */
@@ -148,7 +150,7 @@ public class Card extends JPanel {
 		time_label.setFont(new Font("Serif", Font.PLAIN, 40));
 
 		time = 60;
-		seconds_left_label = new JLabel(""+time+"s");
+		seconds_left_label = new JLabel("" + time + "s");
 		seconds_left_label.setFont(new Font("Serif", Font.PLAIN, 40));
 		seconds_left_label.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -161,82 +163,83 @@ public class Card extends JPanel {
 		exercise_label = new JLabel();
 		exercise_label.setHorizontalAlignment(SwingConstants.CENTER);
 		exercise_label.setFont(new Font("Serif", Font.PLAIN, 40));
-		
+
 		ActionListener timerAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					if(time>0) {
-						Card.this.logic();
-						seconds_left_label.repaint();
-					}else {
-						timer.stop();
-					}
+				if (time > 0) {
+					Card.this.logic();
+					seconds_left_label.repaint();
+				} else {
+					timer.stop();
+				}
 			}
 		};
 		timer = new Timer(1000, timerAL);
 		JButton btnStartStop = new JButton("Start/Stop");
-		btnStartStop.addActionListener( new ActionListener() {
-			
+		btnStartStop.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(timer.isRunning()) {
+				if (timer.isRunning()) {
 					timer.stop();
-				}else {
+				} else {
 					timer.start();
 				}
 			}
 		});
-		
+
 		GroupLayout gl_target_panel = new GroupLayout(target_panel);
-		gl_target_panel.setHorizontalGroup(
-			gl_target_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_target_panel.createSequentialGroup()
-					.addGap(32)
-					.addComponent(image_exercise_panel, GroupLayout.PREFERRED_SIZE, 535, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(31, Short.MAX_VALUE))
-				.addGroup(gl_target_panel.createSequentialGroup()
-					.addContainerGap(196, Short.MAX_VALUE)
-					.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_target_panel.createSequentialGroup()
-							.addComponent(Kg_label, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-							.addGap(18))
-						.addGroup(Alignment.TRAILING, gl_target_panel.createSequentialGroup()
-							.addComponent(btnStartStop)
-							.addGap(53)))
-					.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(current_lift_label, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_target_panel.createSequentialGroup()
-							.addGap(10)
-							.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-				.addGroup(Alignment.TRAILING, gl_target_panel.createSequentialGroup()
-					.addContainerGap(173, Short.MAX_VALUE)
-					.addComponent(exercise_label, GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE)
-					.addGap(159))
-		);
-		gl_target_panel.setVerticalGroup(
-			gl_target_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_target_panel.createSequentialGroup()
-					.addComponent(exercise_label, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-					.addGap(4)
-					.addComponent(image_exercise_panel, GroupLayout.PREFERRED_SIZE, 357, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
+		gl_target_panel
+				.setHorizontalGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								gl_target_panel
+										.createSequentialGroup().addGap(32)
+										.addComponent(image_exercise_panel, GroupLayout.PREFERRED_SIZE, 535,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap(31, Short.MAX_VALUE))
+						.addGroup(gl_target_panel.createSequentialGroup().addContainerGap(196, Short.MAX_VALUE)
+								.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+										.addGroup(Alignment.TRAILING,
+												gl_target_panel.createSequentialGroup()
+														.addComponent(Kg_label, GroupLayout.PREFERRED_SIZE, 101,
+																GroupLayout.PREFERRED_SIZE)
+														.addGap(18))
+										.addGroup(Alignment.TRAILING,
+												gl_target_panel.createSequentialGroup().addComponent(btnStartStop)
+														.addGap(53)))
+								.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(current_lift_label, GroupLayout.PREFERRED_SIZE, 256,
+												GroupLayout.PREFERRED_SIZE)
+										.addGroup(gl_target_panel.createSequentialGroup().addGap(10)
+												.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 113,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 104,
+														GroupLayout.PREFERRED_SIZE)))
+								.addContainerGap())
+						.addGroup(Alignment.TRAILING,
+								gl_target_panel.createSequentialGroup()
+										.addContainerGap(173, Short.MAX_VALUE).addComponent(exercise_label,
+												GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE)
+										.addGap(159)));
+		gl_target_panel.setVerticalGroup(gl_target_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_target_panel
+				.createSequentialGroup()
+				.addComponent(exercise_label, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE).addGap(4)
+				.addComponent(image_exercise_panel, GroupLayout.PREFERRED_SIZE, 357, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(Kg_label, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
 						.addComponent(current_lift_label, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
 						.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnStartStop))
-					.addContainerGap(40, Short.MAX_VALUE))
-		);
+				.addContainerGap(40, Short.MAX_VALUE)));
 		target_panel.setLayout(gl_target_panel);
 
 		lifter_team_label = new JLabel();
-		lifter_team_label.setText("asfasfasfasfasfasf");
 		lifter_team_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		JLabel fixed_team_label = new JLabel("team :");
@@ -257,71 +260,77 @@ public class Card extends JPanel {
 		record_weights_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		JPanel attempts_panel = new JPanel();
-		
-		JPanel bonus_lift_panel = new JPanel();
+
+		bonus_lift_panel = new JPanel();
 		GroupLayout gl_lifter_panel = new GroupLayout(lifter_panel);
-		gl_lifter_panel.setHorizontalGroup(
-			gl_lifter_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_lifter_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
+		gl_lifter_panel
+				.setHorizontalGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_lifter_panel
+						.createSequentialGroup().addContainerGap()
+						.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_lifter_panel
+								.createSequentialGroup()
+								.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(fixed_team_label, GroupLayout.PREFERRED_SIZE, 180,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(fixed_category_label, GroupLayout.PREFERRED_SIZE, 195,
+												GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lifter_team_label, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lifter_category_label, GroupLayout.PREFERRED_SIZE, 320,
+												GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_lifter_panel.createSequentialGroup()
+										.addComponent(fixed_record_label, GroupLayout.PREFERRED_SIZE, 195,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(record_weights_label,
+												GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)))
+						.addGap(18)
+						.addComponent(bonus_lift_panel, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
+						.addGap(26))
+						.addComponent(name_panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
 						.addGroup(gl_lifter_panel.createSequentialGroup()
-							.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(fixed_team_label, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
-								.addComponent(fixed_category_label, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lifter_category_label, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lifter_team_label)))
-						.addGroup(gl_lifter_panel.createSequentialGroup()
-							.addComponent(fixed_record_label, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(record_weights_label, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)))
-					.addGap(18)
-					.addComponent(bonus_lift_panel, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
-					.addGap(26))
-				.addComponent(name_panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
-				.addGroup(gl_lifter_panel.createSequentialGroup()
-					.addComponent(attempts_panel, GroupLayout.PREFERRED_SIZE, 749, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_lifter_panel.setVerticalGroup(
-			gl_lifter_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_lifter_panel.createSequentialGroup()
-					.addComponent(name_panel, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_lifter_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_lifter_panel.createSequentialGroup()
-							.addGroup(gl_lifter_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lifter_team_label)
-								.addComponent(fixed_team_label, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(fixed_category_label)
-								.addComponent(lifter_category_label, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(fixed_record_label, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-								.addComponent(record_weights_label, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(attempts_panel, GroupLayout.PREFERRED_SIZE, 749,
+										GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		gl_lifter_panel.setVerticalGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_lifter_panel
+				.createSequentialGroup()
+				.addComponent(name_panel, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_lifter_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_lifter_panel
+								.createSequentialGroup().addGroup(gl_lifter_panel
+										.createParallelGroup(Alignment.BASELINE).addComponent(lifter_team_label,
+												GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+										.addComponent(fixed_team_label, GroupLayout.PREFERRED_SIZE, 38,
+												GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(fixed_category_label).addComponent(lifter_category_label,
+												GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(fixed_record_label, GroupLayout.PREFERRED_SIZE, 46,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(record_weights_label, GroupLayout.PREFERRED_SIZE, 46,
+												GroupLayout.PREFERRED_SIZE)))
 						.addComponent(bonus_lift_panel, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(attempts_panel, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(17, Short.MAX_VALUE))
-		);
+				.addPreferredGap(ComponentPlacement.UNRELATED)
+				.addComponent(attempts_panel, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		bonus_lift_panel.setLayout(new BorderLayout(0, 0));
-		
+
 		fixed_bonus_attempt_label = new JLabel();
 		fixed_bonus_attempt_label.setText("alzata bonus");
 		fixed_bonus_attempt_label.setHorizontalAlignment(SwingConstants.CENTER);
 		fixed_bonus_attempt_label.setFont(new Font("Serif", Font.PLAIN, 35));
 		bonus_lift_panel.add(fixed_bonus_attempt_label, BorderLayout.NORTH);
-		
+
 		bonus_attempt_label = new JLabel();
 		bonus_attempt_label.setHorizontalAlignment(SwingConstants.CENTER);
 		bonus_attempt_label.setFont(new Font("Serif", Font.PLAIN, 35));
 		bonus_lift_panel.add(bonus_attempt_label, BorderLayout.CENTER);
 		this.setWhiteIcon(bonus_attempt_label);
-		
+
 		bonus_lift_panel.setVisible(false);
 
 		JLabel fixed_attempts_label = new JLabel("tentativi :");
@@ -411,7 +420,7 @@ public class Card extends JPanel {
 		button_panel.setLayout(gl_button_panel);
 		this.setLayout(gl_contentPane);
 
-		switch(this.match_frame.getCollar()) {
+		switch (this.match_frame.getCollar()) {
 		case LIGHT:
 			this.bar_weight = 20.00;
 			break;
@@ -436,7 +445,7 @@ public class Card extends JPanel {
 			this.plates_panel.add(disc_label);
 		}
 
-		switch(this.match_frame.getCollar()) {
+		switch (this.match_frame.getCollar()) {
 		case LIGHT:
 			this.plates_panel.add(this.light_collar_label);
 			break;
@@ -485,27 +494,33 @@ public class Card extends JPanel {
 		this.bonus_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.BONUS).toString());
 		updateLabelAttempts();
 
+		this.bonus_lift_panel.setVisible(false);
+
+		if (current_lifter.hasBonusAttempt())
+			this.bonus_lift_panel.setVisible(true);
+
 		this.exercise_label.setText(this.match_frame.getManager().getCurrentTypeOfMatch().toString());
 		this.current_lift_label.setText(Double.toString(current_lifter.getCurrentAttemptWeight()));
 
 		ArrayList<WeightDisc> result = LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(), 20.00);
 		this.addPlates(result);
-		
+
 		Manager manager = match_frame.getManager();
-		switch(manager.getCurrentTypeOfMatch()) {
-			case BENCHPRESS:
-				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/benchpress.png");
-				break;
-			case DEADLIFT:
-				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/deadlift.png");
-				break;
-			case SQUAT:
-				GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/squat.png");
-				break;
-			default:
-				break;
+		switch (manager.getCurrentTypeOfMatch()) {
+		case BENCHPRESS:
+			GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/benchpress.png");
+			break;
+		case DEADLIFT:
+			GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/deadlift.png");
+			break;
+		case SQUAT:
+			GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/squat.png");
+			break;
+		default:
+			break;
 		}
-		record_weights_label.setText(""+RecordsDB.getInstance().getRecord(new RecordKey(manager.getCurrentTypeOfMatch(), current_lifter.getCategory())));
+		record_weights_label.setText("" + RecordsDB.getInstance()
+				.getRecord(new RecordKey(manager.getCurrentTypeOfMatch(), current_lifter.getCategory())));
 	}
 
 	private void updateLabelAttempts() {
@@ -528,7 +543,7 @@ public class Card extends JPanel {
 		} catch (Exception e) {
 			this.setWhiteIcon(third_attempt_label);
 		}
-		
+
 		try {
 			this.setPositiveIcon(bonus_attempt_label, current_lifter.getAttemptResult(Attempt.BONUS));
 		} catch (Exception e) {
@@ -540,7 +555,8 @@ public class Card extends JPanel {
 
 	private void setLiftValidation(boolean isValid) {
 
-		if(current_lifter.getCurrentAttemptWeight() >= RecordsDB.getInstance().getRecord(new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(), current_lifter.getCategory()))) {
+		if (current_lifter.getCurrentAttemptWeight() >= RecordsDB.getInstance().getRecord(
+				new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(), current_lifter.getCategory()))) {
 			current_lifter.setBonusAttempt();
 			System.out.println("SET BONUS");
 		}
@@ -561,28 +577,35 @@ public class Card extends JPanel {
 			boolean tooHigh = false;
 			boolean tooSmall = false;
 			while (!is_valid) {
-				if(tooHigh) {
-					weight = JOptionPane.showInputDialog(getParent(), "Inserire la prossima alzata per l'atleta \n"
-							+ current_lifter.getCompetitor().getName() + " " + current_lifter.getCompetitor().getSurname(),
+				if (tooHigh) {
+					weight = JOptionPane.showInputDialog(getParent(),
+							"Inserire la prossima alzata per l'atleta \n" + current_lifter.getCompetitor().getName()
+									+ " " + current_lifter.getCompetitor().getSurname(),
 							null);
 					tooHigh = false;
-				}else if(tooSmall) {
-					weight = JOptionPane.showInputDialog(getParent(),"Il peso che hai inserito è inferiore o uguale al miglior tentativo dell'atleta. Prego inserire peso maggiore", null);
+				} else if (tooSmall) {
+					weight = JOptionPane.showInputDialog(getParent(),
+							"Il peso che hai inserito è inferiore o uguale al miglior tentativo dell'atleta. Prego inserire peso maggiore",
+							null);
 					tooSmall = false;
-				}else {
+				} else {
 					try {
 						double temp = Double.parseDouble(weight);
 						int confirm = JOptionPane.YES_OPTION;
-						if (temp <= current_lifter.getCurrentAttemptWeight() && (current_lifter.getCurrentAttemptResult() || temp <= current_lifter.getBestAttemptWeight())) {
-								tooSmall = true;
+						if (temp <= current_lifter.getCurrentAttemptWeight()
+								&& (current_lifter.getCurrentAttemptResult()
+										|| temp <= current_lifter.getBestAttemptWeight())) {
+							tooSmall = true;
 						} else {
-							if(temp >= (current_lifter.getCompetitor().getWeight()*2.5)) {
-								confirm = JOptionPane.showConfirmDialog(getParent(), "Il peso inserito sembrerebbe eccessivo. Sicuro che la scelta sia coretta?", "ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+							if (temp >= (current_lifter.getCompetitor().getWeight() * 2.5)) {
+								confirm = JOptionPane.showConfirmDialog(getParent(),
+										"Il peso inserito sembrerebbe eccessivo. Sicuro che la scelta sia coretta?",
+										"ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 							}
-							if(confirm == JOptionPane.YES_OPTION) {
+							if (confirm == JOptionPane.YES_OPTION) {
 								current_lifter.setNextAttemptWeight(temp);
 								is_valid = true;
-							}else {
+							} else {
 								tooHigh = true;
 							}
 						}
@@ -591,7 +614,7 @@ public class Card extends JPanel {
 					}
 				}
 			}
-		}else if(current_lifter.getCurrentAttempt().equals(Attempt.THIRD) && !isValid){
+		} else if (current_lifter.getCurrentAttempt().equals(Attempt.THIRD) && !isValid) {
 			match_frame.getManager().getCurrentMatch().addLifterCanDispute(current_lifter);
 		}
 		updateCard();
@@ -614,9 +637,9 @@ public class Card extends JPanel {
 				.updateLifters();
 		this.current_lifter = this.match_frame.getManager().getCurrentLifter();
 	}
-	
-	private void logic(){
+
+	private void logic() {
 		time--;
-		seconds_left_label.setText(""+time+"s");
+		seconds_left_label.setText("" + time + "s");
 	}
 }

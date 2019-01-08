@@ -240,11 +240,13 @@ public class GuiHelper {
 			Double thirdAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.THIRD);
 			rowData[i][8] = thirdAttemptWeight == null || thirdAttemptWeight == 0 ? "-" : thirdAttemptWeight;
 
+			int index = i;
 			final JButton btnDispute = new JButton("Contesta");
 			btnDispute.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("**************AVVIARE CONTESTAZIONE**************");
+					System.out.println("aggiungi alzata bonus per atleta :\n"+lifters.get(index).getCompetitor().getName());
+					lifters.get(index).setBonusAttempt();
 				}
 			});
 			rowData[i][9] = btnDispute;
