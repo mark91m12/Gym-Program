@@ -48,9 +48,10 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	private JButton btnStart;
 
 	private JButton btnTest;
-	
+
 	private MatchFrame matchFrame;
 	private CollarType collarType;
+	private JButton btn_check_score;
 
 	/**
 	 * Create the frame.
@@ -68,8 +69,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(final WindowEvent e) {
-				final int i = JOptionPane.showConfirmDialog(MainFrame.this, "Sei sicuro di voler chiudere l'applicazione?", "ESCI",
-						JOptionPane.YES_NO_OPTION);
+				final int i = JOptionPane.showConfirmDialog(MainFrame.this,
+						"Sei sicuro di voler chiudere l'applicazione?", "ESCI", JOptionPane.YES_NO_OPTION);
 				if (i == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
@@ -153,30 +154,30 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				switchTo(disciplinePanel);
 			}
 		});
-		
+
 		btnTest = new JButton("Crea istanza Test");
 		btnTest.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				MainFrame.this.manager = new Manager();
 				Match m1 = new Match(TypeOfMatch.BENCHPRESS);
 				Match m2 = new Match(TypeOfMatch.DEADLIFT);
 				Match m3 = new Match(TypeOfMatch.SQUAT);
-				
+
 				CompetitorBuilder builder = CompetitorBuilder.newBuilder().setName("Davide").setSurname("Amato")
 						.setSex(Sex.MALE).setAge(24).setTeam("kc").setWeight(83.40);
-		
+
 				Competitor c1 = builder.build();
 				Competitor c2 = builder.setName("Marco").setAge(27).setWeight(78).build();
 				Competitor c3 = builder.setName("Andrea").setAge(29).setWeight(62).build();
 				Competitor c4 = builder.setName("Chiara").setAge(16).setWeight(55).build();
 				Competitor c5 = builder.setName("Mimmo").setAge(58).setWeight(90).build();
-		
+
 				// c1 c3 c5 to all matches
 				manager.addMatch(m1);
 				manager.addMatch(m2);
-		
+
 				MainFrame.this.manager.setMatches(new HashMap<>());
 				MainFrame.this.manager.addMatch(m1);
 				MainFrame.this.manager.addMatch(m2);
@@ -192,13 +193,13 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c3, Choice.CLSS_AGE, 120);
 				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c5, Choice.CLSS_AGE, 70);
 				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c4, Choice.CLSS_AGE, 60);
-				
+
 				MainFrame.this.setCollar(CollarType.WEIGHT);
 				MainFrame.this.update();
 				btnStart.setEnabled(true);
 			}
 		});
-		
+
 		JButton btnShowDisputePanel = new JButton("Segnala Contestazione");
 		btnShowDisputePanel.addActionListener(new ActionListener() {
 			@Override
@@ -206,56 +207,48 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				showDisputeForm();
 			}
 		});
+
+		btn_check_score = new JButton("calcola wilks");
+		btn_check_score.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				showCheckScorePanel();
+			}
+		});
 		GroupLayout gl_menuPanel = new GroupLayout(menuPanel);
-		gl_menuPanel.setHorizontalGroup(
-			gl_menuPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_menuPanel.createSequentialGroup()
-					.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_menuPanel.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(rdbtnBenchPress)
-								.addGroup(gl_menuPanel.createSequentialGroup()
-									.addGap(24)
-									.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnShowDisputePanel)
-										.addComponent(btnStart)))
+		gl_menuPanel.setHorizontalGroup(gl_menuPanel.createParallelGroup(Alignment.TRAILING).addGroup(gl_menuPanel
+				.createSequentialGroup()
+				.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_menuPanel
+						.createSequentialGroup().addContainerGap()
+						.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING).addComponent(rdbtnBenchPress)
+								.addGroup(gl_menuPanel.createSequentialGroup().addGap(24)
+										.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
+												.addComponent(btnShowDisputePanel).addComponent(btnStart)))
 								.addGroup(gl_menuPanel.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(lblSelezionaGara, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(rdbtnSquat, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(rdbtnDeadLift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)))
-							.addPreferredGap(ComponentPlacement.RELATED))
-						.addGroup(gl_menuPanel.createSequentialGroup()
-							.addGap(53)
-							.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnChooseDisciplines)
-								.addComponent(btnInsertLifters, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnTest))))
-					.addContainerGap(43, Short.MAX_VALUE))
-		);
-		gl_menuPanel.setVerticalGroup(
-			gl_menuPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_menuPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(btnChooseDisciplines)
-					.addGap(56)
-					.addComponent(btnInsertLifters)
-					.addGap(18)
-					.addComponent(btnTest)
-					.addGap(47)
-					.addComponent(lblSelezionaGara)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(rdbtnBenchPress)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(rdbtnSquat)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(rdbtnDeadLift)
-					.addGap(18)
-					.addComponent(btnStart)
-					.addGap(124)
-					.addComponent(btnShowDisputePanel)
-					.addContainerGap(512, Short.MAX_VALUE))
-		);
+										.addComponent(lblSelezionaGara, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(rdbtnSquat, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(rdbtnDeadLift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 108,
+												Short.MAX_VALUE))))
+						.addGroup(gl_menuPanel.createSequentialGroup().addGap(53).addGroup(gl_menuPanel
+								.createParallelGroup(Alignment.LEADING).addComponent(btnChooseDisciplines)
+								.addComponent(btnInsertLifters, GroupLayout.PREFERRED_SIZE, 128,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnTest).addComponent(btn_check_score, GroupLayout.PREFERRED_SIZE, 128,
+										GroupLayout.PREFERRED_SIZE))))
+				.addContainerGap(57, Short.MAX_VALUE)));
+		gl_menuPanel.setVerticalGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_menuPanel.createSequentialGroup().addContainerGap().addComponent(btnChooseDisciplines)
+						.addGap(15).addComponent(btn_check_score).addGap(18).addComponent(btnInsertLifters).addGap(18)
+						.addComponent(btnTest).addGap(47).addComponent(lblSelezionaGara)
+						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(rdbtnBenchPress)
+						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(rdbtnSquat)
+						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(rdbtnDeadLift).addGap(18)
+						.addComponent(btnStart).addGap(124).addComponent(btnShowDisputePanel)
+						.addContainerGap(232, Short.MAX_VALUE)));
 		menuPanel.setLayout(gl_menuPanel);
 		contentPane.setLayout(gl_contentPane);
 		switchTo(disciplinePanel);
@@ -278,6 +271,10 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 
 	public void showInsertForm() {
 		switchTo(new InsertForm(this));
+	}
+
+	public void showCheckScorePanel() {
+		switchTo(new CheckScorePanel());
 	}
 
 	public void setStartBtnEnabled(boolean b) {
@@ -326,11 +323,11 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	public void setCollar(CollarType cT) {
 		this.collarType = cT;
 	}
-	
+
 	public CollarType getCollar() {
 		return this.collarType;
 	}
-	
+
 	public void showDisputeForm() {
 		switchTo(new DisputePanel(this));
 	}
