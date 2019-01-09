@@ -1,28 +1,32 @@
 package com.gym.program.gui;
 
-import javax.swing.JPanel;
-import java.awt.FlowLayout;
-
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import java.awt.Font;
 import java.awt.Color;
-import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.BoxLayout;
-import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import com.gym.program.utils.LogicHelper;
+import com.gym.program.utils.Sex;
 
 public class CheckScorePanel extends JPanel {
 
 	private JComboBox sex_cmbx;
 	private JTextField txt_field_bw;
 	private JTextField txt_field_lifted;
+	private double body_weight;
+	private double lifted_weight;
+	private Sex sex;
 
 	/**
 	 * Create the panel.
@@ -59,7 +63,27 @@ public class CheckScorePanel extends JPanel {
 
 		JButton calculate_wilks_btn = new JButton("Calcola\r\n");
 		calculate_wilks_btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		calculate_wilks_btn.setEnabled(false);
+		calculate_wilks_btn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (checkInputData()) {
+
+					if (sex_cmbx.getSelectedItem().equals("Maschile")) {
+						sex = Sex.MALE;
+					} else {
+						sex = Sex.FEMALE;
+					}
+
+					wilks_label.setText(Double.toString(
+							LogicHelper.rounded(LogicHelper.getWilksResult(body_weight, lifted_weight, sex))));
+				} else {
+					JOptionPane.showMessageDialog(CheckScorePanel.this, "I dati inseriti non sono corretti.",
+							"ATTENZIONE", 2);
+				}
+			}
+		});
 
 		JTextPane wilks_text_pane = new JTextPane();
 		wilks_text_pane.setBackground(new Color(65, 105, 225));
@@ -106,5 +130,20 @@ public class CheckScorePanel extends JPanel {
 						.addComponent(calculate_wilks_btn).addContainerGap()));
 		setLayout(groupLayout);
 
+	}
+
+	protected boolean checkInputData() {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		try {
+			this.body_weight = Double.parseDouble(this.txt_field_bw.getText());
+			this.lifted_weight = Double.parseDouble(this.txt_field_lifted.getText());
+			result = true;
+		} catch (NumberFormatException e) {
+			// not a double
+			result = false;
+			System.out.println("MESSAGGIO INSERIRE PESO CORRETTO");
+		}
+		return result;
 	}
 }
