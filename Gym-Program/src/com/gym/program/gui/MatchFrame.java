@@ -1,22 +1,10 @@
 package com.gym.program.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import com.gym.program.logic.Manager;
-import com.gym.program.logic.competitor.Competitor;
-import com.gym.program.logic.competitor.CompetitorBuilder;
-import com.gym.program.logic.match.Match;
-import com.gym.program.logic.match.Match.TypeOfMatch;
-import com.gym.program.utils.Choice;
 import com.gym.program.utils.CollarType;
-import com.gym.program.utils.Sex;
-
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -26,6 +14,10 @@ import javax.swing.JTabbedPane;
 
 public class MatchFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MainFrame mainFrame;
 	private Manager manager;

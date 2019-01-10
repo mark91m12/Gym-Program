@@ -23,12 +23,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
-import com.gym.program.gui.ZebraJTable;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.match.Lifter;
 
@@ -58,8 +56,8 @@ public class GuiHelper {
 	public void addBgImageJP(JPanel panel, String path) {
 
 		ImageIcon imageBg = new ImageIcon(path);
-		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width-150,
-				panel.getPreferredSize().height-150, Image.SCALE_SMOOTH);
+		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width - 150,
+				panel.getPreferredSize().height - 150, Image.SCALE_SMOOTH);
 		JLabel picture = new JLabel(new ImageIcon(scaledImage));
 		panel.add(picture);
 	}
@@ -245,7 +243,8 @@ public class GuiHelper {
 			btnDispute.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("aggiungi alzata bonus per atleta :\n"+lifters.get(index).getCompetitor().getName());
+					System.out.println(
+							"aggiungi alzata bonus per atleta :\n" + lifters.get(index).getCompetitor().getName());
 					lifters.get(index).setBonusAttempt();
 				}
 			});

@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
@@ -17,20 +16,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Category;
 import com.gym.program.utils.GuiHelper;
 
 public class RankingPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private MatchFrame matchFrame;
 	private DefaultComboBoxModel<TypeOfMatch> matchListModel;
 	private DefaultComboBoxModel<Category> categoryListModel;
-	private DefaultListModel<String> liftersModel;
-	
-	private JComboBox comboBoxCategoryList;
-	private JComboBox comboBoxMatchList;
+	private JComboBox<Category> comboBoxCategoryList;
+	private JComboBox<TypeOfMatch> comboBoxMatchList;
 	/**
 	 * Create the panel.
 	 * @param testFrame 
@@ -58,8 +58,8 @@ public class RankingPanel extends JPanel {
 		
 		JLabel lblMatchList = new JLabel("Seleziona disciplina");
 		
-		comboBoxMatchList = new JComboBox();
-		matchListModel = new DefaultComboBoxModel();
+		comboBoxMatchList = new JComboBox<TypeOfMatch>();
+		matchListModel = new DefaultComboBoxModel<TypeOfMatch>();
 		for (TypeOfMatch type : matchFrame.getManager().getMatches().keySet()) {
 			matchListModel.addElement(type);
 		}
@@ -68,7 +68,7 @@ public class RankingPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Set<Category> categories = new HashSet();
+				Set<Category> categories = new HashSet<Category>();
 				for (Category c: matchFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().keySet()) {
 					categories.add(c);
 				}
@@ -82,7 +82,7 @@ public class RankingPanel extends JPanel {
 		JPanel tableContainerPanel = new JPanel();
 		tableContainerPanel.setBackground(Color.WHITE);
 		JLabel lblCategory = new JLabel("Seleziona categoria");
-		comboBoxCategoryList = new JComboBox();
+		comboBoxCategoryList = new JComboBox<Category>();
 		comboBoxCategoryList.addActionListener(new ActionListener() {
 			
 			@Override

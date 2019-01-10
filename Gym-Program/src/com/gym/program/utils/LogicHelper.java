@@ -23,6 +23,17 @@ public class LogicHelper {
 	private static final double e_female = 0.00004731582;
 	private static final double f_female = -0.00000009054;
 
+	private static ArrayList<WeightDisc> plates;
+	private static double remainder;
+
+	public static ArrayList<WeightDisc> getPlates() {
+		return plates;
+	}
+
+	public static void setPlates(ArrayList<WeightDisc> plates) {
+		LogicHelper.plates = plates;
+	}
+
 	public static double getWilksResult(double bw, double weight_lifted, Sex sex) {
 
 		if (sex.equals(Sex.MALE)) {
@@ -39,10 +50,29 @@ public class LogicHelper {
 
 	}
 
-	public static ArrayList<WeightDisc> calculateWeights(double weight, double bar) {
+	// public static ArrayList<WeightDisc> calculateWeights(double weight,
+	// double bar) {
+	//
+	// WeightDisc plate = new W25Kg();
+	// // WeightDisc.is_present_0_25_kg = true;
+	// // WeightDisc.is_present_0_5_kg = true; TODO
+	// double target;
+	//
+	// ArrayList<WeightDisc> plates = new ArrayList<WeightDisc>();
+	//
+	// target = (weight - bar) / 2;
+	// plate.updateList(target, plates);
+	// System.out.println(plate.check_weights);
+	// System.out.println(plate.rest);
+	// return plates;
+	//
+	// }
 
-		WeightDisc plate = new TwentyFiveKg();
+	public static boolean calculateWeights(double weight, double bar) {
 
+		WeightDisc plate = new W25Kg();
+		// WeightDisc.is_present_0_25_kg = true;
+		// WeightDisc.is_present_0_5_kg = true; TODO
 		double target;
 
 		ArrayList<WeightDisc> plates = new ArrayList<WeightDisc>();
@@ -50,7 +80,10 @@ public class LogicHelper {
 		target = (weight - bar) / 2;
 		plate.updateList(target, plates);
 
-		return plates;
+		setPlates(plates);
+		setRest(WeightDisc.rest);
+
+		return WeightDisc.check_weights;
 
 	}
 
@@ -139,5 +172,13 @@ public class LogicHelper {
 
 	public static double rounded(double number) {
 		return (double) Math.round(number * 100) / 100;
+	}
+
+	public static double getRest() {
+		return remainder;
+	}
+
+	public static void setRest(double rest) {
+		LogicHelper.remainder = rest;
 	}
 }

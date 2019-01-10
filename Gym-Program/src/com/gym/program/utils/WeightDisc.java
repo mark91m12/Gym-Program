@@ -6,6 +6,10 @@ public abstract class WeightDisc {
 
 	public WeightDisc successor = null;
 	protected double kg = 0;
+	protected static boolean is_present_0_5_kg = false;
+	protected static boolean is_present_0_25_kg = false;
+	protected static boolean check_weights = true;
+	protected static double rest = 0;
 
 	public double getKg() {
 		return kg;
@@ -43,9 +47,9 @@ public abstract class WeightDisc {
 
 }
 
-class TwentyFiveKg extends WeightDisc {
+class W25Kg extends WeightDisc {
 
-	public TwentyFiveKg() {
+	public W25Kg() {
 		this.kg = 25;
 		this.label = "25";
 
@@ -53,7 +57,7 @@ class TwentyFiveKg extends WeightDisc {
 
 	public void setSuccessor(double target, List<WeightDisc> list) {
 
-		this.successor = new TwentyKg();
+		this.successor = new W20Kg();
 		this.successor.updateList(target, list);
 
 	}
@@ -66,9 +70,9 @@ class TwentyFiveKg extends WeightDisc {
 
 }
 
-class TwentyKg extends WeightDisc {
+class W20Kg extends WeightDisc {
 
-	public TwentyKg() {
+	public W20Kg() {
 		this.kg = 20;
 		this.label = "20";
 
@@ -76,7 +80,7 @@ class TwentyKg extends WeightDisc {
 
 	public void setSuccessor(double target, List<WeightDisc> list) {
 
-		this.successor = new FifteenKg();
+		this.successor = new W15Kg();
 		this.successor.updateList(target, list);
 
 	}
@@ -89,9 +93,9 @@ class TwentyKg extends WeightDisc {
 
 }
 
-class FifteenKg extends WeightDisc {
+class W15Kg extends WeightDisc {
 
-	public FifteenKg() {
+	public W15Kg() {
 		this.kg = 15;
 		this.label = "15";
 
@@ -99,7 +103,7 @@ class FifteenKg extends WeightDisc {
 
 	public void setSuccessor(double target, List<WeightDisc> list) {
 
-		this.successor = new TenKg();
+		this.successor = new W10Kg();
 		this.successor.updateList(target, list);
 
 	}
@@ -112,9 +116,9 @@ class FifteenKg extends WeightDisc {
 
 }
 
-class TenKg extends WeightDisc {
+class W10Kg extends WeightDisc {
 
-	public TenKg() {
+	public W10Kg() {
 		this.kg = 10;
 		this.label = "10";
 
@@ -122,7 +126,7 @@ class TenKg extends WeightDisc {
 
 	public void setSuccessor(double target, List<WeightDisc> list) {
 
-		this.successor = new FiveKg();
+		this.successor = new W5Kg();
 		this.successor.updateList(target, list);
 
 	}
@@ -135,9 +139,9 @@ class TenKg extends WeightDisc {
 
 }
 
-class FiveKg extends WeightDisc {
+class W5Kg extends WeightDisc {
 
-	public FiveKg() {
+	public W5Kg() {
 		this.kg = 5;
 		this.label = "5";
 
@@ -145,7 +149,7 @@ class FiveKg extends WeightDisc {
 
 	public void setSuccessor(double target, List<WeightDisc> list) {
 
-		this.successor = new TwoPoint5Kg();
+		this.successor = new W2p5Kg();
 		this.successor.updateList(target, list);
 
 	}
@@ -157,9 +161,9 @@ class FiveKg extends WeightDisc {
 	}
 }
 
-class TwoPoint5Kg extends WeightDisc {
+class W2p5Kg extends WeightDisc {
 
-	public TwoPoint5Kg() {
+	public W2p5Kg() {
 		this.kg = 2.5;
 		this.label = "2.5";
 
@@ -167,7 +171,7 @@ class TwoPoint5Kg extends WeightDisc {
 
 	public void setSuccessor(double target, List<WeightDisc> list) {
 
-		this.successor = new OnePoint25Kg();
+		this.successor = new W1p25Kg();
 		this.successor.updateList(target, list);
 
 	}
@@ -179,9 +183,9 @@ class TwoPoint5Kg extends WeightDisc {
 	}
 }
 
-class OnePoint25Kg extends WeightDisc {
+class W1p25Kg extends WeightDisc {
 
-	public OnePoint25Kg() {
+	public W1p25Kg() {
 		this.kg = 1.25;
 		this.label = "1.25";
 
@@ -189,8 +193,73 @@ class OnePoint25Kg extends WeightDisc {
 
 	public void setSuccessor(double target, List<WeightDisc> list) {
 
-		if (target > 0)
-			System.out.println("Mancano i tagli piccoli restano fuori " + target * 2 + " kg");
+		if (target > 0) {
+
+			if (is_present_0_5_kg) {
+				this.successor = new W0p5Kg();
+				this.successor.updateList(target, list);
+			} else if (is_present_0_25_kg) {
+				this.successor = new W0p25Kg();
+				this.successor.updateList(target, list);
+			} else {
+				WeightDisc.check_weights = false;
+				WeightDisc.rest = target;
+			}
+
+		} else {
+			WeightDisc.check_weights = true;
+		}
+
+	}
+
+	@Override
+	public String getPathImage() {
+		// TODO Auto-generated method stub
+		return "images/1_25kg.png";
+	}
+}
+
+class W0p5Kg extends WeightDisc {
+
+	public W0p5Kg() {
+		this.kg = 0.5;
+		this.label = "0.5";
+
+	}
+
+	public void setSuccessor(double target, List<WeightDisc> list) {
+
+		if (target > 0 && !is_present_0_25_kg) {
+			WeightDisc.check_weights = false;
+			WeightDisc.rest = target;
+		} else {
+			this.successor = new W0p25Kg();
+			this.successor.updateList(target, list);
+		}
+
+	}
+
+	@Override
+	public String getPathImage() {
+		// TODO Auto-generated method stub
+		return "images/1_25kg.png";
+	}
+}
+
+class W0p25Kg extends WeightDisc {
+
+	public W0p25Kg() {
+		this.kg = 0.25;
+		this.label = "0.25";
+
+	}
+
+	public void setSuccessor(double target, List<WeightDisc> list) {
+
+		if (target > 0) {
+			WeightDisc.check_weights = false;
+			WeightDisc.rest = target;
+		}
 
 	}
 

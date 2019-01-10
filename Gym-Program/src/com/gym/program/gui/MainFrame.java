@@ -36,6 +36,10 @@ import com.gym.program.utils.Sex;
 
 public class MainFrame extends JFrame implements PanelSwitcher {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final DisciplinePanel disciplinePanel;
 	private JPanel mainPanelToSwitch;
@@ -208,7 +212,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 			}
 		});
 
-		btn_check_score = new JButton("calcola wilks");
+		btn_check_score = new JButton("Punteggio Wilks");
 		btn_check_score.addActionListener(new ActionListener() {
 
 			@Override

@@ -22,7 +22,6 @@ import javax.swing.Timer;
 
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.match.Lifter;
-import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Attempt;
 import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.LogicHelper;
@@ -503,7 +502,8 @@ public class Card extends JPanel {
 		this.exercise_label.setText(this.match_frame.getManager().getCurrentTypeOfMatch().toString());
 		this.current_lift_label.setText(Double.toString(current_lifter.getCurrentAttemptWeight()));
 
-		ArrayList<WeightDisc> result = LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(), 20.00);
+		LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(), this.bar_weight);
+		ArrayList<WeightDisc> result = LogicHelper.getPlates();
 		this.addPlates(result);
 
 		Manager manager = match_frame.getManager();
@@ -604,8 +604,15 @@ public class Card extends JPanel {
 										"ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 							}
 							if (confirm == JOptionPane.YES_OPTION) {
-								current_lifter.setNextAttemptWeight(temp);
-								is_valid = true;
+								if (LogicHelper.calculateWeights(temp, this.bar_weight)) {
+									current_lifter.setNextAttemptWeight(temp);
+									is_valid = true;
+								} else {
+									weight = JOptionPane.showInputDialog(getParent(),
+											"Purtroppo i dischi a disposizione non permettono l'inserimento del peso selezionato,\nRestano fuori "
+													+ LogicHelper.getRest() + " kg",
+											null);
+								}
 							} else {
 								tooHigh = true;
 							}
@@ -625,9 +632,10 @@ public class Card extends JPanel {
 		updateCurrentLifter();
 		if (current_lifter != null) {
 			setLifterData();
-			ArrayList<WeightDisc> result = LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(),
-					this.bar_weight);
-			this.addPlates(result);
+			// LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(),
+			// this.bar_weight);
+			// ArrayList<WeightDisc> result = LogicHelper.getPlates();
+			// this.addPlates(result);
 		} else { // no more lifters
 			match_frame.comeBackToMainFrame();
 		}

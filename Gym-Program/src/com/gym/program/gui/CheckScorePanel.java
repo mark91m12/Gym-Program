@@ -21,7 +21,11 @@ import com.gym.program.utils.Sex;
 
 public class CheckScorePanel extends JPanel {
 
-	private JComboBox sex_cmbx;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JComboBox<String> sex_cmbx;
 	private JTextField txt_field_bw;
 	private JTextField txt_field_lifted;
 	private double body_weight;
@@ -35,11 +39,26 @@ public class CheckScorePanel extends JPanel {
 
 		JLabel fixed_sex_label = new JLabel("Genere");
 		fixed_sex_label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		sex = Sex.MALE;
 
-		sex_cmbx = new JComboBox();
+		sex_cmbx = new JComboBox<String>();
 		sex_cmbx.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		sex_cmbx.addItem("Maschile");
 		sex_cmbx.addItem("Femminile");
+
+		sex_cmbx.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (sex_cmbx.getSelectedItem().equals("Maschile")) {
+					sex = Sex.MALE;
+				} else {
+					sex = Sex.FEMALE;
+				}
+
+			}
+		});
 
 		JLabel fixed_bw_label = new JLabel("Peso Corporeo KG");
 		fixed_bw_label.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -69,13 +88,6 @@ public class CheckScorePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if (checkInputData()) {
-
-					if (sex_cmbx.getSelectedItem().equals("Maschile")) {
-						sex = Sex.MALE;
-					} else {
-						sex = Sex.FEMALE;
-					}
-
 					wilks_label.setText(Double.toString(
 							LogicHelper.rounded(LogicHelper.getWilksResult(body_weight, lifted_weight, sex))));
 				} else {
