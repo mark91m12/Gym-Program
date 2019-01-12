@@ -186,17 +186,17 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				MainFrame.this.manager.addMatch(m1);
 				MainFrame.this.manager.addMatch(m2);
 				MainFrame.this.manager.addMatch(m3);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c1, Choice.CLSS_WEIGHT, 120);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.SQUAT).signUp(c1, Choice.CLSS_WEIGHT, 140);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c1, Choice.CLSS_WEIGHT, 160);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c2, Choice.CLSS_AGE, 130);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.SQUAT).signUp(c2, Choice.CLSS_WEIGHT, 150);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c2, Choice.CLSS_AGE, 160);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c3, Choice.CLSS_AGE, 100);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.SQUAT).signUp(c3, Choice.CLSS_WEIGHT, 120);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c3, Choice.CLSS_AGE, 120);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c5, Choice.CLSS_AGE, 70);
-				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c4, Choice.CLSS_AGE, 60);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c1, Choice.CLSS_WEIGHT, 120,6);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.SQUAT).signUp(c1, Choice.CLSS_WEIGHT, 140,12);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c1, Choice.CLSS_WEIGHT, 160,0);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c2, Choice.CLSS_AGE, 130,6);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.SQUAT).signUp(c2, Choice.CLSS_WEIGHT, 150,12);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c2, Choice.CLSS_AGE, 160,0);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c3, Choice.CLSS_AGE, 100,5);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.SQUAT).signUp(c3, Choice.CLSS_WEIGHT, 120,14);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c3, Choice.CLSS_AGE, 120,0);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.BENCHPRESS).signUp(c5, Choice.CLSS_AGE, 70,6);
+				MainFrame.this.manager.getMatches().get(TypeOfMatch.DEADLIFT).signUp(c4, Choice.CLSS_AGE, 60,0);
 
 				MainFrame.this.setCollar(CollarType.WEIGHT);
 				MainFrame.this.update();

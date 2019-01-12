@@ -62,6 +62,8 @@ public class Card extends JPanel {
 	private int time;
 	private JLabel fixed_bonus_attempt_label;
 	private JLabel bonus_attempt_label;
+	private JLabel fixed_rack_label;
+	private JLabel rack_number_label;
 
 	/**
 	 * Create the frame.
@@ -111,23 +113,23 @@ public class Card extends JPanel {
 		fixed_plates_label.setHorizontalAlignment(SwingConstants.LEFT);
 		fixed_plates_label.setFont(new Font("Serif", Font.PLAIN, 35));
 		GroupLayout gl_contentPane = new GroupLayout(this);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane
-						.createSequentialGroup().addGroup(gl_contentPane
-								.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-										.createSequentialGroup().addGroup(gl_contentPane
-												.createParallelGroup(Alignment.LEADING)
-												.addComponent(lifter_panel, GroupLayout.PREFERRED_SIZE, 744,
-														GroupLayout.PREFERRED_SIZE)
-												.addGroup(gl_contentPane.createSequentialGroup().addGap(264)
-														.addComponent(fixed_plates_label, GroupLayout.PREFERRED_SIZE,
-																197, GroupLayout.PREFERRED_SIZE))
-												.addComponent(plates_panel, GroupLayout.DEFAULT_SIZE, 752,
-														Short.MAX_VALUE))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(target_panel, GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
-								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup().addGap(1)
-										.addComponent(button_panel, GroupLayout.DEFAULT_SIZE, 1355, Short.MAX_VALUE)))
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(
+				Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
+						.createParallelGroup(Alignment.TRAILING).addGroup(gl_contentPane
+								.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(lifter_panel, GroupLayout.PREFERRED_SIZE, 744, Short.MAX_VALUE)
+										.addGroup(gl_contentPane.createSequentialGroup().addGap(264).addComponent(
+												fixed_plates_label, GroupLayout.PREFERRED_SIZE, 197,
+												GroupLayout.PREFERRED_SIZE))
+										.addComponent(plates_panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE))
+								.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+								.addComponent(target_panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+										Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup().addGap(1).addComponent(button_panel,
+								GroupLayout.DEFAULT_SIZE, 1355, Short.MAX_VALUE)))
 						.addContainerGap()));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
 				.createSequentialGroup()
@@ -138,7 +140,8 @@ public class Card extends JPanel {
 								.addComponent(fixed_plates_label, GroupLayout.PREFERRED_SIZE, 41, Short.MAX_VALUE)
 								.addPreferredGap(ComponentPlacement.RELATED).addComponent(plates_panel,
 										GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE))
-						.addComponent(target_panel, GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE))
+						.addComponent(target_panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+								Short.MAX_VALUE))
 				.addPreferredGap(ComponentPlacement.RELATED)
 				.addComponent(button_panel, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE).addGap(43)));
 
@@ -188,54 +191,75 @@ public class Card extends JPanel {
 			}
 		});
 
+		fixed_rack_label = new JLabel("rack :");
+		fixed_rack_label.setFont(new Font("Serif", Font.PLAIN, 35));
+		fixed_rack_label.setVisible(false);
+
+		rack_number_label = new JLabel("");
+		rack_number_label.setHorizontalAlignment(SwingConstants.CENTER);
+		rack_number_label.setFont(new Font("Serif", Font.PLAIN, 35));
+		rack_number_label.setVisible(false);
+
 		GroupLayout gl_target_panel = new GroupLayout(target_panel);
 		gl_target_panel
 				.setHorizontalGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_target_panel
-										.createSequentialGroup().addGap(32)
-										.addComponent(image_exercise_panel, GroupLayout.PREFERRED_SIZE, 535,
-												GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(31, Short.MAX_VALUE))
-						.addGroup(gl_target_panel.createSequentialGroup().addContainerGap(196, Short.MAX_VALUE)
-								.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
-										.addGroup(Alignment.TRAILING,
-												gl_target_panel.createSequentialGroup()
-														.addComponent(Kg_label, GroupLayout.PREFERRED_SIZE, 101,
+						.addGroup(gl_target_panel.createSequentialGroup()
+								.addContainerGap(174, Short.MAX_VALUE)
+								.addComponent(exercise_label, GroupLayout.PREFERRED_SIZE, 266,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(159))
+						.addGroup(gl_target_panel.createSequentialGroup().addGap(32).addGroup(gl_target_panel
+								.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_target_panel.createSequentialGroup()
+										.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_target_panel.createSequentialGroup().addGap(15)
+														.addComponent(fixed_rack_label, GroupLayout.PREFERRED_SIZE, 87,
+																GroupLayout.PREFERRED_SIZE))
+												.addGroup(gl_target_panel.createSequentialGroup().addGap(24)
+														.addComponent(rack_number_label, GroupLayout.PREFERRED_SIZE, 63,
+																GroupLayout.PREFERRED_SIZE)))
+										.addPreferredGap(ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+										.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+												.addComponent(Kg_label, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE,
+														101, GroupLayout.PREFERRED_SIZE)
+												.addComponent(btnStartStop, Alignment.TRAILING))
+										.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_target_panel.createSequentialGroup().addGap(28)
+														.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 113,
 																GroupLayout.PREFERRED_SIZE)
-														.addGap(18))
-										.addGroup(Alignment.TRAILING,
-												gl_target_panel.createSequentialGroup().addComponent(btnStartStop)
-														.addGap(53)))
-								.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(current_lift_label, GroupLayout.PREFERRED_SIZE, 256,
-												GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_target_panel.createSequentialGroup().addGap(10)
-												.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 113,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 104,
-														GroupLayout.PREFERRED_SIZE)))
-								.addContainerGap())
-						.addGroup(Alignment.TRAILING,
-								gl_target_panel.createSequentialGroup()
-										.addContainerGap(173, Short.MAX_VALUE).addComponent(exercise_label,
-												GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE)
-										.addGap(159)));
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE,
+																104, GroupLayout.PREFERRED_SIZE))
+												.addGroup(gl_target_panel.createSequentialGroup().addGap(18)
+														.addComponent(current_lift_label, GroupLayout.PREFERRED_SIZE,
+																256, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(image_exercise_panel, GroupLayout.PREFERRED_SIZE, 535,
+										GroupLayout.PREFERRED_SIZE))
+								.addContainerGap()));
 		gl_target_panel.setVerticalGroup(gl_target_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_target_panel
 				.createSequentialGroup()
 				.addComponent(exercise_label, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE).addGap(4)
 				.addComponent(image_exercise_panel, GroupLayout.PREFERRED_SIZE, 357, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
+				.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addGroup(gl_target_panel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(current_lift_label, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
 						.addComponent(Kg_label, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-						.addComponent(current_lift_label, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-						.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnStartStop))
-				.addContainerGap(40, Short.MAX_VALUE)));
+						.addGroup(gl_target_panel.createSequentialGroup()
+								.addComponent(fixed_rack_label, GroupLayout.PREFERRED_SIZE, 38,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(18)))
+				.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_target_panel.createSequentialGroup().addGap(40).addComponent(btnStartStop))
+						.addGroup(gl_target_panel.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(rack_number_label, GroupLayout.PREFERRED_SIZE, 38,
+												GroupLayout.PREFERRED_SIZE)
+										.addGroup(gl_target_panel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(time_label, GroupLayout.PREFERRED_SIZE, 84,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(seconds_left_label, GroupLayout.PREFERRED_SIZE, 77,
+														GroupLayout.PREFERRED_SIZE)))))
+				.addContainerGap(15, Short.MAX_VALUE)));
 		image_exercise_panel.setLayout(new BorderLayout(0, 0));
 		target_panel.setLayout(gl_target_panel);
 
@@ -510,12 +534,18 @@ public class Card extends JPanel {
 		switch (manager.getCurrentTypeOfMatch()) {
 		case BENCHPRESS:
 			GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/benchpress.png");
+			this.fixed_rack_label.setVisible(true);
+			this.rack_number_label.setText(Double.toString(current_lifter.getRack_number()));
+			this.rack_number_label.setVisible(true);
 			break;
 		case DEADLIFT:
 			GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/deadlift.png");
 			break;
 		case SQUAT:
 			GuiHelper.getInstance().addBgImageJP(image_exercise_panel, "images/disciplines/squat.png");
+			this.fixed_rack_label.setVisible(true);
+			this.rack_number_label.setText(Double.toString(current_lifter.getRack_number()));
+			this.rack_number_label.setVisible(true);
 			break;
 		default:
 			break;

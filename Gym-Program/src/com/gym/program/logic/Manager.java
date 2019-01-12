@@ -59,11 +59,11 @@ public class Manager {
 //		}
 //	}
 
-	public void signupLifter(List<TypeOfMatch> typeOfMatches, Competitor competitor, Choice choice, double first_lift) {
-		for (TypeOfMatch typeOfMatch : typeOfMatches) {
-			this.matches.get(typeOfMatch).signUp(competitor, choice, first_lift);
-		}
-	}
+//	public void signupLifter(List<TypeOfMatch> typeOfMatches, Competitor competitor, Choice choice, double first_lift) {
+//		for (TypeOfMatch typeOfMatch : typeOfMatches) {
+//			this.matches.get(typeOfMatch).signUp(competitor, choice, first_lift);
+//		}
+//	}
 
 	public TypeOfMatch getCurrentTypeOfMatch() {
 		return currentTypeOfMatch;

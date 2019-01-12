@@ -75,6 +75,9 @@ public class InsertForm extends JPanel {
 
 	private MainFrame mainFrame;
 	private Manager manager;
+	private JTextField txt_rack_n_bench;
+	private JTextField txt_rack_n_squat;
+	private JLabel fixed_rack_n_squat_label;
 
 	/**
 	 * Create the frame.
@@ -195,14 +198,26 @@ public class InsertForm extends JPanel {
 				}
 			}
 		});
+
+		txt_rack_n_squat = new JTextField();
+		txt_rack_n_squat.setColumns(10);
+
+		fixed_rack_n_squat_label = new JLabel("numero rack :");
 		GroupLayout gl_squat_panel = new GroupLayout(squat_panel);
 		gl_squat_panel.setHorizontalGroup(gl_squat_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_squat_panel.createSequentialGroup().addContainerGap()
 						.addGroup(gl_squat_panel.createParallelGroup(Alignment.LEADING).addComponent(rdbtnSquat)
 								.addGroup(gl_squat_panel.createSequentialGroup().addGap(8).addComponent(fixed_1st_squat,
-										GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
-						.addGap(18)
-						.addComponent(txt_lift_squat, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+										GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_squat_panel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(txt_lift_squat, GroupLayout.PREFERRED_SIZE, 57,
+										GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_squat_panel.createSequentialGroup()
+										.addComponent(fixed_rack_n_squat_label, GroupLayout.PREFERRED_SIZE, 66,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(txt_rack_n_squat,
+												GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)))
 						.addGap(18)
 						.addGroup(gl_squat_panel.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(age_class_squatbtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
@@ -210,17 +225,26 @@ public class InsertForm extends JPanel {
 								.addComponent(weight_class_squatbtn, GroupLayout.PREFERRED_SIZE, 123,
 										GroupLayout.PREFERRED_SIZE))
 						.addContainerGap()));
-		gl_squat_panel.setVerticalGroup(gl_squat_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_squat_panel.createSequentialGroup().addGap(11)
-						.addGroup(gl_squat_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_squat_panel.createSequentialGroup().addComponent(weight_class_squatbtn)
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(age_class_squatbtn))
-								.addGroup(gl_squat_panel.createSequentialGroup().addComponent(rdbtnSquat).addGap(18)
-										.addGroup(gl_squat_panel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(fixed_1st_squat).addComponent(txt_lift_squat,
-														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))))
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		gl_squat_panel
+				.setVerticalGroup(
+						gl_squat_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_squat_panel
+								.createSequentialGroup().addGap(11).addGroup(gl_squat_panel
+										.createParallelGroup(Alignment.LEADING).addGroup(gl_squat_panel
+												.createSequentialGroup().addGroup(gl_squat_panel
+														.createParallelGroup(Alignment.BASELINE)
+														.addComponent(weight_class_squatbtn)
+														.addComponent(txt_rack_n_squat, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(fixed_rack_n_squat_label))
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addComponent(age_class_squatbtn))
+										.addGroup(gl_squat_panel.createSequentialGroup().addComponent(rdbtnSquat)
+												.addGap(18).addGroup(gl_squat_panel
+														.createParallelGroup(Alignment.BASELINE).addComponent(
+																fixed_1st_squat)
+														.addComponent(txt_lift_squat, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		squat_panel.setLayout(gl_squat_panel);
 
 		deadlift_panel = new JPanel();
@@ -440,14 +464,26 @@ public class InsertForm extends JPanel {
 		setRdBtns4.add(age_class_benchbtn);
 		GuiHelper.getInstance().setSwitch(setRdBtns4);
 
+		txt_rack_n_bench = new JTextField();
+		txt_rack_n_bench.setColumns(10);
+
+		JLabel fixed_rack_n_bench_label = new JLabel("numero rack :");
+
 		GroupLayout gl_bench_panel = new GroupLayout(bench_panel);
 		gl_bench_panel.setHorizontalGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_bench_panel.createSequentialGroup().addContainerGap()
 						.addGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING).addComponent(rdbtnBenchPress)
 								.addGroup(gl_bench_panel.createSequentialGroup().addGap(8).addComponent(fixed_1st_bench,
-										GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)))
-						.addGap(18)
-						.addComponent(txt_lift_bench, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+										GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+						.addGap(6)
+						.addGroup(gl_bench_panel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(txt_lift_bench, GroupLayout.PREFERRED_SIZE, 59,
+										GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_bench_panel.createSequentialGroup()
+										.addComponent(fixed_rack_n_bench_label, GroupLayout.PREFERRED_SIZE, 66,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(txt_rack_n_bench,
+												GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)))
 						.addGap(18)
 						.addGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(age_class_benchbtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
@@ -455,17 +491,24 @@ public class InsertForm extends JPanel {
 								.addComponent(weight_class_benchbtn, GroupLayout.PREFERRED_SIZE, 123,
 										GroupLayout.PREFERRED_SIZE))
 						.addContainerGap()));
-		gl_bench_panel.setVerticalGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_bench_panel
-				.createSequentialGroup().addGap(11)
-				.addGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_bench_panel.createSequentialGroup().addComponent(weight_class_benchbtn)
-								.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(age_class_benchbtn))
-						.addGroup(gl_bench_panel.createSequentialGroup().addComponent(rdbtnBenchPress).addGap(18)
-								.addGroup(gl_bench_panel.createParallelGroup(Alignment.BASELINE)
-										.addComponent(fixed_1st_bench).addComponent(txt_lift_bench,
-												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))))
-				.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		gl_bench_panel.setVerticalGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_bench_panel.createSequentialGroup().addGap(11)
+						.addGroup(gl_bench_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_bench_panel.createSequentialGroup()
+										.addGroup(gl_bench_panel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(weight_class_benchbtn).addComponent(txt_rack_n_bench,
+														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(age_class_benchbtn))
+								.addGroup(gl_bench_panel.createSequentialGroup()
+										.addGroup(gl_bench_panel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(rdbtnBenchPress).addComponent(fixed_rack_n_bench_label))
+										.addGap(18)
+										.addGroup(gl_bench_panel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(fixed_1st_bench).addComponent(txt_lift_bench,
+														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE))))
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		bench_panel.setLayout(gl_bench_panel);
 		panel.setLayout(gl_panel);
 		this.setLayout(gl_contentPane);
@@ -583,10 +626,13 @@ public class InsertForm extends JPanel {
 	private boolean canAddLifter() {
 		if (rdbtnBenchPress.isSelected()) {
 
-			if (txt_lift_bench.getText().equals("") || txt_lift_bench.getText().equals(null)) {
+			if (txt_lift_bench.getText().equals("") || txt_lift_bench.getText().equals(null)
+					|| txt_rack_n_bench.getText().equals("") || txt_rack_n_bench.getText().equals(null)) {
 				return false;
 			}
 			try {
+
+				Double.parseDouble(txt_rack_n_bench.getText());
 				if (!LogicHelper.calculateWeights(Double.parseDouble(this.txt_lift_bench.getText()), this.bar_weight)) {
 					return false;
 				}
@@ -596,11 +642,14 @@ public class InsertForm extends JPanel {
 			}
 		}
 		if (rdbtnSquat.isSelected()) {
-			if (txt_lift_squat.getText().equals("") || txt_lift_squat.getText().equals(null)) {
+			if (txt_lift_squat.getText().equals("") || txt_lift_squat.getText().equals(null)
+					|| txt_rack_n_squat.getText().equals("") || txt_rack_n_squat.getText().equals(null)) {
 				return false;
 			}
 			try {
- 				if (!LogicHelper.calculateWeights(Double.parseDouble(this.txt_lift_squat.getText()), this.bar_weight)) {
+
+				Double.parseDouble(txt_rack_n_squat.getText());
+				if (!LogicHelper.calculateWeights(Double.parseDouble(this.txt_lift_squat.getText()), this.bar_weight)) {
 					return false;
 				}
 			} catch (NumberFormatException e) {
@@ -631,27 +680,28 @@ public class InsertForm extends JPanel {
 		if (rdbtnBenchPress.isSelected()) {
 			if (weight_class_benchbtn.isSelected()) {
 				matches.get(TypeOfMatch.BENCHPRESS).signUp(c, Choice.CLSS_WEIGHT,
-						Double.parseDouble(txt_lift_bench.getText()));
+						Double.parseDouble(txt_lift_bench.getText()), Double.parseDouble(txt_rack_n_bench.getText()));
 			} else {
 				matches.get(TypeOfMatch.BENCHPRESS).signUp(c, Choice.CLSS_AGE,
-						Double.parseDouble(txt_lift_bench.getText()));
+						Double.parseDouble(txt_lift_bench.getText()), Double.parseDouble(txt_rack_n_bench.getText()));
 			}
 		}
 		if (rdbtnSquat.isSelected()) {
 			if (weight_class_squatbtn.isSelected()) {
 				matches.get(TypeOfMatch.SQUAT).signUp(c, Choice.CLSS_WEIGHT,
-						Double.parseDouble(txt_lift_squat.getText()));
+						Double.parseDouble(txt_lift_squat.getText()), Double.parseDouble(txt_rack_n_squat.getText()));
 			} else {
-				matches.get(TypeOfMatch.SQUAT).signUp(c, Choice.CLSS_AGE, Double.parseDouble(txt_lift_squat.getText()));
+				matches.get(TypeOfMatch.SQUAT).signUp(c, Choice.CLSS_AGE, Double.parseDouble(txt_lift_squat.getText()),
+						Double.parseDouble(txt_rack_n_squat.getText()));
 			}
 		}
 		if (rdbtnDeadLift.isSelected()) {
 			if (weight_class_deadbtn.isSelected()) {
 				matches.get(TypeOfMatch.DEADLIFT).signUp(c, Choice.CLSS_WEIGHT,
-						Double.parseDouble(txt_lift_deadlift.getText()));
+						Double.parseDouble(txt_lift_deadlift.getText()), 0);
 			} else {
 				matches.get(TypeOfMatch.DEADLIFT).signUp(c, Choice.CLSS_AGE,
-						Double.parseDouble(txt_lift_deadlift.getText()));
+						Double.parseDouble(txt_lift_deadlift.getText()), 0);
 			}
 		}
 		reset();

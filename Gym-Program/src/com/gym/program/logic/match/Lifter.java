@@ -24,6 +24,8 @@ public class Lifter {
 
 	private Competitor competitor;
 	private Category category;
+	
+	private double rack_number;
 
 	private boolean hasBonusAttempt;
 	
@@ -35,6 +37,14 @@ public class Lifter {
 		this.currentAttempt = Attempt.FIRST;
 		this.bestAttemptWeight = 0;
 		this.hasBonusAttempt = false;
+	}
+
+	public double getRack_number() {
+		return rack_number;
+	}
+
+	public void setRack_number(double rack_number) {
+		this.rack_number = rack_number;
 	}
 
 	public void setCategory(Choice choice) {

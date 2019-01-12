@@ -53,12 +53,13 @@ public class Match {
 		this.matchRanking = matchRanking;
 	}
 
-	public void signUp(Competitor competitor, Choice choice, double first_lift) {
+	public void signUp(Competitor competitor, Choice choice, double first_lift, double rack_number) {
 
 		// set choice for category
 		competitor.getMap().put(this.type, choice);
 		// set first lift
 		Lifter lifter = new Lifter(competitor, choice);
+		lifter.setRack_number(rack_number);
 		lifter.setAttemptWeight(Attempt.FIRST, first_lift);
 		this.lifters.add(lifter);
 		this.matchRanking.addLifter(lifter);
