@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -69,6 +71,9 @@ public class InsertForm extends JPanel {
 	private JRadioButton female_radiobtn;
 	private JComboBox<Integer> list_age;
 
+	private String response_message_confirm;
+	private String response_message_submit;
+
 	private double bar_weight;
 
 	private Competitor c;
@@ -130,6 +135,7 @@ public class InsertForm extends JPanel {
 			list_age.addItem(new Integer(i));
 
 		}
+		list_age.setSelectedIndex(0);
 
 		txt_weight = new JTextField();
 		txt_weight.setColumns(10);
@@ -164,8 +170,7 @@ public class InsertForm extends JPanel {
 					updateChoicePanels();
 					add_lifter_btn.setEnabled(true);
 				} else {
-					JOptionPane.showMessageDialog(InsertForm.this, "Non hai inserito tutte le informazioni necessarie.",
-							"ATTENZIONE", 2);
+					JOptionPane.showMessageDialog(InsertForm.this, response_message_confirm, "ATTENZIONE", 2);
 				}
 
 			}
@@ -314,8 +319,7 @@ public class InsertForm extends JPanel {
 					addLifter();
 					InsertForm.this.mainFrame.setStartBtnEnabled(true);
 				} else {
-					JOptionPane.showMessageDialog(InsertForm.this, "Non hai inserito tutte le informazioni necessarie.",
-							"ATTENZIONE", 2);
+					JOptionPane.showMessageDialog(InsertForm.this, response_message_submit, "ATTENZIONE", 2);
 				}
 			}
 
@@ -562,19 +566,56 @@ public class InsertForm extends JPanel {
 	}
 
 	private boolean checkDataInput() {
-		boolean result = false;
-		if (!txt_name.getText().equals("") && !txt_name.getText().equals(null) && !txt_surname.getText().equals("")
-				&& !txt_surname.getText().equals(null) && list_age.getSelectedIndex() > 0
-				&& !txt_team.getText().equals(null) && !txt_team.getText().equals("")) {
-			try {
-				Double.parseDouble(this.txt_weight.getText());
-				result = true;
-			} catch (NumberFormatException e) {
-				// not a double
-				result = false;
-			}
+		boolean correct = true;
+		List<String> errors = new ArrayList<String>();
+		this.response_message_confirm = "";
+		// if (!txt_name.getText().equals("") &&
+		// !txt_name.getText().equals(null) && !txt_surname.getText().equals("")
+		// && !txt_surname.getText().equals(null) && list_age.getSelectedIndex()
+		// > 0
+		// && !txt_team.getText().equals(null) &&
+		// !txt_team.getText().equals("")) {
+		// try {
+		// Double.parseDouble(this.txt_weight.getText());
+		// result = true;
+		// } catch (NumberFormatException e) {
+		// // not a double
+		// result = false;
+		// }
+		// }
+
+		if (txt_name.getText().equals("") || txt_name.getText().equals(null)) {
+			correct = false;
+			errors.add("Nome");
 		}
-		return result;
+
+		if (txt_surname.getText().equals("") || txt_surname.getText().equals(null)) {
+			correct = false;
+			errors.add("Cognome");
+		}
+
+		if (txt_team.getText().equals("") || txt_team.getText().equals(null)) {
+			correct = false;
+			errors.add("Squadra");
+		}
+
+		try {
+
+			if (this.txt_weight.getText().equals("") || this.txt_weight.getText().equals(null)) {
+				correct = false;
+				errors.add("Peso");
+			}
+
+			if (!this.txt_weight.getText().equals(""))
+				Double.parseDouble(this.txt_weight.getText());
+		} catch (NumberFormatException e) {
+			// not a double
+			correct = false;
+			this.response_message_confirm += GuiHelper.getInstance().getIncorrectError("il peso");
+		}
+
+		this.response_message_confirm += GuiHelper.getInstance().getEmptyError(errors);
+		return correct;
 	}
 
 	public void initDisciplineForms() {
@@ -592,60 +633,104 @@ public class InsertForm extends JPanel {
 	}
 
 	private boolean canAddLifter() {
+
+		this.response_message_submit = "";
+
+		List<String> errors = new ArrayList<String>();
+
+		boolean correct = true;
+
 		if (rdbtnBenchPress.isSelected()) {
 
-			if (txt_lift_bench.getText().equals("") || txt_lift_bench.getText().equals(null)
-					|| txt_rack_n_bench.getText().equals("") || txt_rack_n_bench.getText().equals(null)) {
-				return false;
+			if (txt_lift_bench.getText().equals("") || txt_lift_bench.getText().equals(null)) {
+				correct = false;
+				errors.add("Peso (Panca)");
 			}
+			if (txt_rack_n_bench.getText().equals("") || txt_rack_n_bench.getText().equals(null)) {
+				correct = false;
+				errors.add("Numero Rack (Panca)");
+			}
+
 			try {
 
-				Double.parseDouble(txt_rack_n_bench.getText());
-				if (!LogicHelper.calculateWeights(Double.parseDouble(this.txt_lift_bench.getText()), this.bar_weight,
-						this.mainFrame.getManager().is0p5Present(),
-						this.mainFrame.getManager().is0p25Present())) {
-					return false;
+				if (!txt_rack_n_bench.getText().equals(""))
+					Double.parseDouble(txt_rack_n_bench.getText());
+
+				if (!txt_lift_bench.getText().equals("")) {
+					if (!LogicHelper.calculateWeights(Double.parseDouble(this.txt_lift_bench.getText()),
+							this.bar_weight, this.mainFrame.getManager().is0p5Present(),
+							this.mainFrame.getManager().is0p25Present())) {
+						correct = false;
+						this.response_message_submit += "Impossibile utilizzare il peso selzionato per la panca\ncon i dischi a disposizione\n";
+					}
 				}
 
 			} catch (NumberFormatException e) {
-				return false;
+				correct = false;
+				this.response_message_submit += GuiHelper.getInstance()
+						.getIncorrectError("Il peso o il numero di rack per la panca");
 			}
 		}
 		if (rdbtnSquat.isSelected()) {
-			if (txt_lift_squat.getText().equals("") || txt_lift_squat.getText().equals(null)
-					|| txt_rack_n_squat.getText().equals("") || txt_rack_n_squat.getText().equals(null)) {
-				return false;
+			if (txt_lift_squat.getText().equals("") || txt_lift_squat.getText().equals(null)) {
+				correct = false;
+				errors.add("Peso (Squat)");
 			}
+			if (txt_rack_n_squat.getText().equals("") || txt_rack_n_squat.getText().equals(null)) {
+				correct = false;
+				errors.add("Numero Rack (Squat)");
+			}
+
 			try {
 
-				Double.parseDouble(txt_rack_n_squat.getText());
-				if (!LogicHelper.calculateWeights(Double.parseDouble(this.txt_lift_squat.getText()), this.bar_weight,
-						this.mainFrame.getManager().is0p5Present(),
-						this.mainFrame.getManager().is0p25Present())) {
-					return false;
+				if (!txt_rack_n_squat.getText().equals(""))
+					Double.parseDouble(txt_rack_n_squat.getText());
+
+				if (!txt_lift_squat.getText().equals("")) {
+					if (!LogicHelper.calculateWeights(Double.parseDouble(this.txt_lift_squat.getText()),
+							this.bar_weight, this.mainFrame.getManager().is0p5Present(),
+							this.mainFrame.getManager().is0p25Present())) {
+						correct = false;
+						this.response_message_submit += "Impossibile utilizzare il peso selzionato per lo squat\ncon i dischi a disposizione\n";
+					}
 				}
+
 			} catch (NumberFormatException e) {
-				return false;
+				correct = false;
+				this.response_message_submit += GuiHelper.getInstance()
+						.getIncorrectError("Il peso o il numero di rack per lo squat");
 			}
 		}
 		if (rdbtnDeadLift.isSelected()) {
+
 			if (txt_lift_deadlift.getText().equals("") || txt_lift_deadlift.getText().equals(null)) {
-				return false;
+				correct = false;
+				errors.add("Peso (Deadlift)");
 			}
+
 			try {
-				if (!LogicHelper.calculateWeights(Double.parseDouble(this.txt_lift_deadlift.getText()), this.bar_weight,
-						this.mainFrame.getManager().is0p5Present(),
-						this.mainFrame.getManager().is0p25Present())) {
-					return false;
+
+				if (!txt_lift_deadlift.getText().equals("")) {
+					if (!LogicHelper.calculateWeights(Double.parseDouble(this.txt_lift_deadlift.getText()),
+							this.bar_weight, this.mainFrame.getManager().is0p5Present(),
+							this.mainFrame.getManager().is0p25Present())) {
+						correct = false;
+						this.response_message_submit += "Impossibile utilizzare il peso selzionato per lo stacco\ncon i dischi a disposizione\n";
+					}
 				}
+
 			} catch (NumberFormatException e) {
-				return false;
+				correct = false;
+				this.response_message_submit += GuiHelper.getInstance().getIncorrectError("Il peso per lo stacco");
 			}
 		}
 		if (!rdbtnBenchPress.isSelected() && !rdbtnSquat.isSelected() && !rdbtnDeadLift.isSelected()) {
-			return false;
+			this.response_message_submit += " Selezionare almeno una disciplina";
+			correct = false;
 		}
-		return true;
+		
+		this.response_message_submit += GuiHelper.getInstance().getEmptyError(errors);
+		return correct;
 	}
 
 	private void addLifter() {
