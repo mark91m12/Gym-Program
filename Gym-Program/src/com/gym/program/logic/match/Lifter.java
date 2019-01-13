@@ -115,38 +115,6 @@ public class Lifter {
 		}
 	}
 
-	public Attempt getPreviousAttempt() {
-		if(this.currentAttempt instanceof StandardAttempt) {
-			switch ((StandardAttempt)this.currentAttempt) {
-			case FIRST:
-				return null;
-			case SECOND:
-				return Attempt.StandardAttempt.FIRST;
-			case THIRD:
-				return Attempt.StandardAttempt.SECOND;
-			default:
-				return null;
-			}
-		}else if (this.currentAttempt instanceof BonusAttempt) {
-			return Attempt.StandardAttempt.THIRD;
-		}
-		return null;
-	}
-	
-	public Double getPreviousAttemptWeight() {
-		if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
-			return getCurrentAttemptWeight();
-		}
-		return this.getAttemptWeight(getPreviousAttempt());
-	}
-	
-	public Boolean getPreviousAttemptResult() {
-		if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
-			return getCurrentAttemptResult();
-		}
-		return this.getAttemptResult(getPreviousAttempt());
-	}
-
 	public double getCurrentAttemptWeight() {
 		return this.getAttemptWeight(this.currentAttempt);
 	}
@@ -218,4 +186,35 @@ public class Lifter {
 		return bonusAttempt;
 	}
 	
+//	public Attempt getPreviousAttempt() {
+//	if(this.currentAttempt instanceof StandardAttempt) {
+//		switch ((StandardAttempt)this.currentAttempt) {
+//		case FIRST:
+//			return null;
+//		case SECOND:
+//			return Attempt.StandardAttempt.FIRST;
+//		case THIRD:
+//			return Attempt.StandardAttempt.SECOND;
+//		default:
+//			return null;
+//		}
+//	}else if (this.currentAttempt instanceof BonusAttempt) {
+//		return Attempt.StandardAttempt.THIRD;
+//	}
+//	return null;
+//}
+//
+//public Double getPreviousAttemptWeight() {
+//	if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
+//		return getCurrentAttemptWeight();
+//	}
+//	return this.getAttemptWeight(getPreviousAttempt());
+//}
+//
+//public Boolean getPreviousAttemptResult() {
+//	if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
+//		return getCurrentAttemptResult();
+//	}
+//	return this.getAttemptResult(getPreviousAttempt());
+//}
 }
