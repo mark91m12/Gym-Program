@@ -516,7 +516,7 @@ public class Card extends JPanel {
 		this.second_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.StandardAttempt.SECOND).toString());
 		this.third_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.StandardAttempt.THIRD).toString());
 		String text = " - ";
-		if(current_lifter.hasBonusAttempt()) {
+		if (current_lifter.hasBonusAttempt()) {
 			text = current_lifter.getAttemptWeight(current_lifter.getBonusAttemptType()).toString();
 		}
 		this.bonus_attempt_label.setText(text);
@@ -581,7 +581,8 @@ public class Card extends JPanel {
 		}
 
 		try {
-			this.setPositiveIcon(bonus_attempt_label, current_lifter.getAttemptResult(current_lifter.getBonusAttemptType()));
+			this.setPositiveIcon(bonus_attempt_label,
+					current_lifter.getAttemptResult(current_lifter.getBonusAttemptType()));
 		} catch (Exception e) {
 			// TODO: handle exception
 			this.setWhiteIcon(bonus_attempt_label);
@@ -648,7 +649,7 @@ public class Card extends JPanel {
 								} else {
 									weight = JOptionPane.showInputDialog(getParent(),
 											"Purtroppo i dischi a disposizione non permettono l'inserimento del peso selezionato,\nRestano fuori "
-													+ LogicHelper.getRest() + " kg",
+													+ LogicHelper.rounded(LogicHelper.getRest()) + " kg",
 											null);
 								}
 							} else {

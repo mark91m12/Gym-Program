@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -16,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.LogicHelper;
 import com.gym.program.utils.Sex;
 
@@ -31,6 +34,8 @@ public class CheckScorePanel extends JPanel {
 	private double body_weight;
 	private double lifted_weight;
 	private Sex sex;
+
+	private String response_message;
 
 	/**
 	 * Create the panel.
@@ -91,7 +96,7 @@ public class CheckScorePanel extends JPanel {
 					wilks_label.setText(Double.toString(
 							LogicHelper.rounded(LogicHelper.getWilksResult(body_weight, lifted_weight, sex))));
 				} else {
-					JOptionPane.showMessageDialog(CheckScorePanel.this, "I dati inseriti non sono corretti.",
+					JOptionPane.showMessageDialog(CheckScorePanel.this, response_message,
 							"ATTENZIONE", 2);
 				}
 			}
@@ -146,16 +151,34 @@ public class CheckScorePanel extends JPanel {
 
 	protected boolean checkInputData() {
 		// TODO Auto-generated method stub
-		boolean result = false;
-		try {
-			this.body_weight = Double.parseDouble(this.txt_field_bw.getText());
-			this.lifted_weight = Double.parseDouble(this.txt_field_lifted.getText());
-			result = true;
-		} catch (NumberFormatException e) {
-			// not a double
-			result = false;
-			System.out.println("MESSAGGIO INSERIRE PESO CORRETTO");
+		boolean correct = true;
+		List<String> errors = new ArrayList<String>();
+		this.response_message = "";
+
+		if (this.txt_field_bw.getText().equals("") || this.txt_field_bw.getText().equals(null)) {
+			correct = false;
+			errors.add("Peso Corporeo");
 		}
-		return result;
+
+		if (this.txt_field_lifted.getText().equals("") || this.txt_field_lifted.getText().equals(null)) {
+			correct = false;
+			errors.add("Peso Sollevato");
+		}
+
+		try {
+
+			if (!this.txt_field_bw.getText().equals(""))
+				this.body_weight = Double.parseDouble(this.txt_field_bw.getText());
+
+			if (!this.txt_field_lifted.getText().equals(""))
+				this.lifted_weight = Double.parseDouble(this.txt_field_lifted.getText());
+
+		} catch (NumberFormatException e) {
+			correct = false;
+			this.response_message += GuiHelper.getInstance().getIncorrectError("Il peso corporeo o il peso sollevato");
+		}
+
+		this.response_message += GuiHelper.getInstance().getEmptyError(errors);
+		return correct;
 	}
 }
