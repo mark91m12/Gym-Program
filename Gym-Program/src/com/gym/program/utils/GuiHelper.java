@@ -215,6 +215,7 @@ public class GuiHelper {
 				}
 			}
 		}
+		
 		return label;
 	}
 
