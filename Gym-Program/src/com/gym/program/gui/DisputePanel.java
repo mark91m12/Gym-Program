@@ -48,7 +48,7 @@ public class DisputePanel extends JPanel {
 				for (Lifter lifter : m.getManager().getMatches().get(comboBoxDisciplines.getSelectedItem()).getLiftersCanDispute()) {
 					lifters.add(lifter);
 				}
-				JScrollPane scroll = GuiHelper.getInstance().createTableForDispute(lifters);
+				JScrollPane scroll = GuiHelper.getInstance().createTableForDispute(lifters, m.getManager(), (TypeOfMatch)comboBoxDisciplines.getSelectedItem());
 				tableContainerPanel.add(scroll);
 				tableContainerPanel.updateUI();
 			}

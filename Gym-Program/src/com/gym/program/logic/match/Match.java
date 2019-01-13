@@ -60,7 +60,7 @@ public class Match {
 		// set first lift
 		Lifter lifter = new Lifter(competitor, choice);
 		lifter.setRack_number(rack_number);
-		lifter.setAttemptWeight(Attempt.FIRST, first_lift);
+		lifter.setAttemptWeight(Attempt.StandardAttempt.FIRST, first_lift);
 		this.lifters.add(lifter);
 		this.matchRanking.addLifter(lifter);
 		this.sortLifters();
@@ -173,16 +173,16 @@ public class Match {
 	// }
 	// }
 
-	public void showViewForLifter(Lifter lifter) {
-		Competitor competitor = lifter.getCompetitor();
-		System.out.println("LIFTER. Surame:" + competitor.getSurname() + " - Name:" + competitor.getName() + " - Age:"
-				+ competitor.getAge() + " - Weight:" + competitor.getWeight() + " - Category:" + lifter.getCategory());
-		System.out.println("First Try:" + lifter.getAttemptWeight(Attempt.FIRST));
-//		System.out.println("Second Try:" + lifter.getAttemptWeight(Attempt.SECOND));
-//		System.out.println("Third Try:" + lifter.getAttemptWeight(Attempt.THIRD));
-		System.out.println("ACTUAL RANKINK:\n" + this.matchRanking);
-		System.out.println("***************************************");
-	}
+//	public void showViewForLifter(Lifter lifter) {
+//		Competitor competitor = lifter.getCompetitor();
+//		System.out.println("LIFTER. Surame:" + competitor.getSurname() + " - Name:" + competitor.getName() + " - Age:"
+//				+ competitor.getAge() + " - Weight:" + competitor.getWeight() + " - Category:" + lifter.getCategory());
+//		System.out.println("First Try:" + lifter.getAttemptWeight(Attempt.StandardAttempt.FIRST));
+////		System.out.println("Second Try:" + lifter.getAttemptWeight(Attempt.SECOND));
+////		System.out.println("Third Try:" + lifter.getAttemptWeight(Attempt.THIRD));
+//		System.out.println("ACTUAL RANKINK:\n" + this.matchRanking);
+//		System.out.println("***************************************");
+//	}
 
 	@Override
 	public String toString() {
@@ -205,6 +205,9 @@ public class Match {
 		return this.liftersCanDispute.add(toAdd);
 	}
 	
+	public boolean lifterWonDispute(Lifter toDelete) {
+		return lifters.add(toDelete) && liftersCanDispute.remove(toDelete);
+	}
 //	public Lifter getNextLifter() {
 //		this.lifters.remove(0);
 //		Lifter lifter = null;

@@ -1,5 +1,11 @@
 package com.gym.program.utils;
 
-public enum Attempt {
-	FIRST, SECOND, THIRD, BONUS;
+public interface Attempt {
+	public enum StandardAttempt implements Attempt {
+		FIRST, SECOND, THIRD
+	}
+	
+	public enum BonusAttempt implements Attempt {
+		DISPUTED, RECORD, GENERAL
+	}
 }

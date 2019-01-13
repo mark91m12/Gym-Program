@@ -27,8 +27,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
+import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.match.Lifter;
+import com.gym.program.logic.match.Match.TypeOfMatch;
+import com.gym.program.utils.Attempt.BonusAttempt;
 
 public class GuiHelper {
 
@@ -129,16 +132,16 @@ public class GuiHelper {
 			rowData[i][6] = lifters.get(i).getCompetitor().getWeight();
 			rowData[i][7] = lifters.get(i).getCategory();
 
-			Double firstAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.FIRST);
+			Double firstAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.StandardAttempt.FIRST);
 			rowData[i][8] = firstAttemptWeight == null || firstAttemptWeight == 0 ? "-" : firstAttemptWeight;
 
-			Double secondAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.SECOND);
+			Double secondAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.StandardAttempt.SECOND);
 			rowData[i][9] = secondAttemptWeight == null || secondAttemptWeight == 0 ? "-" : secondAttemptWeight;
 
-			Double thirdAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.THIRD);
+			Double thirdAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.StandardAttempt.THIRD);
 			rowData[i][10] = thirdAttemptWeight == null || thirdAttemptWeight == 0 ? "-" : thirdAttemptWeight;
 
-			Double bonusAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.BONUS);
+			Double bonusAttemptWeight = lifters.get(i).getAttemptWeight(lifters.get(i).getBonusAttemptType());
 			rowData[i][11] = bonusAttemptWeight == null || bonusAttemptWeight == 0 ? "-" : bonusAttemptWeight;
 
 		}
@@ -152,13 +155,13 @@ public class GuiHelper {
 
 				switch (column) {
 				case 8:
-					return coloredCell(lifters, row, label, Attempt.FIRST);
+					return coloredCell(lifters, row, label, Attempt.StandardAttempt.FIRST);
 				case 9:
-					return coloredCell(lifters, row, label, Attempt.SECOND);
+					return coloredCell(lifters, row, label, Attempt.StandardAttempt.SECOND);
 				case 10:
-					return coloredCell(lifters, row, label, Attempt.THIRD);
+					return coloredCell(lifters, row, label, Attempt.StandardAttempt.THIRD);
 				case 11:
-					return coloredCell(lifters, row, label, Attempt.BONUS);
+					return coloredCell(lifters, row, label, Attempt.BonusAttempt.GENERAL);
 				default:
 					break;
 				}
@@ -197,7 +200,7 @@ public class GuiHelper {
 		return label;
 	}
 
-	public JScrollPane createTableForDispute(List<Lifter> lifters) {
+	public JScrollPane createTableForDispute(List<Lifter> lifters, Manager manager, TypeOfMatch t) {
 		lifters.sort(new Comparator<Lifter>() {// lexicographic order
 			@Override
 			public int compare(Lifter o1, Lifter o2) {
@@ -221,21 +224,23 @@ public class GuiHelper {
 				" Seconda alzta ", " Terza alzta ", "Avvia Contestazione" };
 		Object rowData[][] = new Object[lifters.size()][names.length];
 
+		Lifter l = null;
 		for (int i = 0; i < lifters.size(); i++) {
-			rowData[i][0] = lifters.get(i).getCompetitor().getSurname();
-			rowData[i][1] = lifters.get(i).getCompetitor().getName();
-			rowData[i][2] = lifters.get(i).getScore();
-			rowData[i][3] = lifters.get(i).getCompetitor().getTeam();
-			rowData[i][4] = lifters.get(i).getCompetitor().getAge();
-			rowData[i][5] = lifters.get(i).getCategory();
+			l = lifters.get(i);
+			rowData[i][0] = l.getCompetitor().getSurname();
+			rowData[i][1] = l.getCompetitor().getName();
+			rowData[i][2] = l.getScore();
+			rowData[i][3] = l.getCompetitor().getTeam();
+			rowData[i][4] = l.getCompetitor().getAge();
+			rowData[i][5] = l.getCategory();
 
-			Double firstAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.FIRST);
+			Double firstAttemptWeight = l.getAttemptWeight(Attempt.StandardAttempt.FIRST);
 			rowData[i][6] = firstAttemptWeight == null || firstAttemptWeight == 0 ? "-" : firstAttemptWeight;
 
-			Double secondAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.SECOND);
+			Double secondAttemptWeight = l.getAttemptWeight(Attempt.StandardAttempt.SECOND);
 			rowData[i][7] = secondAttemptWeight == null || secondAttemptWeight == 0 ? "-" : secondAttemptWeight;
 
-			Double thirdAttemptWeight = lifters.get(i).getAttemptWeight(Attempt.THIRD);
+			Double thirdAttemptWeight = l.getAttemptWeight(Attempt.StandardAttempt.THIRD);
 			rowData[i][8] = thirdAttemptWeight == null || thirdAttemptWeight == 0 ? "-" : thirdAttemptWeight;
 
 			int index = i;
@@ -243,9 +248,13 @@ public class GuiHelper {
 			btnDispute.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println(
-							"aggiungi alzata bonus per atleta :\n" + lifters.get(index).getCompetitor().getName());
-					lifters.get(index).setBonusAttempt();
+					Lifter lifter = lifters.remove(index);
+					Competitor competitor = lifter.getCompetitor();
+					JOptionPane.showMessageDialog(null, "E' stata aggiunta l'alzata bonus per l'alteta:\n" + 
+							competitor.getSurname() + " "+competitor.getName(), "ALZATA BONUS AGGIUNTA", JOptionPane.INFORMATION_MESSAGE);
+					lifter.setBonusAttemptType(Attempt.BonusAttempt.DISPUTED);
+					lifter.setNextAttemptWeight(lifter.getCurrentAttemptWeight());
+					manager.getMatches().get(t).lifterWonDispute(lifter);
 				}
 			});
 			rowData[i][9] = btnDispute;
@@ -261,11 +270,11 @@ public class GuiHelper {
 
 				switch (column) {
 				case 6:
-					return coloredCell(lifters, row, label, Attempt.FIRST);
+					return coloredCell(lifters, row, label, Attempt.StandardAttempt.FIRST);
 				case 7:
-					return coloredCell(lifters, row, label, Attempt.SECOND);
+					return coloredCell(lifters, row, label, Attempt.StandardAttempt.SECOND);
 				case 8:
-					return coloredCell(lifters, row, label, Attempt.THIRD);
+					return coloredCell(lifters, row, label, Attempt.StandardAttempt.THIRD);
 				default:
 					break;
 				}

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.utils.Attempt;
+import com.gym.program.utils.Attempt.BonusAttempt;
+import com.gym.program.utils.Attempt.StandardAttempt;
 import com.gym.program.utils.Category;
 import com.gym.program.utils.Category.Age;
 import com.gym.program.utils.Category.Weight;
@@ -27,16 +29,16 @@ public class Lifter {
 	
 	private double rack_number;
 
-	private boolean hasBonusAttempt;
+	private Attempt bonusAttempt;
 	
 	public Lifter(Competitor competitor, Choice choice) {
 		this.competitor = competitor;
 		this.setCategory(choice);
 		this.attemptsWeights = new HashMap<Attempt, Double>();
 		this.attemptsResults = new HashMap<Attempt, Boolean>();
-		this.currentAttempt = Attempt.FIRST;
+		this.currentAttempt = Attempt.StandardAttempt.FIRST;
 		this.bestAttemptWeight = 0;
-		this.hasBonusAttempt = false;
+		this.bonusAttempt = null;
 	}
 
 	public double getRack_number() {
@@ -79,6 +81,9 @@ public class Lifter {
 	}
 
 	public Boolean getAttemptResult(Attempt a) {
+		if(a.equals(Attempt.BonusAttempt.GENERAL)) {
+			a = bonusAttempt;
+		}
 		Boolean result = this.attemptsResults.get(a);
 		return result;// ==null?false:result;
 	}
@@ -129,29 +134,30 @@ public class Lifter {
 	}
 
 	private boolean setNextCurrentAttempt() {
-		switch (this.currentAttempt) {
-		case FIRST:
-			this.currentAttempt = Attempt.SECOND;
-			return true;
-		case SECOND:
-			this.currentAttempt = Attempt.THIRD;
-			return true;
-		case THIRD:
-			if(hasBonusAttempt) {
-				this.currentAttempt = Attempt.BONUS;
+		if(this.currentAttempt instanceof StandardAttempt) {
+			switch ((StandardAttempt)this.currentAttempt) {
+			case FIRST:
+				this.currentAttempt = Attempt.StandardAttempt.SECOND;
 				return true;
-			}else {
+			case SECOND:
+				this.currentAttempt = Attempt.StandardAttempt.THIRD;
+				return true;
+			case THIRD:
+				if(hasBonusAttempt()) {
+					this.currentAttempt = getBonusAttemptType();
+					return true;
+				}else {
+					return false;
+				}
+			default:
 				return false;
 			}
-		case BONUS:
-			return false;
-		default:
-			return false;
 		}
+		return false;
 	}
 
 	public boolean hasMoreLift() {
-		if ((this.currentAttempt.equals(Attempt.THIRD) && !hasBonusAttempt) || this.currentAttempt.equals(Attempt.BONUS)) {
+		if ((this.currentAttempt.equals(Attempt.StandardAttempt.THIRD) && !hasBonusAttempt()) || this.currentAttempt instanceof Attempt.BonusAttempt) {
 			return false;
 		}
 		return true;
@@ -178,12 +184,15 @@ public class Lifter {
 	}
 
 	public boolean hasBonusAttempt() {
-		return hasBonusAttempt;
+		return !(bonusAttempt == null);
 	}
 
-	public void setBonusAttempt() {
-		if(!hasBonusAttempt) {
-			this.hasBonusAttempt = true;
-		}
+	public void setBonusAttemptType(BonusAttempt ba) {
+		this.bonusAttempt = ba;
 	}
+
+	public Attempt getBonusAttemptType() {
+		return bonusAttempt;
+	}
+	
 }

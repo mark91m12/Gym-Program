@@ -512,10 +512,14 @@ public class Card extends JPanel {
 		this.lifter_team_label.setText(current_lifter.getCompetitor().getTeam());
 		this.lifter_category_label.setText(current_lifter.getCategory().toString());
 
-		this.first_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.FIRST).toString());
-		this.second_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.SECOND).toString());
-		this.third_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.THIRD).toString());
-		this.bonus_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.BONUS).toString());
+		this.first_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.StandardAttempt.FIRST).toString());
+		this.second_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.StandardAttempt.SECOND).toString());
+		this.third_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.StandardAttempt.THIRD).toString());
+		String text = " - ";
+		if(current_lifter.hasBonusAttempt()) {
+			text = current_lifter.getAttemptWeight(current_lifter.getBonusAttemptType()).toString();
+		}
+		this.bonus_attempt_label.setText(text);
 		updateLabelAttempts();
 
 		this.bonus_lift_panel.setVisible(false);
@@ -557,27 +561,27 @@ public class Card extends JPanel {
 
 	private void updateLabelAttempts() {
 		try {
-			this.setPositiveIcon(first_attempt_label, current_lifter.getAttemptResult(Attempt.FIRST));
+			this.setPositiveIcon(first_attempt_label, current_lifter.getAttemptResult(Attempt.StandardAttempt.FIRST));
 		} catch (Exception e) {
 			// TODO: handle exception
 			this.setWhiteIcon(first_attempt_label);
 		}
 
 		try {
-			this.setPositiveIcon(second_attempt_label, current_lifter.getAttemptResult(Attempt.SECOND));
+			this.setPositiveIcon(second_attempt_label, current_lifter.getAttemptResult(Attempt.StandardAttempt.SECOND));
 		} catch (Exception e) {
 			// TODO: handle exception
 			this.setWhiteIcon(second_attempt_label);
 		}
 
 		try {
-			this.setPositiveIcon(third_attempt_label, current_lifter.getAttemptResult(Attempt.THIRD));
+			this.setPositiveIcon(third_attempt_label, current_lifter.getAttemptResult(Attempt.StandardAttempt.THIRD));
 		} catch (Exception e) {
 			this.setWhiteIcon(third_attempt_label);
 		}
 
 		try {
-			this.setPositiveIcon(bonus_attempt_label, current_lifter.getAttemptResult(Attempt.BONUS));
+			this.setPositiveIcon(bonus_attempt_label, current_lifter.getAttemptResult(current_lifter.getBonusAttemptType()));
 		} catch (Exception e) {
 			// TODO: handle exception
 			this.setWhiteIcon(bonus_attempt_label);
@@ -589,7 +593,7 @@ public class Card extends JPanel {
 
 		if (current_lifter.getCurrentAttemptWeight() >= RecordsDB.getInstance().getRecord(
 				new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(), current_lifter.getCategory()))) {
-			current_lifter.setBonusAttempt();
+			current_lifter.setBonusAttemptType(Attempt.BonusAttempt.RECORD);
 			System.out.println("SET BONUS");
 		}
 		current_lifter.setCurrentAttemptResult(isValid);
@@ -632,7 +636,7 @@ public class Card extends JPanel {
 							if (temp >= (current_lifter.getCompetitor().getWeight() * 2.5)) {
 								confirm = JOptionPane.showConfirmDialog(getParent(),
 										"Il peso inserito sembrerebbe eccessivo. Sicuro che la scelta sia coretta?",
-										"ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+										"ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 							}
 							if (confirm == JOptionPane.YES_OPTION) {
 								if (LogicHelper.calculateWeights(temp, this.bar_weight,
@@ -655,7 +659,7 @@ public class Card extends JPanel {
 					}
 				}
 			}
-		} else if (current_lifter.getCurrentAttempt().equals(Attempt.THIRD) && !isValid) {
+		} else if (current_lifter.getCurrentAttempt().equals(Attempt.StandardAttempt.THIRD) && !isValid) {
 			match_frame.getManager().getCurrentMatch().addLifterCanDispute(current_lifter);
 		}
 		updateCard();
