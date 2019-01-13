@@ -628,9 +628,10 @@ public class Card extends JPanel {
 					try {
 						double temp = Double.parseDouble(weight);
 						int confirm = JOptionPane.YES_OPTION;
-						if (temp <= current_lifter.getCurrentAttemptWeight()
-								&& (current_lifter.getCurrentAttemptResult()
-										|| temp <= current_lifter.getBestAttemptWeight())) {
+//						if (temp <= current_lifter.getCurrentAttemptWeight()
+//								&& (current_lifter.getCurrentAttemptResult()
+//										|| temp <= current_lifter.getBestAttemptWeight())) {
+						if(temp < current_lifter.getPreviousAttemptWeight() || (temp == current_lifter.getPreviousAttemptWeight() && current_lifter.getPreviousAttemptResult())) {
 							tooSmall = true;
 						} else {
 							if (temp >= (current_lifter.getCompetitor().getWeight() * 2.5)) {

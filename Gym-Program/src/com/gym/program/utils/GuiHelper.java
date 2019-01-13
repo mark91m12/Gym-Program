@@ -203,14 +203,16 @@ public class GuiHelper {
 
 	private JLabel coloredCell(List<Lifter> lifters, int row, JLabel label, Attempt attempt) {
 
-		if (lifters.get(row).getAttemptResult(attempt) != null) {
-			label.setOpaque(true);
-			if (lifters.get(row).getAttemptResult(attempt) == true) {
-				label.setBackground(Color.GREEN);
-				// label.setForeground(Color.WHITE);
-			} else {
-				label.setBackground(Color.red);
-				// label.setForeground(Color.WHITE);
+		if (row >= 0 && row < lifters.size()) {
+			if (lifters.get(row).getAttemptResult(attempt) != null) {
+				label.setOpaque(true);
+				if (lifters.get(row).getAttemptResult(attempt) == true) {
+					label.setBackground(Color.GREEN);
+					// label.setForeground(Color.WHITE);
+				} else {
+					label.setBackground(Color.red);
+					// label.setForeground(Color.WHITE);
+				}
 			}
 		}
 		return label;
