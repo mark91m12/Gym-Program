@@ -17,7 +17,8 @@ public class Match {
 	}
 
 	private List<Lifter> lifters;
-	private List<Lifter> liftersCanDispute;//lifters that have done last attempt with negative validation
+	private List<Lifter> liftersCanDispute;// lifters that have done last
+											// attempt with negative validation
 	private TypeOfMatch type;
 	private MatchRanking matchRanking;
 
@@ -61,56 +62,58 @@ public class Match {
 		Lifter lifter = new Lifter(competitor, choice);
 		lifter.setRack_number(rack_number);
 		lifter.setAttemptWeight(Attempt.StandardAttempt.FIRST, first_lift);
-		lifter.setBestAttemptWeight(first_lift);
 		this.lifters.add(lifter);
 		this.matchRanking.addLifter(lifter);
 		this.sortLifters();
 	}
 
-//	public void closeInscriptions() {
-//		// sort lifters based on their first lift (list will be sorted/updated
-//		// dynamically during the match)
-//		Collections.sort(this.getLifters(), new CallComparator());
-//	}
+	// public void closeInscriptions() {
+	// // sort lifters based on their first lift (list will be sorted/updated
+	// // dynamically during the match)
+	// Collections.sort(this.getLifters(), new CallComparator());
+	// }
 
 	public void updateLifters() {
 		Iterator<Lifter> i = lifters.iterator();
 		Lifter lifter = null;
-		while(i.hasNext()) {
+		while (i.hasNext()) {
 			lifter = i.next();
-			if(lifter.hasFinished()) {
+			if (lifter.hasFinished()) {
 				i.remove();
 			}
 		}
 		sortLifters();
 	}
+
 	public void sortLifters() {
 		this.lifters.sort(new CallComparator());
 	}
 
-//	public void start() {
-//		this.sortLifters();
-//		int lift = 1;
-//		// Create enum for lift FIRST-SECOND-Third ?
-//		while (lift < 4) {
-//			System.out.println("------------------------------------------------------------ LIFT TURN:" + lift
-//					+ "-----------------------------------------------------------------------------");
-//			Iterator<Lifter> lifterIter = this.lifters.iterator();
-//			while (lifterIter.hasNext()) {
-//				Lifter lifter = lifterIter.next();
-//				this.showViewForLifter(lifter);
-//				boolean verdict = true;
-//				this.updateVerdictOfLift(lifter, verdict, lift);
-//				if (verdict) {
-//					this.matchRanking.updateLifter(lifter);
-//				} else {
-//
-//				}
-//
-//			}
-//			lift++;
-//		}
-//	}
+	// public void start() {
+	// this.sortLifters();
+	// int lift = 1;
+	// // Create enum for lift FIRST-SECOND-Third ?
+	// while (lift < 4) {
+	// System.out.println("------------------------------------------------------------
+	// LIFT TURN:" + lift
+	// +
+	// "-----------------------------------------------------------------------------");
+	// Iterator<Lifter> lifterIter = this.lifters.iterator();
+	// while (lifterIter.hasNext()) {
+	// Lifter lifter = lifterIter.next();
+	// this.showViewForLifter(lifter);
+	// boolean verdict = true;
+	// this.updateVerdictOfLift(lifter, verdict, lift);
+	// if (verdict) {
+	// this.matchRanking.updateLifter(lifter);
+	// } else {
+	//
+	// }
+	//
+	// }
+	// lift++;
+	// }
+	// }
 
 	// private void updateVerdictOfLift(Lifter lifter, boolean isGoodLift, int
 	// lift) {
@@ -174,16 +177,21 @@ public class Match {
 	// }
 	// }
 
-//	public void showViewForLifter(Lifter lifter) {
-//		Competitor competitor = lifter.getCompetitor();
-//		System.out.println("LIFTER. Surame:" + competitor.getSurname() + " - Name:" + competitor.getName() + " - Age:"
-//				+ competitor.getAge() + " - Weight:" + competitor.getWeight() + " - Category:" + lifter.getCategory());
-//		System.out.println("First Try:" + lifter.getAttemptWeight(Attempt.StandardAttempt.FIRST));
-////		System.out.println("Second Try:" + lifter.getAttemptWeight(Attempt.SECOND));
-////		System.out.println("Third Try:" + lifter.getAttemptWeight(Attempt.THIRD));
-//		System.out.println("ACTUAL RANKINK:\n" + this.matchRanking);
-//		System.out.println("***************************************");
-//	}
+	// public void showViewForLifter(Lifter lifter) {
+	// Competitor competitor = lifter.getCompetitor();
+	// System.out.println("LIFTER. Surame:" + competitor.getSurname() + " -
+	// Name:" + competitor.getName() + " - Age:"
+	// + competitor.getAge() + " - Weight:" + competitor.getWeight() + " -
+	// Category:" + lifter.getCategory());
+	// System.out.println("First Try:" +
+	// lifter.getAttemptWeight(Attempt.StandardAttempt.FIRST));
+	//// System.out.println("Second Try:" +
+	// lifter.getAttemptWeight(Attempt.SECOND));
+	//// System.out.println("Third Try:" +
+	// lifter.getAttemptWeight(Attempt.THIRD));
+	// System.out.println("ACTUAL RANKINK:\n" + this.matchRanking);
+	// System.out.println("***************************************");
+	// }
 
 	@Override
 	public String toString() {
@@ -191,7 +199,7 @@ public class Match {
 	}
 
 	public Lifter getCurrentLifter() {
-		return this.lifters.isEmpty()? null:this.lifters.get(0);
+		return this.lifters.isEmpty() ? null : this.lifters.get(0);
 	}
 
 	public List<Lifter> getLiftersCanDispute() {
@@ -205,18 +213,18 @@ public class Match {
 	public boolean addLifterCanDispute(Lifter toAdd) {
 		return this.liftersCanDispute.add(toAdd);
 	}
-	
+
 	public boolean lifterWonDispute(Lifter toDelete) {
 		return lifters.add(toDelete) && liftersCanDispute.remove(toDelete);
 	}
-//	public Lifter getNextLifter() {
-//		this.lifters.remove(0);
-//		Lifter lifter = null;
-//		try {
-//			lifter = this.lifters.get(0);
-//		} catch (Exception e) {
-//
-//		}
-//		return lifter;
-//	}
+	// public Lifter getNextLifter() {
+	// this.lifters.remove(0);
+	// Lifter lifter = null;
+	// try {
+	// lifter = this.lifters.get(0);
+	// } catch (Exception e) {
+	//
+	// }
+	// return lifter;
+	// }
 }

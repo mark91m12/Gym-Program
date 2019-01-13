@@ -203,7 +203,7 @@ public class GuiHelper {
 
 	private JLabel coloredCell(List<Lifter> lifters, int row, JLabel label, Attempt attempt) {
 
-		if (!lifters.isEmpty()) {
+		if (row >= 0 && row < lifters.size()) {
 			if (lifters.get(row).getAttemptResult(attempt) != null) {
 				label.setOpaque(true);
 				if (lifters.get(row).getAttemptResult(attempt) == true) {

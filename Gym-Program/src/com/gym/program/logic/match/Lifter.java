@@ -18,8 +18,6 @@ public class Lifter {
 
 	private double score;
 
-	private double bestAttemptWeight;
-	
 	private Map<Attempt, Double> attemptsWeights;
 	private Map<Attempt, Boolean> attemptsResults;
 	private Attempt currentAttempt;
@@ -37,7 +35,6 @@ public class Lifter {
 		this.attemptsWeights = new HashMap<Attempt, Double>();
 		this.attemptsResults = new HashMap<Attempt, Boolean>();
 		this.currentAttempt = Attempt.StandardAttempt.FIRST;
-		this.bestAttemptWeight = 0;
 		this.bonusAttempt = null;
 	}
 
@@ -81,11 +78,14 @@ public class Lifter {
 	}
 
 	public Boolean getAttemptResult(Attempt a) {
-		if(a.equals(Attempt.BonusAttempt.GENERAL)) {
-			a = bonusAttempt;
+		if(a != null) {
+			if(a.equals(Attempt.BonusAttempt.GENERAL)) {
+				a = bonusAttempt;
+			}
+			Boolean result = this.attemptsResults.get(a);
+			return result;// ==null?false:result;
 		}
-		Boolean result = this.attemptsResults.get(a);
-		return result;// ==null?false:result;
+		return null;
 	}
 
 	public void setAttemptResult(Attempt a, boolean result) {
@@ -115,6 +115,38 @@ public class Lifter {
 		}
 	}
 
+	public Attempt getPreviousAttempt() {
+		if(this.currentAttempt instanceof StandardAttempt) {
+			switch ((StandardAttempt)this.currentAttempt) {
+			case FIRST:
+				return null;
+			case SECOND:
+				return Attempt.StandardAttempt.FIRST;
+			case THIRD:
+				return Attempt.StandardAttempt.SECOND;
+			default:
+				return null;
+			}
+		}else if (this.currentAttempt instanceof BonusAttempt) {
+			return Attempt.StandardAttempt.THIRD;
+		}
+		return null;
+	}
+	
+	public Double getPreviousAttemptWeight() {
+		if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
+			return getCurrentAttemptWeight();
+		}
+		return this.getAttemptWeight(getPreviousAttempt());
+	}
+	
+	public Boolean getPreviousAttemptResult() {
+		if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
+			return getCurrentAttemptResult();
+		}
+		return this.getAttemptResult(getPreviousAttempt());
+	}
+
 	public double getCurrentAttemptWeight() {
 		return this.getAttemptWeight(this.currentAttempt);
 	}
@@ -129,7 +161,6 @@ public class Lifter {
 		if (result) {
 			this.setScore(LogicHelper.getWilksResult(this.getCompetitor().getWeight(), this.getCurrentAttemptWeight(),
 					this.getCompetitor().getSex()));
-			this.setBestAttemptWeight(getCurrentAttemptWeight());
 		}
 	}
 
@@ -175,14 +206,6 @@ public class Lifter {
 		this.currentAttempt = currentAttempt;
 	}
 	
-	public double getBestAttemptWeight() {
-		return bestAttemptWeight;
-	}
-
-	public void setBestAttemptWeight(double bestAttemptWeight) {
-		this.bestAttemptWeight = bestAttemptWeight;
-	}
-
 	public boolean hasBonusAttempt() {
 		return !(bonusAttempt == null);
 	}
