@@ -203,14 +203,16 @@ public class GuiHelper {
 
 	private JLabel coloredCell(List<Lifter> lifters, int row, JLabel label, Attempt attempt) {
 
-		if (lifters.get(row).getAttemptResult(attempt) != null) {
-			label.setOpaque(true);
-			if (lifters.get(row).getAttemptResult(attempt) == true) {
-				label.setBackground(Color.GREEN);
-				// label.setForeground(Color.WHITE);
-			} else {
-				label.setBackground(Color.red);
-				// label.setForeground(Color.WHITE);
+		if (!lifters.isEmpty()) {
+			if (lifters.get(row).getAttemptResult(attempt) != null) {
+				label.setOpaque(true);
+				if (lifters.get(row).getAttemptResult(attempt) == true) {
+					label.setBackground(Color.GREEN);
+					// label.setForeground(Color.WHITE);
+				} else {
+					label.setBackground(Color.red);
+					// label.setForeground(Color.WHITE);
+				}
 			}
 		}
 		return label;
@@ -266,8 +268,11 @@ public class GuiHelper {
 				public void actionPerformed(ActionEvent e) {
 					Lifter lifter = lifters.remove(index);
 					Competitor competitor = lifter.getCompetitor();
-					JOptionPane.showMessageDialog(null, "E' stata aggiunta l'alzata bonus per l'alteta:\n" + 
-							competitor.getSurname() + " "+competitor.getName(), "ALZATA BONUS AGGIUNTA", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane
+							.showMessageDialog(null,
+									"E' stata aggiunta l'alzata bonus per l'alteta:\n" + competitor.getSurname() + " "
+											+ competitor.getName(),
+									"ALZATA BONUS AGGIUNTA", JOptionPane.INFORMATION_MESSAGE);
 					lifter.setBonusAttemptType(Attempt.BonusAttempt.DISPUTED);
 					lifter.setNextAttemptWeight(lifter.getCurrentAttemptWeight());
 					manager.getMatches().get(t).lifterWonDispute(lifter);

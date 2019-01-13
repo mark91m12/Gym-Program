@@ -61,6 +61,7 @@ public class Match {
 		Lifter lifter = new Lifter(competitor, choice);
 		lifter.setRack_number(rack_number);
 		lifter.setAttemptWeight(Attempt.StandardAttempt.FIRST, first_lift);
+		lifter.setBestAttemptWeight(first_lift);
 		this.lifters.add(lifter);
 		this.matchRanking.addLifter(lifter);
 		this.sortLifters();
