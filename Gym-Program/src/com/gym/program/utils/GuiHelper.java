@@ -71,6 +71,22 @@ public class GuiHelper {
 		}
 	}
 
+	public String getEmptyError(List<String> list) {
+		String response = "";
+		if (!list.isEmpty())
+			response = "Riempire i seguenti campi :\n";
+
+		for (String tmp : list) {
+			response += tmp + "\n";
+		}
+
+		return response;
+	}
+
+	public String getIncorrectError(String string) {
+		return "Inserire " + string + " correttamente\n";
+	}
+
 	public void setSwitch(Set<JRadioButton> radioBtns) {
 		for (JRadioButton rdBtn : radioBtns) {
 			rdBtn.addActionListener(new ActionListener() {
@@ -410,4 +426,5 @@ class ButtonEditor extends DefaultCellEditor {
 		isPushed = false;
 		return super.stopCellEditing();
 	}
+
 }
