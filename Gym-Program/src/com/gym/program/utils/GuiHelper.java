@@ -215,7 +215,6 @@ public class GuiHelper {
 				}
 			}
 		}
-		
 		return label;
 	}
 
@@ -269,8 +268,11 @@ public class GuiHelper {
 				public void actionPerformed(ActionEvent e) {
 					Lifter lifter = lifters.remove(index);
 					Competitor competitor = lifter.getCompetitor();
-					JOptionPane.showMessageDialog(null, "E' stata aggiunta l'alzata bonus per l'alteta:\n" + 
-							competitor.getSurname() + " "+competitor.getName(), "ALZATA BONUS AGGIUNTA", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane
+							.showMessageDialog(null,
+									"E' stata aggiunta l'alzata bonus per l'alteta:\n" + competitor.getSurname() + " "
+											+ competitor.getName(),
+									"ALZATA BONUS AGGIUNTA", JOptionPane.INFORMATION_MESSAGE);
 					lifter.setBonusAttemptType(Attempt.BonusAttempt.DISPUTED);
 					lifter.setNextAttemptWeight(lifter.getCurrentAttemptWeight());
 					manager.getMatches().get(t).lifterWonDispute(lifter);
