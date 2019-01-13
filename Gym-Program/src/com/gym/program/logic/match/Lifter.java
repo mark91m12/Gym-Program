@@ -133,6 +133,7 @@ public class Lifter {
 	}
 
 	private boolean setNextCurrentAttempt() {
+		
 		if(this.currentAttempt instanceof StandardAttempt) {
 			switch ((StandardAttempt)this.currentAttempt) {
 			case FIRST:
