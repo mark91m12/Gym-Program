@@ -64,8 +64,7 @@ class W25Kg extends WeightDisc {
 
 	@Override
 	public String getPathImage() {
-		// TODO Auto-generated method stub
-		return "images/25kg.png";
+		return "images/plates/25kg.png";
 	}
 
 }
@@ -87,8 +86,7 @@ class W20Kg extends WeightDisc {
 
 	@Override
 	public String getPathImage() {
-		// TODO Auto-generated method stub
-		return "images/20kg.png";
+		return "images/plates/20kg.png";
 	}
 
 }
@@ -110,8 +108,7 @@ class W15Kg extends WeightDisc {
 
 	@Override
 	public String getPathImage() {
-		// TODO Auto-generated method stub
-		return "images/15kg.png";
+		return "images/plates/15kg.png";
 	}
 
 }
@@ -133,8 +130,7 @@ class W10Kg extends WeightDisc {
 
 	@Override
 	public String getPathImage() {
-		// TODO Auto-generated method stub
-		return "images/10kg.png";
+		return "images/plates/10kg.png";
 	}
 
 }
@@ -156,8 +152,7 @@ class W5Kg extends WeightDisc {
 
 	@Override
 	public String getPathImage() {
-		// TODO Auto-generated method stub
-		return "images/5kg.png";
+		return "images/plates/5kg.png";
 	}
 }
 
@@ -178,8 +173,7 @@ class W2p5Kg extends WeightDisc {
 
 	@Override
 	public String getPathImage() {
-		// TODO Auto-generated method stub
-		return "images/2_5kg.png";
+		return "images/plates/2_5kg.png";
 	}
 }
 
@@ -214,8 +208,7 @@ class W1p25Kg extends WeightDisc {
 
 	@Override
 	public String getPathImage() {
-		// TODO Auto-generated method stub
-		return "images/1_25kg.png";
+		return "images/plates/1_25kg.png";
 	}
 }
 
@@ -241,8 +234,7 @@ class W0p5Kg extends WeightDisc {
 
 	@Override
 	public String getPathImage() {
-		// TODO Auto-generated method stub
-		return "images/1_25kg.png";
+		return "images/plates/0_5kg.png";
 	}
 }
 
@@ -265,7 +257,6 @@ class W0p25Kg extends WeightDisc {
 
 	@Override
 	public String getPathImage() {
-		// TODO Auto-generated method stub
-		return "images/1_25kg.png";
+		return "images/plates/0_25kg.png";
 	}
 }

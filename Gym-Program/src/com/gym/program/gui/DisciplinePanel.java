@@ -125,30 +125,73 @@ public class DisciplinePanel extends JPanel {
 		JLabel lblSelezionaFermi = new JLabel("Seleziona fermi:");
 		lblSelezionaFermi.setFont(new Font("Tahoma", Font.BOLD, 13));
 
+		JLabel lblAggiungiTagli = new JLabel("Aggiungi tagli:");
+		lblAggiungiTagli.setFont(new Font("Tahoma", Font.BOLD, 13));
+
+		JCheckBox checkBox0p5 = new JCheckBox("0.5 Kg");
+		checkBox0p5.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getStateChange() == ItemEvent.SELECTED)
+					DisciplinePanel.this.mainFrame.getManager().set0p5Present(true);
+				else
+					DisciplinePanel.this.mainFrame.getManager().set0p5Present(false);
+			}
+		});
+
+		JCheckBox checkBox0p25 = new JCheckBox("0.25 Kg");
+		checkBox0p25.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getStateChange() == ItemEvent.SELECTED)
+					DisciplinePanel.this.mainFrame.getManager().set0p25Present(true);
+				else
+					DisciplinePanel.this.mainFrame.getManager().set0p25Present(false);
+			}
+		});
+
 		GroupLayout gl_disciplineSelectionPanel = new GroupLayout(disciplineSelectionPanel);
 		gl_disciplineSelectionPanel
 				.setHorizontalGroup(gl_disciplineSelectionPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_disciplineSelectionPanel.createSequentialGroup().addGap(57)
-								.addComponent(lblSelezionaDiscipline).addContainerGap(38, Short.MAX_VALUE))
+								.addComponent(lblSelezionaDiscipline).addContainerGap(33, Short.MAX_VALUE))
 						.addGroup(gl_disciplineSelectionPanel.createSequentialGroup().addComponent(rdbtnCollarLight)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(rdbtnCollarWeight, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_disciplineSelectionPanel.createSequentialGroup().addGap(21)
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(rdbtnCollarWeight,
+										GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+						.addGroup(gl_disciplineSelectionPanel.createSequentialGroup().addGap(21)
 								.addGroup(gl_disciplineSelectionPanel.createParallelGroup(Alignment.TRAILING)
 										.addComponent(chckbxSquat, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 126,
 												Short.MAX_VALUE)
-										.addComponent(chckbxDeadlift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 126,
-												Short.MAX_VALUE)
+										.addComponent(chckbxDeadlift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												126, Short.MAX_VALUE)
 										.addComponent(chckbxBenchPress, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
 								.addGap(71))
-						.addGroup(Alignment.TRAILING, gl_disciplineSelectionPanel.createSequentialGroup()
-								.addContainerGap(64, Short.MAX_VALUE).addComponent(lblSelezionaFermi).addGap(62)));
+						.addGroup(gl_disciplineSelectionPanel.createSequentialGroup()
+								.addContainerGap(53, Short.MAX_VALUE)
+								.addGroup(gl_disciplineSelectionPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblAggiungiTagli, GroupLayout.PREFERRED_SIZE, 103,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblSelezionaFermi))
+								.addGap(62))
+						.addGroup(gl_disciplineSelectionPanel.createSequentialGroup().addContainerGap()
+								.addComponent(checkBox0p5, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+								.addGap(18)
+								.addComponent(checkBox0p25, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(46, Short.MAX_VALUE)));
 		gl_disciplineSelectionPanel.setVerticalGroup(gl_disciplineSelectionPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_disciplineSelectionPanel.createSequentialGroup().addContainerGap()
 						.addComponent(lblSelezionaDiscipline).addGap(18).addComponent(chckbxBenchPress).addGap(18)
 						.addComponent(chckbxSquat, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addGap(18).addComponent(chckbxDeadlift)
-						.addPreferredGap(ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+						.addGap(18).addComponent(chckbxDeadlift).addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(lblAggiungiTagli, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_disciplineSelectionPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(checkBox0p25).addComponent(checkBox0p5))
+						.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
 						.addComponent(lblSelezionaFermi).addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_disciplineSelectionPanel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(rdbtnCollarLight).addComponent(rdbtnCollarWeight))));
@@ -169,22 +212,20 @@ public class DisciplinePanel extends JPanel {
 		});
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout
-				.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(128)
-								.addComponent(btnSubmitDisciplineSelection, GroupLayout.PREFERRED_SIZE, 106,
-										GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(155, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING,
-								groupLayout.createSequentialGroup()
-										.addContainerGap(70, Short.MAX_VALUE).addComponent(disciplineSelectionPanel,
-												GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
-										.addGap(101)));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
 				.createSequentialGroup()
-				.addComponent(disciplineSelectionPanel, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-				.addComponent(btnSubmitDisciplineSelection).addContainerGap()));
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup().addGap(128).addComponent(
+								btnSubmitDisciplineSelection, GroupLayout.PREFERRED_SIZE, 106,
+								GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup().addGap(131).addComponent(disciplineSelectionPanel,
+								GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(101, Short.MAX_VALUE)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+						.addComponent(disciplineSelectionPanel, GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnSubmitDisciplineSelection)
+						.addContainerGap()));
 
 		disciplineSelectionPanel.setLayout(gl_disciplineSelectionPanel);
 		setLayout(groupLayout);

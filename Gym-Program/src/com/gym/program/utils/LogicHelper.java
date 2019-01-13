@@ -55,7 +55,7 @@ public class LogicHelper {
 	//
 	// WeightDisc plate = new W25Kg();
 	// // WeightDisc.is_present_0_25_kg = true;
-	// // WeightDisc.is_present_0_5_kg = true; TODO
+	// // WeightDisc.is_present_0_5_kg = true; 
 	// double target;
 	//
 	// ArrayList<WeightDisc> plates = new ArrayList<WeightDisc>();
@@ -68,12 +68,15 @@ public class LogicHelper {
 	//
 	// }
 
-	public static boolean calculateWeights(double weight, double bar) {
+	public static boolean calculateWeights(double weight, double bar, boolean p25_is_present, boolean p5_is_present) {
 
 		WeightDisc plate = new W25Kg();
-		// WeightDisc.is_present_0_25_kg = true;
-		// WeightDisc.is_present_0_5_kg = true; TODO
+		WeightDisc.is_present_0_25_kg = p25_is_present;
+		WeightDisc.is_present_0_5_kg = p5_is_present;
 		double target;
+
+		System.out.println(
+				"0.25 = > " + WeightDisc.is_present_0_25_kg + " , " + " 0.5 = > " + WeightDisc.is_present_0_5_kg);
 
 		ArrayList<WeightDisc> plates = new ArrayList<WeightDisc>();
 

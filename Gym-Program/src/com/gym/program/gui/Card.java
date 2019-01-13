@@ -464,7 +464,7 @@ public class Card extends JPanel {
 
 		for (WeightDisc weightDisc : plates) {
 			JLabel disc_label = this.createLabel();
-			disc_label.setText(weightDisc.getLabel() + " x " + weightDisc.getOccurrance());
+			disc_label.setText("[" + weightDisc.getLabel() + " x " + weightDisc.getOccurrance() + "]");
 			disc_label.setIcon(new ImageIcon(weightDisc.getPathImage()));
 			this.plates_panel.add(disc_label);
 		}
@@ -485,7 +485,7 @@ public class Card extends JPanel {
 
 	private JLabel createLabel() {
 		JLabel temp = new JLabel();
-		temp.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		temp.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		temp.setHorizontalTextPosition(JLabel.CENTER);
 		temp.setVerticalTextPosition(JLabel.BOTTOM);
 
@@ -526,7 +526,8 @@ public class Card extends JPanel {
 		this.exercise_label.setText(this.match_frame.getManager().getCurrentTypeOfMatch().toString());
 		this.current_lift_label.setText(Double.toString(current_lifter.getCurrentAttemptWeight()));
 
-		LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(), this.bar_weight);
+		LogicHelper.calculateWeights(current_lifter.getCurrentAttemptWeight(), this.bar_weight,
+				this.match_frame.getManager().is0p5Present(), this.match_frame.getManager().is0p25Present());
 		ArrayList<WeightDisc> result = LogicHelper.getPlates();
 		this.addPlates(result);
 
@@ -634,7 +635,9 @@ public class Card extends JPanel {
 										"ATTENZIONE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 							}
 							if (confirm == JOptionPane.YES_OPTION) {
-								if (LogicHelper.calculateWeights(temp, this.bar_weight)) {
+								if (LogicHelper.calculateWeights(temp, this.bar_weight,
+										this.match_frame.getManager().is0p5Present(),
+										this.match_frame.getManager().is0p25Present())) {
 									current_lifter.setNextAttemptWeight(temp);
 									is_valid = true;
 								} else {
