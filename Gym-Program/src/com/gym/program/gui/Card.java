@@ -593,9 +593,9 @@ public class Card extends JPanel {
 	private void setLiftValidation(boolean isValid) {
 
 		if (current_lifter.getCurrentAttemptWeight() >= RecordsDB.getInstance().getRecord(
-				new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(), current_lifter.getCategory()))) {
+				new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(), current_lifter.getCategory()))
+				&& isValid) {
 			current_lifter.setBonusAttemptType(Attempt.BonusAttempt.RECORD);
-			System.out.println("SET BONUS");
 		}
 		current_lifter.setCurrentAttemptResult(isValid);
 		if (isValid) {
@@ -629,8 +629,12 @@ public class Card extends JPanel {
 					try {
 						double temp = Double.parseDouble(weight);
 						int confirm = JOptionPane.YES_OPTION;
-//						JOptionPane.showMessageDialog(getParent(), "PREVIOUS=="+current_lifter.getCurrentAttemptWeight(), "ALERT", JOptionPane.ERROR_MESSAGE);
-						if(temp < current_lifter.getCurrentAttemptWeight()|| (temp == current_lifter.getCurrentAttemptWeight() && current_lifter.getCurrentAttemptResult())) {
+						// JOptionPane.showMessageDialog(getParent(),
+						// "PREVIOUS=="+current_lifter.getCurrentAttemptWeight(),
+						// "ALERT", JOptionPane.ERROR_MESSAGE);
+						if (temp < current_lifter.getCurrentAttemptWeight()
+								|| (temp == current_lifter.getCurrentAttemptWeight()
+										&& current_lifter.getCurrentAttemptResult())) {
 							tooSmall = true;
 						} else {
 							if (temp >= (current_lifter.getCompetitor().getWeight() * 2.5)) {

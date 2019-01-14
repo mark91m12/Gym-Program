@@ -24,11 +24,11 @@ public class Lifter {
 
 	private Competitor competitor;
 	private Category category;
-	
+
 	private double rack_number;
 
 	private Attempt bonusAttempt;
-	
+
 	public Lifter(Competitor competitor, Choice choice) {
 		this.competitor = competitor;
 		this.setCategory(choice);
@@ -78,8 +78,8 @@ public class Lifter {
 	}
 
 	public Boolean getAttemptResult(Attempt a) {
-		if(a != null) {
-			if(a.equals(Attempt.BonusAttempt.GENERAL)) {
+		if (a != null) {
+			if (a.equals(Attempt.BonusAttempt.GENERAL)) {
 				a = bonusAttempt;
 			}
 			Boolean result = this.attemptsResults.get(a);
@@ -122,20 +122,23 @@ public class Lifter {
 	public Boolean getCurrentAttemptResult() {
 		return this.getAttemptResult(this.currentAttempt);
 	}
-	
+
 	public void setCurrentAttemptResult(boolean result) {
+
 		this.setAttemptResult(this.currentAttempt, result);
 		// this.setNextCurrentAttempt();
 		if (result) {
-			this.setScore(LogicHelper.getWilksResult(this.getCompetitor().getWeight(), this.getCurrentAttemptWeight(),
-					this.getCompetitor().getSex()));
+
+			if (!this.currentAttempt.equals(Attempt.BonusAttempt.RECORD))
+				this.setScore(LogicHelper.getWilksResult(this.getCompetitor().getWeight(),
+						this.getCurrentAttemptWeight(), this.getCompetitor().getSex()));
 		}
 	}
 
 	private boolean setNextCurrentAttempt() {
-		
-		if(this.currentAttempt instanceof StandardAttempt) {
-			switch ((StandardAttempt)this.currentAttempt) {
+
+		if (this.currentAttempt instanceof StandardAttempt) {
+			switch ((StandardAttempt) this.currentAttempt) {
 			case FIRST:
 				this.currentAttempt = Attempt.StandardAttempt.SECOND;
 				return true;
@@ -143,10 +146,10 @@ public class Lifter {
 				this.currentAttempt = Attempt.StandardAttempt.THIRD;
 				return true;
 			case THIRD:
-				if(hasBonusAttempt()) {
+				if (hasBonusAttempt()) {
 					this.currentAttempt = getBonusAttemptType();
 					return true;
-				}else {
+				} else {
 					return false;
 				}
 			default:
@@ -157,7 +160,8 @@ public class Lifter {
 	}
 
 	public boolean hasMoreLift() {
-		if ((this.currentAttempt.equals(Attempt.StandardAttempt.THIRD) && !hasBonusAttempt()) || this.currentAttempt instanceof Attempt.BonusAttempt) {
+		if ((this.currentAttempt.equals(Attempt.StandardAttempt.THIRD) && !hasBonusAttempt())
+				|| this.currentAttempt instanceof Attempt.BonusAttempt) {
 			return false;
 		}
 		return true;
@@ -174,7 +178,7 @@ public class Lifter {
 	public void setCurrentAttempt(Attempt currentAttempt) {
 		this.currentAttempt = currentAttempt;
 	}
-	
+
 	public boolean hasBonusAttempt() {
 		return !(bonusAttempt == null);
 	}
@@ -186,36 +190,36 @@ public class Lifter {
 	public Attempt getBonusAttemptType() {
 		return bonusAttempt;
 	}
-	
-//	public Attempt getPreviousAttempt() {
-//	if(this.currentAttempt instanceof StandardAttempt) {
-//		switch ((StandardAttempt)this.currentAttempt) {
-//		case FIRST:
-//			return null;
-//		case SECOND:
-//			return Attempt.StandardAttempt.FIRST;
-//		case THIRD:
-//			return Attempt.StandardAttempt.SECOND;
-//		default:
-//			return null;
-//		}
-//	}else if (this.currentAttempt instanceof BonusAttempt) {
-//		return Attempt.StandardAttempt.THIRD;
-//	}
-//	return null;
-//}
-//
-//public Double getPreviousAttemptWeight() {
-//	if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
-//		return getCurrentAttemptWeight();
-//	}
-//	return this.getAttemptWeight(getPreviousAttempt());
-//}
-//
-//public Boolean getPreviousAttemptResult() {
-//	if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
-//		return getCurrentAttemptResult();
-//	}
-//	return this.getAttemptResult(getPreviousAttempt());
-//}
+
+	// public Attempt getPreviousAttempt() {
+	// if(this.currentAttempt instanceof StandardAttempt) {
+	// switch ((StandardAttempt)this.currentAttempt) {
+	// case FIRST:
+	// return null;
+	// case SECOND:
+	// return Attempt.StandardAttempt.FIRST;
+	// case THIRD:
+	// return Attempt.StandardAttempt.SECOND;
+	// default:
+	// return null;
+	// }
+	// }else if (this.currentAttempt instanceof BonusAttempt) {
+	// return Attempt.StandardAttempt.THIRD;
+	// }
+	// return null;
+	// }
+	//
+	// public Double getPreviousAttemptWeight() {
+	// if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
+	// return getCurrentAttemptWeight();
+	// }
+	// return this.getAttemptWeight(getPreviousAttempt());
+	// }
+	//
+	// public Boolean getPreviousAttemptResult() {
+	// if(currentAttempt.equals(Attempt.StandardAttempt.FIRST)) {
+	// return getCurrentAttemptResult();
+	// }
+	// return this.getAttemptResult(getPreviousAttempt());
+	// }
 }
