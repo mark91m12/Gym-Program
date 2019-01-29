@@ -6,9 +6,9 @@ import java.util.Map;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.Sex;
-import com.gym.program.utils.LogicHelper;
 import com.gym.program.utils.Category.Age;
 import com.gym.program.utils.Category.Weight;
+import com.gym.program.utils.LogicHelper;
 
 public class Competitor {
 

@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.utils.Attempt;
+import com.gym.program.utils.Category;
 import com.gym.program.utils.Attempt.BonusAttempt;
 import com.gym.program.utils.Attempt.StandardAttempt;
-import com.gym.program.utils.Category;
 import com.gym.program.utils.Category.Age;
 import com.gym.program.utils.Category.Weight;
 import com.gym.program.utils.Choice;

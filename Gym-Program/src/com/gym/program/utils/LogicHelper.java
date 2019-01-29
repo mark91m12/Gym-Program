@@ -3,8 +3,6 @@ package com.gym.program.utils;
 import java.util.ArrayList;
 
 import com.gym.program.logic.competitor.Competitor;
-import com.gym.program.utils.Category.Age;
-import com.gym.program.utils.Category.Weight;
 
 public class LogicHelper {
 

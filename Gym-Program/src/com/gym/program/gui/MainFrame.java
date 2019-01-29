@@ -147,7 +147,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.DEADLIFT);
 				}
 				matchFrame = new MatchFrame(MainFrame.this);
-				MainFrame.this.setVisible(false);
+//				MainFrame.this.setVisible(false);
 			}
 		});
 
