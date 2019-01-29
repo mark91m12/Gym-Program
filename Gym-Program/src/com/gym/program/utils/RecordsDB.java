@@ -24,24 +24,33 @@ public class RecordsDB {
 		initRecords();
 	}
 
-
 	private void initRecords() {
 		for (TypeOfMatch type : TypeOfMatch.values()) {
-			for (Category age: Category.Age.values()) {
+			for (Category age : Category.Male.Male_Age.values()) {
 				records.put(new RecordKey(type, age), 500.00);
-				System.out.println(new RecordKey(type, age)+"-->value:"+records.get(new RecordKey(type, age)));
+				System.out.println(new RecordKey(type, age) + "-->value:" + records.get(new RecordKey(type, age)));
 			}
-			for (Category weight: Category.Weight.values()) {
+			for (Category age : Category.Female.Female_Age.values()) {
+				records.put(new RecordKey(type, age), 300.00);
+				System.out.println(new RecordKey(type, age) + "-->value:" + records.get(new RecordKey(type, age)));
+			}
+			for (Category weight : Category.Male.Male_Weight.values()) {
 				records.put(new RecordKey(type, weight), 500.00);
-				System.out.println(new RecordKey(type, weight)+"-->value:"+records.get(new RecordKey(type, weight)));
+				System.out
+						.println(new RecordKey(type, weight) + "-->value:" + records.get(new RecordKey(type, weight)));
 			}
+			for (Category weight : Category.Female.Female_Weight.values()) {
+				records.put(new RecordKey(type, weight), 500.00);
+				System.out
+						.println(new RecordKey(type, weight) + "-->value:" + records.get(new RecordKey(type, weight)));
+			}
+
 		}
 	}
-	
+
 	public Double getRecord(RecordKey key) {
-		System.out.println(key+"-->value:"+records.get(key));
+		System.out.println(key + "-->value:" + records.get(key));
 		return records.get(key);
 	}
 
-	
 }

@@ -3,6 +3,8 @@ package com.gym.program.utils;
 import java.util.ArrayList;
 
 import com.gym.program.logic.competitor.Competitor;
+import com.gym.program.utils.Category.Female;
+import com.gym.program.utils.Category.Male;
 
 public class LogicHelper {
 
@@ -53,7 +55,7 @@ public class LogicHelper {
 	//
 	// WeightDisc plate = new W25Kg();
 	// // WeightDisc.is_present_0_25_kg = true;
-	// // WeightDisc.is_present_0_5_kg = true; 
+	// // WeightDisc.is_present_0_5_kg = true;
 	// double target;
 	//
 	// ArrayList<WeightDisc> plates = new ArrayList<WeightDisc>();
@@ -90,83 +92,115 @@ public class LogicHelper {
 
 	public static Category getCategory(Choice choice, Competitor competitor) {
 
-		Category result = Age.SENIOR;
+		Category result = null;
 		int age = competitor.getAge();
 
-		switch (choice) {
-		case CLSS_AGE:
-			if (age < 18) {
-				result = Age.SUB_JUNIOR;
-			} else if (age >= 18 && age <= 23) {
-				result = Age.JUNIOR;
-			} else if (age >= 24 && age <= 39) {
-				result = Age.SENIOR;
-			} else if (age >= 40 && age <= 49) {
-				result = Age.MASTER1;
-			} else if (age >= 50 && age <= 59) {
-				result = Age.MASTER2;
-			} else if (age >= 60 && age <= 69) {
-				result = Age.MASTER3;
-			} else if (age >= 70) {
-				result = Age.MASTER4;
-			}
-			break;
-		case CLSS_WEIGHT:
-			double weight = competitor.getWeight();
-			switch (competitor.getSex()) {
-			case MALE:
+		switch (competitor.getSex()) {
+
+		case MALE:
+			switch (choice) {
+			case CLSS_AGE:
+
+				if (age < 18) {
+					result = Male.Male_Age.SUB_JUNIOR;
+				} else if (age >= 18 && age <= 23) {
+					result = Male.Male_Age.JUNIOR;
+				} else if (age >= 24 && age <= 39) {
+					result = Male.Male_Age.SENIOR;
+				} else if (age >= 40 && age <= 49) {
+					result = Male.Male_Age.MASTER1;
+				} else if (age >= 50 && age <= 59) {
+					result = Male.Male_Age.MASTER2;
+				} else if (age >= 60 && age <= 69) {
+					result = Male.Male_Age.MASTER3;
+				} else if (age >= 70) {
+					result = Male.Male_Age.MASTER4;
+				}
+				break;
+
+			case CLSS_WEIGHT:
+
+				double weight = competitor.getWeight();
+
 				if (weight <= 59.0) {
 					if (weight <= 53.0 && (age < 18 || age >= 18 && age <= 23)) {
-						result = Weight.MINUS_53;
+						result = Male.Male_Weight.MINUS_53;
 					} else {
-						result = Weight.MINUS_59;
+						result = Male.Male_Weight.MINUS_59;
 					}
 
 				} else if (weight >= 59.01 && weight <= 66.0) {
-					result = Weight.MINUS_66;
+					result = Male.Male_Weight.MINUS_66;
 				} else if (weight >= 66.01 && weight <= 74.0) {
-					result = Weight.MINUS_74;
+					result = Male.Male_Weight.MINUS_74;
 				} else if (weight >= 74.01 && weight <= 83.0) {
-					result = Weight.MINUS_83;
+					result = Male.Male_Weight.MINUS_83;
 				} else if (weight >= 83.01 && weight <= 93.0) {
-					result = Weight.MINUS_93;
+					result = Male.Male_Weight.MINUS_93;
 				} else if (weight >= 93.01 && weight <= 105.0) {
-					result = Weight.MINUS_105;
+					result = Male.Male_Weight.MINUS_105;
 				} else if (weight >= 105.01 && weight <= 120.0) {
-					result = Weight.MINUS_120;
+					result = Male.Male_Weight.MINUS_120;
 				} else if (weight >= 120.01) {
-					result = Weight.PLUS_120;
-				}
-				break;
-			case FEMALE:
-				if (weight <= 47.0) {
-					if (weight <= 43.0 && (age < 18 || age >= 18 && age <= 23)) {
-						result = Weight.MINUS_43;
-					} else {
-						result = Weight.MINUS_47;
-					}
-				} else if (weight >= 47.01 && weight <= 52.0) {
-					result = Weight.MINUS_52;
-				} else if (weight >= 52.01 && weight <= 57.0) {
-					result = Weight.MINUS_57;
-				} else if (weight >= 57.01 && weight <= 63.0) {
-					result = Weight.MINUS_63;
-				} else if (weight >= 63.01 && weight <= 72.0) {
-					result = Weight.MINUS_72;
-				} else if (weight >= 72.01 && weight <= 84.0) {
-					result = Weight.MINUS_84;
-				} else if (weight >= 84.01) {
-					result = Weight.PLUS_84;
+					result = Male.Male_Weight.PLUS_120;
 				}
 				break;
 			default:
 				break;
-			}// end switch sex
-			break;
+			} // end switch Choice MALE
+		case FEMALE:
+
+			switch (choice) {
+			case CLSS_AGE:
+
+				if (age < 18) {
+					result = Female.Female_Age.SUB_JUNIOR;
+				} else if (age >= 18 && age <= 23) {
+					result = Female.Female_Age.JUNIOR;
+				} else if (age >= 24 && age <= 39) {
+					result = Female.Female_Age.SENIOR;
+				} else if (age >= 40 && age <= 49) {
+					result = Female.Female_Age.MASTER1;
+				} else if (age >= 50 && age <= 59) {
+					result = Female.Female_Age.MASTER2;
+				} else if (age >= 60 && age <= 69) {
+					result = Female.Female_Age.MASTER3;
+				} else if (age >= 70) {
+					result = Female.Female_Age.MASTER4;
+				}
+				break;
+
+			case CLSS_WEIGHT:
+
+				double weight = competitor.getWeight();
+
+				if (weight <= 47.0) {
+					if (weight <= 43.0 && (age < 18 || age >= 18 && age <= 23)) {
+						result = Female.Female_Weight.MINUS_43;
+					} else {
+						result = Female.Female_Weight.MINUS_47;
+					}
+				} else if (weight >= 47.01 && weight <= 52.0) {
+					result = Female.Female_Weight.MINUS_52;
+				} else if (weight >= 52.01 && weight <= 57.0) {
+					result = Female.Female_Weight.MINUS_57;
+				} else if (weight >= 57.01 && weight <= 63.0) {
+					result = Female.Female_Weight.MINUS_63;
+				} else if (weight >= 63.01 && weight <= 72.0) {
+					result = Female.Female_Weight.MINUS_72;
+				} else if (weight >= 72.01 && weight <= 84.0) {
+					result = Female.Female_Weight.MINUS_84;
+				} else if (weight >= 84.01) {
+					result = Female.Female_Weight.PLUS_84;
+				}
+				break;
+			default:
+				break;
+			} // end switch Choice FEMALE
+
 		default:
 			break;
-
-		}// end switch Choice
+		} // end switch Sex
 
 		return result;
 	}

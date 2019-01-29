@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.gym.program.logic.match.Match.TypeOfMatch;
+import com.gym.program.utils.Category;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.Sex;
-import com.gym.program.utils.Category.Age;
-import com.gym.program.utils.Category.Weight;
 import com.gym.program.utils.LogicHelper;
 
 public class Competitor {
@@ -18,8 +17,8 @@ public class Competitor {
 	private int age;
 	private Sex sex;
 	private String team;
-	private Age age_class;
-	private Weight weight_class;
+	private Category age_class;
+	private Category weight_class;
 	private Map<TypeOfMatch, Choice> map;
 
 	public Competitor(String name, String surname, Sex sex, String team, double weight, int age) {
@@ -99,20 +98,20 @@ public class Competitor {
 				+ this.age + ", sex=" + this.sex + ", team=" + this.team + ", map=" + this.map + "]";
 	}
 
-	public Age getAge_class() {
+	public Category getAge_class() {
 		return age_class;
 	}
 
 	private void setAge_class() {
-		this.age_class = (Age) LogicHelper.getCategory(Choice.CLSS_AGE, this);
+		this.age_class = LogicHelper.getCategory(Choice.CLSS_AGE, this);
 	}
 
-	public Weight getWeight_class() {
+	public Category getWeight_class() {
 		return weight_class;
 	}
 
 	private void setWeight_class() {
-		this.weight_class = (Weight) LogicHelper.getCategory(Choice.CLSS_WEIGHT, this);
+		this.weight_class = LogicHelper.getCategory(Choice.CLSS_WEIGHT, this);
 	}
 
 }
