@@ -102,19 +102,19 @@ public class LogicHelper {
 			case CLSS_AGE:
 
 				if (age < 18) {
-					result = Male.Male_Age.SUB_JUNIOR;
+					result = Male.Male_Age.MALE_SUB_JUNIOR;
 				} else if (age >= 18 && age <= 23) {
-					result = Male.Male_Age.JUNIOR;
+					result = Male.Male_Age.MALE_JUNIOR;
 				} else if (age >= 24 && age <= 39) {
-					result = Male.Male_Age.SENIOR;
+					result = Male.Male_Age.MALE_SENIOR;
 				} else if (age >= 40 && age <= 49) {
-					result = Male.Male_Age.MASTER1;
+					result = Male.Male_Age.MALE_MASTER1;
 				} else if (age >= 50 && age <= 59) {
-					result = Male.Male_Age.MASTER2;
+					result = Male.Male_Age.MALE_MASTER2;
 				} else if (age >= 60 && age <= 69) {
-					result = Male.Male_Age.MASTER3;
+					result = Male.Male_Age.MALE_MASTER3;
 				} else if (age >= 70) {
-					result = Male.Male_Age.MASTER4;
+					result = Male.Male_Age.MALE_MASTER4;
 				}
 				break;
 
@@ -154,19 +154,19 @@ public class LogicHelper {
 			case CLSS_AGE:
 
 				if (age < 18) {
-					result = Female.Female_Age.SUB_JUNIOR;
+					result = Female.Female_Age.FEMALE_SUB_JUNIOR;
 				} else if (age >= 18 && age <= 23) {
-					result = Female.Female_Age.JUNIOR;
+					result = Female.Female_Age.FEMALE_JUNIOR;
 				} else if (age >= 24 && age <= 39) {
-					result = Female.Female_Age.SENIOR;
+					result = Female.Female_Age.FEMALE_SENIOR;
 				} else if (age >= 40 && age <= 49) {
-					result = Female.Female_Age.MASTER1;
+					result = Female.Female_Age.FEMALE_MASTER1;
 				} else if (age >= 50 && age <= 59) {
-					result = Female.Female_Age.MASTER2;
+					result = Female.Female_Age.FEMALE_MASTER2;
 				} else if (age >= 60 && age <= 69) {
-					result = Female.Female_Age.MASTER3;
+					result = Female.Female_Age.FEMALE_MASTER3;
 				} else if (age >= 70) {
-					result = Female.Female_Age.MASTER4;
+					result = Female.Female_Age.FEMALE_MASTER4;
 				}
 				break;
 

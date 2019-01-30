@@ -14,6 +14,7 @@ import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.CallComparator;
+import com.gym.program.utils.Category;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.Sex;
 import com.gym.program.utils.LogicHelper;
@@ -21,6 +22,12 @@ import com.gym.program.utils.LogicHelper;
 public class Test {
 
 	public static void main(String[] args) { // TODO Auto-generated methostub
+		Category c = Category.Male.Male_Age.MALE_SUB_JUNIOR;
+		Category c1 = Category.Male.Male_Age.MALE_JUNIOR;
+		Category c2 = Category.Male.Male_Age.MALE_SENIOR;
+		System.out.println(c.toString());
+		System.out.println(c1.toString());
+		System.out.println(c2.toString());
 		/*
 		 * // // SIMULATING EVENT CREATION // System.out.println("\n\n\n"); //
 		 * System.out.println("*********** TEST EVENT CREATION ****************"
@@ -88,7 +95,7 @@ public class Test {
 		 */
 		// TEST main menu window
 
-		new MainMenu();
+//		new MainMenu();
 
 	}
 
