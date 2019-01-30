@@ -112,6 +112,7 @@ public class Competitor {
 
 	private void setWeight_class() {
 		this.weight_class = LogicHelper.getCategory(Choice.CLSS_WEIGHT, this);
+		System.out.println("this wc "+this.weight_class);
 	}
 
 }
