@@ -516,6 +516,7 @@ public class Card extends JPanel {
 		this.second_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.StandardAttempt.SECOND).toString());
 		this.third_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.StandardAttempt.THIRD).toString());
 		String text = " - ";
+
 		if (current_lifter.hasBonusAttempt()) {
 			text = current_lifter.getAttemptWeight(current_lifter.getBonusAttemptType()).toString();
 		}
@@ -524,7 +525,8 @@ public class Card extends JPanel {
 
 		this.bonus_lift_panel.setVisible(false);
 
-		if (current_lifter.hasBonusAttempt())
+		if (current_lifter.hasBonusAttempt() && (current_lifter.getCurrentAttempt().equals(Attempt.BonusAttempt.RECORD)
+				|| current_lifter.getCurrentAttempt().equals(Attempt.BonusAttempt.DISPUTED)))
 			this.bonus_lift_panel.setVisible(true);
 
 		this.exercise_label.setText(this.match_frame.getManager().getCurrentTypeOfMatch().toString());
