@@ -93,23 +93,21 @@ public class RankingPanel extends JPanel {
 		gl_categoryPanel.setHorizontalGroup(
 			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_categoryPanel.createSequentialGroup()
-					.addGroup(gl_categoryPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_categoryPanel.createSequentialGroup()
-							.addGap(185)
-							.addComponent(lblCategory))
-						.addGroup(gl_categoryPanel.createSequentialGroup()
-							.addGap(130)
-							.addComponent(comboBoxCategoryList, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(126, Short.MAX_VALUE))
+					.addGap(212)
+					.addComponent(comboBoxCategoryList, 0, 0, Short.MAX_VALUE)
+					.addGap(222))
+				.addGroup(gl_categoryPanel.createSequentialGroup()
+					.addGap(199)
+					.addComponent(lblCategory, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(208))
 		);
 		gl_categoryPanel.setVerticalGroup(
 			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_categoryPanel.createSequentialGroup()
-					.addGap(3)
 					.addComponent(lblCategory)
-					.addGap(6)
+					.addGap(9)
 					.addComponent(comboBoxCategoryList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(33, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		categoryPanel.setLayout(gl_categoryPanel);
 
@@ -196,9 +194,9 @@ public class RankingPanel extends JPanel {
 		gl_rankingListPanel.setVerticalGroup(
 			gl_rankingListPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_rankingListPanel.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addContainerGap()
 					.addComponent(tableContainerPanel, GroupLayout.PREFERRED_SIZE, 274, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		tableContainerPanel.setLayout(new BorderLayout(0, 0));
 		rankingListPanel.setLayout(gl_rankingListPanel);
@@ -228,15 +226,15 @@ public class RankingPanel extends JPanel {
 		gl_selectionPanel.setHorizontalGroup(
 			gl_selectionPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_selectionPanel.createSequentialGroup()
-					.addContainerGap(180, Short.MAX_VALUE)
-					.addComponent(lblMatchList, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+					.addGap(180)
+					.addComponent(lblMatchList, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
 					.addGap(176))
 				.addGroup(gl_selectionPanel.createSequentialGroup()
-					.addGap(127)
-					.addGroup(gl_selectionPanel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(comboBoxMatchList, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(comboBoxTeam_Atlet, Alignment.LEADING, 0, 265, Short.MAX_VALUE))
-					.addGap(5))
+					.addGap(207)
+					.addGroup(gl_selectionPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(comboBoxTeam_Atlet, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(comboBoxMatchList, Alignment.TRAILING, 0, 87, Short.MAX_VALUE))
+					.addGap(225))
 		);
 		gl_selectionPanel.setVerticalGroup(
 			gl_selectionPanel.createParallelGroup(Alignment.LEADING)
@@ -245,9 +243,9 @@ public class RankingPanel extends JPanel {
 					.addComponent(lblMatchList)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(comboBoxTeam_Atlet, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(comboBoxMatchList, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addGap(59))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		selectionPanel.setLayout(gl_selectionPanel);
 		setLayout(groupLayout);
@@ -361,6 +359,7 @@ public class RankingPanel extends JPanel {
 			found = false;
 			for (Lifter inList : temp) {
 				if(inList.equals(toAdd)) {
+					System.out.println("equals toAdd:"+inList.getCompetitor().getName());
 					inList.setScore(inList.getScore()+toAdd.getScore());
 					found = true;
 					break; 
