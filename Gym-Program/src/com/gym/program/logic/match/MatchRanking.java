@@ -14,6 +14,14 @@ public class MatchRanking {
 
 	private List<Lifter> lifters;
 
+	public List<Lifter> getLifters() {
+		return lifters;
+	}
+
+	public void setLifters(List<Lifter> lifters) {
+		this.lifters = lifters;
+	}
+
 	private Map<Category, RankingPerCategory> rankings;
 
 	public MatchRanking(List<Lifter> lifters, Map<Category, RankingPerCategory> rankings) {

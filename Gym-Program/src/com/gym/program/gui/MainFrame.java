@@ -170,13 +170,13 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				Match m3 = new Match(TypeOfMatch.SQUAT);
 
 				CompetitorBuilder builder = CompetitorBuilder.newBuilder().setName("Davide").setSurname("Amato")
-						.setSex(Sex.MALE).setAge(24).setTeam("kc").setWeight(83.40);
+						.setSex(Sex.MALE).setAge(24).setTeam("karate club").setWeight(83.40);
 
 				Competitor c1 = builder.build();
 				Competitor c2 = builder.setName("Marco").setAge(27).setWeight(78).build();
-				Competitor c3 = builder.setName("Andrea").setAge(29).setWeight(62).build();
-				Competitor c4 = builder.setName("Chiara").setAge(16).setWeight(55).build();
-				Competitor c5 = builder.setName("Mimmo").setAge(58).setWeight(90).build();
+				Competitor c3 = builder.setName("Andrea").setAge(29).setWeight(62).setTeam("dynamo").build();
+				Competitor c4 = builder.setName("Chiara").setAge(16).setWeight(55).setSex(Sex.FEMALE).build();
+				Competitor c5 = builder.setName("Mimmo").setAge(58).setWeight(90).setTeam("dynamo").build();
 
 				// c1 c3 c5 to all matches
 				manager.addMatch(m1);

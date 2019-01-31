@@ -96,13 +96,13 @@ public class Match {
 		RankingPerTeam result = new RankingPerTeam();
 
 		Set<String> teams = new HashSet<String>();
-		for (Lifter lifter : this.getLifters()) {
+		for (Lifter lifter : this.getMatchRanking().getLifters()) {
 			teams.add(lifter.getCompetitor().getTeam());
 		}
 
 		for (String team : teams) {
 			double score = 0;
-			for (Lifter lifter : this.getLifters()) {
+			for (Lifter lifter : this.getMatchRanking().getLifters()) {
 				if (team.equals(lifter.getCompetitor().getTeam())) {
 					score += lifter.getScore();
 				}
