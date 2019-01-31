@@ -122,6 +122,7 @@ public class RankingPanel extends JPanel {
 		
 		comboBoxMatchList = new JComboBox<TypeOfRanking.Discipline>();
 		matchListModel = new DefaultComboBoxModel<TypeOfRanking.Discipline>();
+		
 		for (TypeOfMatch type : matchFrame.getManager().getMatches().keySet()) {
 			switch (type) {
 			case BENCHPRESS:
