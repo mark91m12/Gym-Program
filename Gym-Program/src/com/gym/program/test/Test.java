@@ -21,7 +21,7 @@ import com.gym.program.utils.LogicHelper;
 
 public class Test {
 
-	//public static void main(String[] args) { // TODO Auto-generated methostub
+	public static void main(String[] args) { // TODO Auto-generated methostub
 //		Category c = Category.Male.Male_Age.MALE_SUB_JUNIOR;
 //		Category c1 = Category.Male.Male_Age.MALE_JUNIOR;
 //		Category c2 = Category.Male.Male_Age.MALE_SENIOR;
@@ -95,9 +95,9 @@ public class Test {
 		 */
 		// TEST main menu window
 
-// 		new MainMenu();
-//
-//	}
+ 		new MainMenu();
+
+	}
 
 	public static void checkMatch(Manager manager, Match match) {
 		if (manager.addMatch(match)) {
