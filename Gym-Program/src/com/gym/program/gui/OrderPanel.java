@@ -38,8 +38,8 @@ public class OrderPanel extends JPanel {
 	public OrderPanel(MatchFrame mf) {
 
 		this.match_frame = mf;
-		
-		System.out.println("OP  "+this.match_frame.getManager());
+
+		System.out.println("OP  " + this.match_frame.getManager());
 
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
@@ -89,6 +89,10 @@ public class OrderPanel extends JPanel {
 			this.choice_box.addItem(type.toString());
 		}
 
+		// choice_box.setSelectedItem(this.match_frame.getManager().getCurrentMatch().getType().toString());
+		// System.out.println(this.match_frame.getManager().getCurrentMatch().getType()
+		// + "***************** "
+		// + choice_box.getSelectedItem());
 	}
 
 	private void updateTable() {
@@ -100,6 +104,11 @@ public class OrderPanel extends JPanel {
 
 		this.list_panel.add(this.scroll);
 		this.list_panel.updateUI();
+	}
+
+	public void refresh() {
+		this.updateTable();
+		choice_box.setSelectedItem(this.match_frame.getManager().getCurrentMatch().getType().toString());
 	}
 
 }
