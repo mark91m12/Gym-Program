@@ -282,7 +282,6 @@ public class Card extends JPanel {
 		fixed_record_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		record_weights_label = new JLabel();
-		record_weights_label.setText("217 ");
 		record_weights_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		JPanel attempts_panel = new JPanel();
@@ -569,9 +568,19 @@ public class Card extends JPanel {
 		default:
 			break;
 		}
-		record_weights_label.setText("" + RecordsDB.getInstance()
-				.getRecord(new RecordKey(manager.getCurrentTypeOfMatch(), current_lifter.getCompetitor().getAge_class(),
-						current_lifter.getCompetitor().getWeight_class())));
+		
+		Double record = RecordsDB.getInstance()
+				.getRecord(new RecordKey(manager.getCurrentTypeOfMatch(), current_lifter.getCompetitor().getSex(),
+						current_lifter.getCompetitor().getAge_class(),
+						current_lifter.getCompetitor().getWeight_class()));
+		if(record != null){
+			record_weights_label.setText(record.toString());
+		}else{
+			record_weights_label.setText(" - ");
+		}
+		
+	 
+		
 	}
 
 	private void updateLabelAttempts() {
@@ -607,13 +616,18 @@ public class Card extends JPanel {
 
 	private void setLiftValidation(boolean isValid) {
 
-		if (current_lifter.getCurrentAttemptWeight() >= RecordsDB.getInstance()
-				.getRecord(new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(),
-						current_lifter.getCompetitor().getAge_class(),
-						current_lifter.getCompetitor().getWeight_class()))
-				&& isValid) {
-			current_lifter.setBonusAttemptType(Attempt.BonusAttempt.RECORD);
+		try {
+			if (current_lifter.getCurrentAttemptWeight() >= RecordsDB.getInstance()
+					.getRecord(new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(),
+							current_lifter.getCompetitor().getSex(), current_lifter.getCompetitor().getAge_class(),
+							current_lifter.getCompetitor().getWeight_class()))
+					&& isValid) {
+				current_lifter.setBonusAttemptType(Attempt.BonusAttempt.RECORD);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+
 		current_lifter.setCurrentAttemptResult(isValid);
 		if (isValid) {
 			match_frame.getManager().getMatches().get(match_frame.getManager().getCurrentTypeOfMatch())
