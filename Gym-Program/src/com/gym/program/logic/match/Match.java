@@ -1,14 +1,17 @@
 package com.gym.program.logic.match;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.utils.Attempt;
 import com.gym.program.utils.CallComparator;
 import com.gym.program.utils.Choice;
-import com.gym.program.utils.LogicHelper;
 
 public class Match {
 
@@ -87,6 +90,29 @@ public class Match {
 
 	public void sortLifters() {
 		this.lifters.sort(new CallComparator());
+	}
+
+	public Map<String, Double> getTeamScores() {
+
+		Map<String, Double> result = new HashMap<String, Double>();
+
+		Set<String> teams = new HashSet<String>();
+		for (Lifter lifter : this.getLifters()) {
+			teams.add(lifter.getCompetitor().getTeam());
+		}
+
+		for (String team : teams) {
+			double score = 0;
+			for (Lifter lifter : this.getLifters()) {
+				if (team.equals(lifter.getCompetitor().getTeam())) {
+					score += lifter.getScore();
+				}
+			}
+
+			result.put(team, score);
+		}
+
+		return result;
 	}
 
 	// public void start() {

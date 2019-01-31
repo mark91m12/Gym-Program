@@ -570,7 +570,8 @@ public class Card extends JPanel {
 			break;
 		}
 		record_weights_label.setText("" + RecordsDB.getInstance()
-				.getRecord(new RecordKey(manager.getCurrentTypeOfMatch(), current_lifter.getCategory())));
+				.getRecord(new RecordKey(manager.getCurrentTypeOfMatch(), current_lifter.getCompetitor().getAge_class(),
+						current_lifter.getCompetitor().getWeight_class())));
 	}
 
 	private void updateLabelAttempts() {
@@ -606,8 +607,10 @@ public class Card extends JPanel {
 
 	private void setLiftValidation(boolean isValid) {
 
-		if (current_lifter.getCurrentAttemptWeight() >= RecordsDB.getInstance().getRecord(
-				new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(), current_lifter.getCategory()))
+		if (current_lifter.getCurrentAttemptWeight() >= RecordsDB.getInstance()
+				.getRecord(new RecordKey(match_frame.getManager().getCurrentTypeOfMatch(),
+						current_lifter.getCompetitor().getAge_class(),
+						current_lifter.getCompetitor().getWeight_class()))
 				&& isValid) {
 			current_lifter.setBonusAttemptType(Attempt.BonusAttempt.RECORD);
 		}

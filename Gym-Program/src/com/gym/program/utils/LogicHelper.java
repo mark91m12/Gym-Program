@@ -1,8 +1,12 @@
 package com.gym.program.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.gym.program.logic.competitor.Competitor;
+import com.gym.program.logic.match.Lifter;
+import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Category.Female;
 import com.gym.program.utils.Category.Male;
 
@@ -218,4 +222,5 @@ public class LogicHelper {
 	public static void setRest(double rest) {
 		LogicHelper.remainder = rest;
 	}
+
 }

@@ -4,34 +4,46 @@ import com.gym.program.logic.match.Match.TypeOfMatch;
 
 public class RecordKey {
 	private TypeOfMatch typeOfMatch;
-	private Category category;
-	
-	public RecordKey(TypeOfMatch typeOfMatch, Category category) {
+	private Category age;
+	private Category weight;
+
+	public RecordKey(TypeOfMatch typeOfMatch, Category age, Category weight) {
 		super();
 		this.typeOfMatch = typeOfMatch;
-		this.category = category;
+		this.age = age;
+		this.weight = weight;
 	}
-	
+
 	public TypeOfMatch getTypeOfMatch() {
 		return typeOfMatch;
 	}
+
 	public void setTypeOfMatch(TypeOfMatch typeOfMatch) {
 		this.typeOfMatch = typeOfMatch;
 	}
-	public Category getCategory() {
-		return category;
-	}
-	public void setCategory(Category category) {
-		this.category = category;
+
+	public Category getAge() {
+		return age;
 	}
 
-	
-	
+	public void setAge(Category age) {
+		this.age = age;
+	}
+
+	public Category getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Category weight) {
+		this.weight = weight;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((age == null) ? 0 : age.hashCode());
+		result = prime * result + ((weight == null) ? 0 : weight.hashCode());
 		result = prime * result + ((typeOfMatch == null) ? 0 : typeOfMatch.hashCode());
 		return result;
 	}
@@ -45,10 +57,15 @@ public class RecordKey {
 		if (getClass() != obj.getClass())
 			return false;
 		RecordKey other = (RecordKey) obj;
-		if (category == null) {
-			if (other.category != null)
+		if (age == null) {
+			if (other.age != null)
 				return false;
-		} else if (!category.equals(other.category))
+		} else if (!age.equals(other.age))
+			return false;
+		if (weight == null) {
+			if (other.weight != null)
+				return false;
+		} else if (!weight.equals(other.weight))
 			return false;
 		if (typeOfMatch != other.typeOfMatch)
 			return false;
@@ -57,7 +74,7 @@ public class RecordKey {
 
 	@Override
 	public String toString() {
-		return "RecordKey [typeOfMatch=" + typeOfMatch + ", category=" + category + "]";
+		return "RecordKey [typeOfMatch=" + typeOfMatch + ", class=" + age + " " + weight + "]";
 	}
-	
+
 }

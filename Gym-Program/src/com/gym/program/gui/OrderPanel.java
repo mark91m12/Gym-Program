@@ -109,6 +109,8 @@ public class OrderPanel extends JPanel {
 	public void refresh() {
 		this.updateTable();
 		choice_box.setSelectedItem(this.match_frame.getManager().getCurrentMatch().getType().toString());
+
+		match_frame.getManager().TestTeamScores();
 	}
 
 }

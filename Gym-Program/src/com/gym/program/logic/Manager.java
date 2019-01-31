@@ -116,4 +116,12 @@ public class Manager {
 	public Match getCurrentMatch() {
 		return this.matches.get(currentTypeOfMatch);
 	}
+
+	public void TestTeamScores() {
+		Map tmp = this.getCurrentMatch().getTeamScores();
+
+		for (Object key : tmp.keySet()) {
+			System.out.println("Team => " + key + " score => " + tmp.get(key));
+		}
+	}
 }
