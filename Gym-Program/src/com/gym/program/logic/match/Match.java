@@ -94,6 +94,7 @@ public class Match {
 
 	public Map<String, Double> getTeamScores() {
 
+		
 		Map<String, Double> result = new HashMap<String, Double>();
 
 		Set<String> teams = new HashSet<String>();
