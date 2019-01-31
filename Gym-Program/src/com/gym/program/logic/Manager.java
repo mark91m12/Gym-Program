@@ -9,10 +9,12 @@ import java.util.Set;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match;
+import com.gym.program.logic.match.RankingPerTeam;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Attempt;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.RecordKey;
+import com.gym.program.utils.TeamScore;
 
 public class Manager {
 
@@ -118,10 +120,10 @@ public class Manager {
 	}
 
 	public void TestTeamScores() {
-		Map tmp = this.getCurrentMatch().getTeamScores();
+		RankingPerTeam tmp = this.getCurrentMatch().getTeamScores();
 
-		for (Object key : tmp.keySet()) {
-			System.out.println("Team => " + key + " score => " + tmp.get(key));
+		for (TeamScore teamScore : tmp) {
+			System.out.println(teamScore.getName() + " ===> " + teamScore.getScore());
 		}
 	}
 }

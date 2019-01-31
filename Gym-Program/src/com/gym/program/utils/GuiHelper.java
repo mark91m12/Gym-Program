@@ -7,8 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.DefaultCellEditor;
@@ -31,7 +34,6 @@ import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match.TypeOfMatch;
-import com.gym.program.utils.Attempt.BonusAttempt;
 
 public class GuiHelper {
 
@@ -122,6 +124,35 @@ public class GuiHelper {
 			rowData[i][6] = lifters.get(i).getCategory();
 			rowData[i][7] = lifters.get(i).getCurrentAttemptWeight();
 		}
+
+		TableModel model = new DefaultTableModel(rowData, names);
+		JTable table = new JTable(model);
+		table.getTableHeader().setReorderingAllowed(false);
+
+		JScrollPane scroll = new JScrollPane(table);
+
+		return scroll;
+	}
+
+	public JScrollPane createTableForTeamRanking(Map<String, Double> teams_scores) {
+
+		Object names[] = { " Posizione ", " Squadra ", " Punteggio" };
+
+		Object rowData[][] = new Object[teams_scores.keySet().size()][names.length];
+
+//		Map sorted = teams_scores.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+//				.collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+//
+//		for (int i = 0; i < teams_scores.keySet().size(); i++) {
+//			rowData[i][0] = i + 1;
+//			rowData[i][1] = teams_scores.get(key).get(i).getCompetitor().getSurname();
+//			rowData[i][2] = lifters.get(i).getCompetitor().getName();
+//			rowData[i][3] = lifters.get(i).getCompetitor().getTeam();
+//			rowData[i][4] = lifters.get(i).getCompetitor().getAge();
+//			rowData[i][5] = lifters.get(i).getCompetitor().getWeight();
+//			rowData[i][6] = lifters.get(i).getCategory();
+//			rowData[i][7] = lifters.get(i).getCurrentAttemptWeight();
+//		}
 
 		TableModel model = new DefaultTableModel(rowData, names);
 		JTable table = new JTable(model);
