@@ -7,7 +7,7 @@ public class TeamScore {
 
 	public TeamScore(String name, double score) {
 		this.name = name;
-		this.score = score;
+		this.score =  LogicHelper.rounded(score);
 	}
 
 	public String getName() {
@@ -23,7 +23,7 @@ public class TeamScore {
 	}
 
 	public void setScore(double score) {
-		this.score = score;
+		this.score = LogicHelper.rounded(score);
 	}
 
 }

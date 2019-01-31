@@ -178,7 +178,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				Competitor c2 = builder.setName("Marco").setAge(27).setWeight(78).build();
 				Competitor c3 = builder.setName("Andrea").setAge(29).setWeight(62).setTeam("dynamo").build();
 				Competitor c4 = builder.setName("Chiara").setAge(16).setWeight(55).setSex(Sex.FEMALE).build();
-				Competitor c5 = builder.setName("Mimmo").setAge(58).setWeight(90).setTeam("dynamo").build();
+				Competitor c5 = builder.setName("Mimmo").setAge(58).setWeight(90).setSex(Sex.MALE).setTeam("dynamo").build();
 				
 				
 				MainFrame.this.manager.getCompetitors().add(c1);

@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.gym.program.utils.Sex;
+
 public class RankingPerCategory extends LinkedList<Lifter> {
 	/**
 	 *
@@ -35,5 +37,15 @@ public class RankingPerCategory extends LinkedList<Lifter> {
 				}
 			}
 		});
+	}
+	
+	public RankingPerCategory getBySex(Sex sex) {
+		RankingPerCategory result = new RankingPerCategory();
+		for (Lifter lifter : this) {
+			if(lifter.getCompetitor().getSex().equals(sex)) {
+				result.add(lifter);
+			}
+		}
+		return result;
 	}
 }

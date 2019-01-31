@@ -13,24 +13,50 @@ import com.gym.program.logic.match.Match;
 import com.gym.program.logic.match.RankingPerTeam;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Attempt;
+import com.gym.program.utils.Category;
+import com.gym.program.utils.Category.Male;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.RecordKey;
 import com.gym.program.utils.Sex;
 import com.gym.program.utils.TeamScore;
+import com.gym.program.utils.TypeOfRanking;
 
 public class Manager {
 
 	private List<Competitor> competitors;
 
+	public Set<Category> getCategoriesBy(TypeOfMatch tom, Sex sex){
+		Set<Category> result = new HashSet<Category>();
+		Set<Category> toAdd = matches.get(tom).getMatchRanking().getRankings().keySet();
+		for (Category category : toAdd) {
+			if(sex.equals(Sex.MALE) && category instanceof Category.Male) {
+				result.add(category);
+			}else if(sex.equals(Sex.FEMALE) && category instanceof Category.Female){
+				result.add(category);
+			}
+		}
+		return result;
+	}
+	
+	public Set<Category> getAbsoluteCategories(Sex sex){
+		Set<Category> result = new HashSet<Category>();
+		for (Competitor competitor : competitors) {
+			if(competitor.getSex().equals(sex)) {
+				result.add(competitor.getCategory());
+			}
+		}
+		return result;
+	}
+	
 	public List<Competitor> getCompetitors() {
 		return competitors;
 	}
 
-	public List<Competitor> getAbsoluteCompetitors(Sex sex) {
+	public List<Competitor> getAbsoluteCompetitors(Sex sex, Category category) {
 
 		List<Competitor> result = new ArrayList<Competitor>();
 		for (Competitor competitor : competitors) {
-			if (competitor.getSex().equals(sex) && competitor.isAbsolute_ranking())
+			if (competitor.getSex().equals(sex) && competitor.isAbsolute_ranking() && competitor.getCategory().equals(category))
 				result.add(competitor);
 		}
 		return result;

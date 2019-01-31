@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match;
@@ -151,21 +152,31 @@ public class RankingPanel extends JPanel {
 					break;
 				case ABSOLUTE:
 					absolute = true;
-					refreshRankingList();
 					break;
 				default:
 					break;
 				}
-				if (!absolute) {
-					Set<Category> categories = new HashSet<Category>();
-					for (Category c : matchFrame.getManager().getMatches().get(t).getMatchRanking().getRankings()
-							.keySet()) {
-						categories.add(c);
+				Manager manager = matchFrame.getManager();
+				Map<TypeOfMatch, Match> matches = manager.getMatches();
+
+				TypeOfRanking.Team_Single team_atlet = (TypeOfRanking.Team_Single) team_atletModel.getSelectedItem();
+				Set<Category> cats = new HashSet<Category>();
+				if(!team_atlet.equals(TypeOfRanking.Team_Single.TEAM)) {
+					Sex sex = null;
+					if(team_atlet.equals(TypeOfRanking.Team_Single.SINGLE_MALE)) {
+						sex = Sex.MALE;
+					}else if (team_atlet.equals(TypeOfRanking.Team_Single.SINGLE_FEMALE)) {
+						sex = Sex.FEMALE;
 					}
-					System.out.println("ACTION MATCH LIST:" + categories + "--" + comboBoxMatchList.getSelectedItem());
-					categoryListModel = new DefaultComboBoxModel(categories.toArray());
-					comboBoxCategoryList.setModel(categoryListModel);
+					if(absolute) {
+						cats = manager.getAbsoluteCategories(sex);
+					}else {
+						cats = manager.getCategoriesBy(t, sex);
+					}
 				}
+				System.out.println("ABS CATEG:"+cats);
+				categoryListModel = new DefaultComboBoxModel(cats.toArray());
+				comboBoxCategoryList.setModel(categoryListModel);
 				refreshRankingList();
 			}
 		});
@@ -188,6 +199,7 @@ public class RankingPanel extends JPanel {
 		team_atletModel.addElement(Team_Single.SINGLE_MALE);
 		team_atletModel.addElement(Team_Single.SINGLE_FEMALE);
 		comboBoxTeam_Atlet.setModel(team_atletModel);
+		setCategoryPanelEnabled(false);
 		comboBoxTeam_Atlet.addActionListener(new ActionListener() {
 
 			@Override
@@ -271,20 +283,20 @@ public class RankingPanel extends JPanel {
 					case BENCHPRESS:
 						RankingPerCategory rankingBench = matches.get(TypeOfMatch.BENCHPRESS).getMatchRanking()
 								.getRankings().get(category);
-						scroll = GuiHelper.getInstance().createTableForRanking(rankingBench);
+						scroll = GuiHelper.getInstance().createTableForRanking(rankingBench.getBySex(Sex.MALE));
 						break;
 					case SQUAT:
 						RankingPerCategory rankingSquat = matches.get(TypeOfMatch.SQUAT).getMatchRanking().getRankings()
 								.get(category);
-						scroll = GuiHelper.getInstance().createTableForRanking(rankingSquat);
+						scroll = GuiHelper.getInstance().createTableForRanking(rankingSquat.getBySex(Sex.MALE));
 						break;
 					case DEADLIFT:
 						RankingPerCategory rankingDeadlift = matches.get(TypeOfMatch.DEADLIFT).getMatchRanking()
 								.getRankings().get(category);
-						scroll = GuiHelper.getInstance().createTableForRanking(rankingDeadlift);
+						scroll = GuiHelper.getInstance().createTableForRanking(rankingDeadlift.getBySex(Sex.MALE));
 						break;
 					case ABSOLUTE:
-						List<Competitor> competitors = this.matchFrame.getManager().getAbsoluteCompetitors(Sex.MALE);
+						List<Competitor> competitors = this.matchFrame.getManager().getAbsoluteCompetitors(Sex.MALE,category);
 						scroll = GuiHelper.getInstance().createTableForAbsoluteRanking(competitors);
 						System.out.println("COMPETITORS ************************************************* "
 								+ this.matchFrame.getManager().getCompetitors().size());
@@ -295,11 +307,37 @@ public class RankingPanel extends JPanel {
 				}
 				break;
 			case SINGLE_FEMALE:
-				scroll = GuiHelper.getInstance()
-						.createTableForRanking(matches.get(TypeOfMatch.BENCHPRESS).getTeamScores());
+				Category category2 = (Category) comboBoxCategoryList.getSelectedItem();
+				if (category2 != null) {
+
+					switch (discipline) {
+					case BENCHPRESS:
+						RankingPerCategory rankingBench = matches.get(TypeOfMatch.BENCHPRESS).getMatchRanking()
+								.getRankings().get(category2);
+						scroll = GuiHelper.getInstance().createTableForRanking(rankingBench.getBySex(Sex.FEMALE));
+						break;
+					case SQUAT:
+						RankingPerCategory rankingSquat = matches.get(TypeOfMatch.SQUAT).getMatchRanking().getRankings()
+								.get(category2);
+						scroll = GuiHelper.getInstance().createTableForRanking(rankingSquat.getBySex(Sex.FEMALE));
+						break;
+					case DEADLIFT:
+						RankingPerCategory rankingDeadlift = matches.get(TypeOfMatch.DEADLIFT).getMatchRanking()
+								.getRankings().get(category2);
+						scroll = GuiHelper.getInstance().createTableForRanking(rankingDeadlift.getBySex(Sex.FEMALE));
+						break;
+					case ABSOLUTE:
+						List<Competitor> competitors = this.matchFrame.getManager().getAbsoluteCompetitors(Sex.FEMALE,category2);
+						scroll = GuiHelper.getInstance().createTableForAbsoluteRanking(competitors);
+						System.out.println("COMPETITORS ************************************************* "
+								+ this.matchFrame.getManager().getCompetitors().size());
+						break;
+					default:
+						break;
+					}
+				}
 				break;
 			default:
-				JOptionPane.showMessageDialog(null, "ERROREEEE. Non entra in nessun case dello switch");
 				break;
 			}
 			if (scroll != null) {

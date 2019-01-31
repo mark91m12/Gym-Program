@@ -9,6 +9,7 @@ import java.util.Set;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.utils.Attempt;
 import com.gym.program.utils.CallComparator;
+import com.gym.program.utils.Category;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.TeamScore;
 
@@ -96,13 +97,17 @@ public class Match {
 		RankingPerTeam result = new RankingPerTeam();
 
 		Set<String> teams = new HashSet<String>();
-		for (Lifter lifter : this.getMatchRanking().getLifters()) {
-			teams.add(lifter.getCompetitor().getTeam());
+		List<Lifter> tmp = new ArrayList<>(); 
+		for (Category cat : this.getMatchRanking().getRankings().keySet()) {
+			for (Lifter lifter : this.getMatchRanking().getRankings().get(cat)) {
+				tmp.add(lifter);
+				teams.add(lifter.getCompetitor().getTeam());
+			}
 		}
 
 		for (String team : teams) {
 			double score = 0;
-			for (Lifter lifter : this.getMatchRanking().getLifters()) {
+			for (Lifter lifter : tmp) {
 				if (team.equals(lifter.getCompetitor().getTeam())) {
 					score += lifter.getScore();
 				}
@@ -110,7 +115,7 @@ public class Match {
 
 			result.add(new TeamScore(team, score));
 		}
-
+		result.sortRanking();
 		return result;
 	}
 

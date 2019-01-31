@@ -57,7 +57,7 @@ public interface Category {
 			MINUS_53 {
 				@Override
 				public String toString() {
-					return "-53";
+					return "53 KG";
 				}
 			},
 			MINUS_59 {
