@@ -189,6 +189,32 @@ public class Lifter {
 		return bonusAttempt;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((competitor == null) ? 0 : competitor.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Lifter other = (Lifter) obj;
+		if (competitor == null) {
+			if (other.competitor != null)
+				return false;
+		} else if (!competitor.equals(other.competitor))
+			return false;
+		return true;
+	}
+
+	
 	// public Attempt getPreviousAttempt() {
 	// if(this.currentAttempt instanceof StandardAttempt) {
 	// switch ((StandardAttempt)this.currentAttempt) {

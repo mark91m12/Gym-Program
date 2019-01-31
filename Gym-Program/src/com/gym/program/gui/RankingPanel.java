@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
@@ -13,19 +14,27 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.text.html.InlineView;
 
+import com.gym.program.logic.match.Lifter;
+import com.gym.program.logic.match.Match;
+import com.gym.program.logic.match.RankingPerCategory;
 import com.gym.program.logic.match.Match.TypeOfMatch;
+import com.gym.program.logic.match.RankingPerTeam;
 import com.gym.program.utils.Category;
 import com.gym.program.utils.GuiHelper;
+import com.gym.program.utils.TeamScore;
 import com.gym.program.utils.TypeOfRanking;
 import com.gym.program.utils.TypeOfRanking.Team_Single;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.TrayIcon.MessageType;
 
 public class RankingPanel extends JPanel {
 
@@ -44,6 +53,7 @@ public class RankingPanel extends JPanel {
 	private JPanel categoryPanel;
 	private JPanel selectionPanel;
 	private JPanel rankingListPanel;
+	private JPanel tableContainerPanel;
 	private JLabel lblCategory;
 	/**
 	 * Create the panel.
@@ -103,18 +113,13 @@ public class RankingPanel extends JPanel {
 		);
 		categoryPanel.setLayout(gl_categoryPanel);
 
-		JPanel tableContainerPanel = new JPanel();
+		tableContainerPanel = new JPanel();
 		tableContainerPanel.setBackground(Color.WHITE);
 		
 		comboBoxCategoryList.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tableContainerPanel.removeAll();
-				JScrollPane scroll = GuiHelper.getInstance().createTableForRanking(
-						matchFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().get(comboBoxCategoryList.getSelectedItem()));
-				tableContainerPanel.add(scroll);
-				tableContainerPanel.updateUI();
+				refreshRankingList();
 			}
 		});
 		
@@ -162,12 +167,7 @@ public class RankingPanel extends JPanel {
 					break;
 				case ABSOLUTE:
 					absolute = true;
-					tableContainerPanel.removeAll();
-					//TODO Per Ogni TOM lista di punteggio per squadra; 
-//					JScrollPane scroll = GuiHelper.getInstance().createTableForRanking(
-//							matchFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().get(comboBoxCategoryList.getSelectedItem()));
-//					tableContainerPanel.add(scroll);
-					tableContainerPanel.updateUI();
+					refreshRankingList();
 					break;
 				default:
 					break;
@@ -181,6 +181,7 @@ public class RankingPanel extends JPanel {
 					categoryListModel = new DefaultComboBoxModel(categories.toArray());
 					comboBoxCategoryList.setModel(categoryListModel);
 				}
+				refreshRankingList();
 			}
 		});
 		
@@ -214,8 +215,10 @@ public class RankingPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBoxTeam_Atlet.getSelectedItem().equals(Team_Single.TEAM)) {
 					setCategoryPanelEnabled(false);
+					refreshRankingList();
 				}else {
 					setCategoryPanelEnabled(true);
+					refreshRankingList();
 				}
 			}
 
@@ -254,5 +257,117 @@ public class RankingPanel extends JPanel {
 		lblCategory.setEnabled(b);
 		comboBoxCategoryList.resetKeyboardActions();
 		comboBoxCategoryList.setEnabled(b);
+	}
+	
+	private void refreshRankingList() {
+		TypeOfRanking.Team_Single team_single = (TypeOfRanking.Team_Single) comboBoxTeam_Atlet.getSelectedItem();
+		TypeOfRanking.Discipline discipline = (TypeOfRanking.Discipline) comboBoxMatchList.getSelectedItem();
+		if(team_single != null && discipline != null ) {
+			tableContainerPanel.removeAll();
+			JScrollPane scroll = null;
+			Map<TypeOfMatch, Match> matches = matchFrame.getManager().getMatches();
+			switch (team_single) {
+			case TEAM:
+				switch (discipline) {
+				case BENCHPRESS:
+					scroll = GuiHelper.getInstance().createTableForRanking(matches.get(TypeOfMatch.BENCHPRESS).getTeamScores());
+					break;
+				case SQUAT:
+					scroll = GuiHelper.getInstance().createTableForRanking(matches.get(TypeOfMatch.SQUAT).getTeamScores());
+					break;
+				case DEADLIFT:
+					scroll = GuiHelper.getInstance().createTableForRanking(matches.get(TypeOfMatch.DEADLIFT).getTeamScores());
+					break;
+				case ABSOLUTE:
+					RankingPerTeam temp = new RankingPerTeam();
+					popolateRankingPerTeamScoreList(matches.get(TypeOfMatch.BENCHPRESS), temp);
+					popolateRankingPerTeamScoreList(matches.get(TypeOfMatch.SQUAT), temp);
+					popolateRankingPerTeamScoreList(matches.get(TypeOfMatch.DEADLIFT), temp);
+					scroll = GuiHelper.getInstance().createTableForRanking(temp);
+					break;
+				default:
+					break;
+				}
+				break;
+			case SINGLE_MALE:
+				Category category = (Category) comboBoxCategoryList.getSelectedItem();
+				if(category != null) {
+					RankingPerCategory rankingBench = matches.get(TypeOfMatch.BENCHPRESS).getMatchRanking().getRankings().get(category);
+					RankingPerCategory rankingSquat = matches.get(TypeOfMatch.SQUAT).getMatchRanking().getRankings().get(category);
+					RankingPerCategory rankingDeadlift = matches.get(TypeOfMatch.DEADLIFT).getMatchRanking().getRankings().get(category);
+					switch (discipline) {
+					case BENCHPRESS:
+						scroll = GuiHelper.getInstance().createTableForRanking(rankingBench);
+						break;
+					case SQUAT:
+						scroll = GuiHelper.getInstance().createTableForRanking(rankingSquat);
+						break;
+					case DEADLIFT:
+						scroll = GuiHelper.getInstance().createTableForRanking(rankingDeadlift);
+						break;
+					case ABSOLUTE:
+						RankingPerCategory temp = new RankingPerCategory();
+						if(rankingBench != null) {
+							popolateRankingPerCategoryList(rankingBench, temp);
+						}
+						if(rankingSquat != null) {
+							popolateRankingPerCategoryList(rankingSquat, temp);
+						}
+						if(rankingDeadlift != null) {
+							popolateRankingPerCategoryList(rankingDeadlift, temp);
+						}
+						scroll = GuiHelper.getInstance().createTableForRanking(temp);
+						break;
+					default:
+						break;
+					}
+				}
+				break;
+			case SINGLE_FEMALE:
+				scroll = GuiHelper.getInstance().createTableForRanking(matches.get(TypeOfMatch.BENCHPRESS).getTeamScores());
+				break;
+			default:
+				JOptionPane.showMessageDialog(null,"ERROREEEE. Non entra in nessun case dello switch");
+				break;
+			}
+			if(scroll != null) {
+				tableContainerPanel.add(scroll);
+			}
+			tableContainerPanel.updateUI();
+		}
+	}
+
+	private void popolateRankingPerTeamScoreList(Match match, RankingPerTeam temp) {
+		boolean found = false;
+		for (TeamScore toAdd : match.getTeamScores()) {
+			found = false;
+			for (TeamScore inList : temp) {
+				if(inList.getName().equals(toAdd.getName())) {
+					inList.setScore(inList.getScore()+toAdd.getScore());
+					found = true;
+					break; 
+				}
+			}
+			if(!found) {
+				temp.add(toAdd);
+			}
+		}
+	}
+	
+	private void popolateRankingPerCategoryList(RankingPerCategory rankingPerCategory, RankingPerCategory temp) {
+		boolean found = false;
+		for (Lifter toAdd : rankingPerCategory) {
+			found = false;
+			for (Lifter inList : temp) {
+				if(inList.equals(toAdd)) {
+					inList.setScore(inList.getScore()+toAdd.getScore());
+					found = true;
+					break; 
+				}
+			}
+			if(!found) {
+				temp.add(toAdd);
+			}
+		}
 	}
 }

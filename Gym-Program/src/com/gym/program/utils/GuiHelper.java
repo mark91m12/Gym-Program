@@ -34,6 +34,7 @@ import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.match.Lifter;
 import com.gym.program.logic.match.Match.TypeOfMatch;
+import com.gym.program.logic.match.RankingPerTeam;
 
 public class GuiHelper {
 
@@ -350,6 +351,28 @@ public class GuiHelper {
 		table.getColumn("Avvia Contestazione").setCellRenderer(btnRenderer);
 		table.getColumn("Avvia Contestazione").setCellEditor(new ButtonEditor(new JCheckBox()));
 		table.addMouseListener(new JTableButtonMouseListener(table));
+		table.getTableHeader().setReorderingAllowed(false);
+		JScrollPane scroll = new JScrollPane(table);
+		return scroll;
+	}
+
+	public JScrollPane createTableForRanking(RankingPerTeam teamScores) {
+		Object names[] = { " Posizione ", " Squadra ", "Punteggio"};
+		Object rowData[][] = new Object[teamScores.size()][names.length];
+
+		for (int i = 0; i < teamScores.size(); i++) {
+			rowData[i][0] = i + 1;
+			rowData[i][1] = teamScores.get(i).getName();
+			rowData[i][2] = teamScores.get(i).getScore();
+		}
+
+		TableModel model = new DefaultTableModel(rowData, names) {
+			public boolean isCellEditable(int row, int column) {
+				return false;// This causes all cells to be not editable
+			}
+		};
+		// ZebraJTable table = new ZebraJTable(model);
+		JTable table = new JTable(model);
 		table.getTableHeader().setReorderingAllowed(false);
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;
