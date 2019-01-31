@@ -2,6 +2,7 @@ package com.gym.program.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
@@ -19,6 +20,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Category;
 import com.gym.program.utils.GuiHelper;
+import com.gym.program.utils.TypeOfRanking;
+import com.gym.program.utils.TypeOfRanking.Team_Single;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class RankingPanel extends JPanel {
 
@@ -27,10 +34,17 @@ public class RankingPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private MatchFrame matchFrame;
-	private DefaultComboBoxModel<TypeOfMatch> matchListModel;
+	private DefaultComboBoxModel<TypeOfRanking.Team_Single> team_atletModel;
+	private DefaultComboBoxModel<TypeOfRanking.Discipline> matchListModel;
 	private DefaultComboBoxModel<Category> categoryListModel;
+	private JComboBox<TypeOfRanking.Team_Single> comboBoxTeam_Atlet;
 	private JComboBox<Category> comboBoxCategoryList;
-	private JComboBox<TypeOfMatch> comboBoxMatchList;
+	private JComboBox<TypeOfRanking.Discipline> comboBoxMatchList;
+	
+	private JPanel categoryPanel;
+	private JPanel selectionPanel;
+	private JPanel rankingListPanel;
+	private JLabel lblCategory;
 	/**
 	 * Create the panel.
 	 * @param testFrame 
@@ -39,50 +53,59 @@ public class RankingPanel extends JPanel {
 		
 		this.matchFrame = mF;
 		
-		JPanel matchListPanel = new JPanel();
+		selectionPanel = new JPanel();
 		
-		JPanel categoryPanel = new JPanel();
+		rankingListPanel = new JPanel();
+		
+		categoryPanel = new JPanel();
+		categoryPanel.setEnabled(false);
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(matchListPanel, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-				.addComponent(categoryPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(selectionPanel, GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+				.addComponent(categoryPanel, GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+				.addComponent(rankingListPanel, GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(matchListPanel, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addComponent(selectionPanel, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(categoryPanel, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
+					.addComponent(categoryPanel, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(rankingListPanel, GroupLayout.PREFERRED_SIZE, 294, Short.MAX_VALUE)
+					.addContainerGap())
 		);
-		
-		JLabel lblMatchList = new JLabel("Seleziona disciplina");
-		
-		comboBoxMatchList = new JComboBox<TypeOfMatch>();
-		matchListModel = new DefaultComboBoxModel<TypeOfMatch>();
-		for (TypeOfMatch type : matchFrame.getManager().getMatches().keySet()) {
-			matchListModel.addElement(type);
-		}
-		comboBoxMatchList.setModel(matchListModel);
-		comboBoxMatchList.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Set<Category> categories = new HashSet<Category>();
-				for (Category c: matchFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().keySet()) {
-					categories.add(c);
-				}
-				System.out.println("ACTION MATCH LIST:"+categories+"--"+comboBoxMatchList.getSelectedItem());
-				categoryListModel = new DefaultComboBoxModel(categories.toArray());
-				comboBoxCategoryList.setModel(categoryListModel);
-			}
-		});
-		
-		
+		lblCategory = new JLabel("Seleziona categoria");
+		comboBoxCategoryList = new JComboBox<Category>();
+		GroupLayout gl_categoryPanel = new GroupLayout(categoryPanel);
+		gl_categoryPanel.setHorizontalGroup(
+			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_categoryPanel.createSequentialGroup()
+					.addGroup(gl_categoryPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_categoryPanel.createSequentialGroup()
+							.addGap(185)
+							.addComponent(lblCategory))
+						.addGroup(gl_categoryPanel.createSequentialGroup()
+							.addGap(130)
+							.addComponent(comboBoxCategoryList, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(126, Short.MAX_VALUE))
+		);
+		gl_categoryPanel.setVerticalGroup(
+			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_categoryPanel.createSequentialGroup()
+					.addGap(3)
+					.addComponent(lblCategory)
+					.addGap(6)
+					.addComponent(comboBoxCategoryList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(33, Short.MAX_VALUE))
+		);
+		categoryPanel.setLayout(gl_categoryPanel);
+
 		JPanel tableContainerPanel = new JPanel();
 		tableContainerPanel.setBackground(Color.WHITE);
-		JLabel lblCategory = new JLabel("Seleziona categoria");
-		comboBoxCategoryList = new JComboBox<Category>();
+		
 		comboBoxCategoryList.addActionListener(new ActionListener() {
 			
 			@Override
@@ -95,60 +118,141 @@ public class RankingPanel extends JPanel {
 			}
 		});
 		
+		JLabel lblMatchList = new JLabel("Visualizza classifica per:");
 		
-
-		GroupLayout gl_categoryPanel = new GroupLayout(categoryPanel);
-		gl_categoryPanel.setHorizontalGroup(
-			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_categoryPanel.createSequentialGroup()
-					.addGap(124)
-					.addComponent(comboBoxCategoryList, 0, 258, Short.MAX_VALUE)
-					.addGap(125))
-				.addGroup(gl_categoryPanel.createSequentialGroup()
-					.addGap(192)
-					.addComponent(lblCategory, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(203))
-				.addGroup(gl_categoryPanel.createSequentialGroup()
+		comboBoxMatchList = new JComboBox<TypeOfRanking.Discipline>();
+		matchListModel = new DefaultComboBoxModel<TypeOfRanking.Discipline>();
+		
+		for (TypeOfMatch type : matchFrame.getManager().getMatches().keySet()) {
+			switch (type) {
+			case BENCHPRESS:
+				matchListModel.addElement(TypeOfRanking.Discipline.BENCHPRESS);
+				break;
+			case SQUAT:
+				matchListModel.addElement(TypeOfRanking.Discipline.SQUAT);
+				break;
+			case DEADLIFT:
+				matchListModel.addElement(TypeOfRanking.Discipline.DEADLIFT);
+				break;
+			default:
+				break;
+			}
+		}
+		matchListModel.addElement(TypeOfRanking.Discipline.ABSOLUTE);
+		
+		comboBoxMatchList.setModel(matchListModel);
+		comboBoxMatchList.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				boolean absolute = false;
+				TypeOfMatch t = null;
+				switch ((TypeOfRanking.Discipline)comboBoxMatchList.getSelectedItem()) {
+				case BENCHPRESS:
+					absolute = false;
+					t = TypeOfMatch.BENCHPRESS;
+					break;
+				case SQUAT:
+					absolute = false;
+					t = TypeOfMatch.SQUAT;
+					break;
+				case DEADLIFT:
+					absolute = false;
+					t = TypeOfMatch.DEADLIFT;
+					break;
+				case ABSOLUTE:
+					absolute = true;
+					tableContainerPanel.removeAll();
+					//TODO Per Ogni TOM lista di punteggio per squadra; 
+//					JScrollPane scroll = GuiHelper.getInstance().createTableForRanking(
+//							matchFrame.getManager().getMatches().get(comboBoxMatchList.getSelectedItem()).getMatchRanking().getRankings().get(comboBoxCategoryList.getSelectedItem()));
+//					tableContainerPanel.add(scroll);
+					tableContainerPanel.updateUI();
+					break;
+				default:
+					break;
+				}
+				if(!absolute) {
+					Set<Category> categories = new HashSet<Category>();
+					for (Category c: matchFrame.getManager().getMatches().get(t).getMatchRanking().getRankings().keySet()) {
+						categories.add(c);
+					}
+					System.out.println("ACTION MATCH LIST:"+categories+"--"+comboBoxMatchList.getSelectedItem());
+					categoryListModel = new DefaultComboBoxModel(categories.toArray());
+					comboBoxCategoryList.setModel(categoryListModel);
+				}
+			}
+		});
+		
+		GroupLayout gl_rankingListPanel = new GroupLayout(rankingListPanel);
+		gl_rankingListPanel.setHorizontalGroup(
+			gl_rankingListPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_rankingListPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+					.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
 					.addContainerGap())
 		);
-		gl_categoryPanel.setVerticalGroup(
-			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_categoryPanel.createSequentialGroup()
-					.addComponent(lblCategory)
-					.addGap(12)
-					.addComponent(comboBoxCategoryList, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-					.addGap(36))
+		gl_rankingListPanel.setVerticalGroup(
+			gl_rankingListPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_rankingListPanel.createSequentialGroup()
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(tableContainerPanel, GroupLayout.PREFERRED_SIZE, 274, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		tableContainerPanel.setLayout(new BorderLayout(0, 0));
-		categoryPanel.setLayout(gl_categoryPanel);
+		rankingListPanel.setLayout(gl_rankingListPanel);
 		
+		comboBoxTeam_Atlet = new JComboBox<TypeOfRanking.Team_Single>();
+		team_atletModel = new DefaultComboBoxModel<TypeOfRanking.Team_Single>();
+		team_atletModel.addElement(Team_Single.TEAM);
+		team_atletModel.addElement(Team_Single.SINGLE_MALE);
+		team_atletModel.addElement(Team_Single.SINGLE_FEMALE);
+		comboBoxTeam_Atlet.setModel(team_atletModel);
+		comboBoxTeam_Atlet.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(comboBoxTeam_Atlet.getSelectedItem().equals(Team_Single.TEAM)) {
+					setCategoryPanelEnabled(false);
+				}else {
+					setCategoryPanelEnabled(true);
+				}
+			}
+
+		});
 		
-		GroupLayout gl_matchListPanel = new GroupLayout(matchListPanel);
-		gl_matchListPanel.setHorizontalGroup(
-			gl_matchListPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_matchListPanel.createSequentialGroup()
+		GroupLayout gl_selectionPanel = new GroupLayout(selectionPanel);
+		gl_selectionPanel.setHorizontalGroup(
+			gl_selectionPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_selectionPanel.createSequentialGroup()
+					.addContainerGap(180, Short.MAX_VALUE)
+					.addComponent(lblMatchList, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+					.addGap(176))
+				.addGroup(gl_selectionPanel.createSequentialGroup()
 					.addGap(127)
-					.addComponent(comboBoxMatchList, 0, 199, Short.MAX_VALUE)
-					.addGap(124))
-				.addGroup(Alignment.LEADING, gl_matchListPanel.createSequentialGroup()
-					.addGap(191)
-					.addComponent(lblMatchList, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(203))
+					.addGroup(gl_selectionPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(comboBoxMatchList, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(comboBoxTeam_Atlet, Alignment.LEADING, 0, 265, Short.MAX_VALUE))
+					.addGap(5))
 		);
-		gl_matchListPanel.setVerticalGroup(
-			gl_matchListPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_matchListPanel.createSequentialGroup()
+		gl_selectionPanel.setVerticalGroup(
+			gl_selectionPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_selectionPanel.createSequentialGroup()
 					.addGap(5)
 					.addComponent(lblMatchList)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(comboBoxTeam_Atlet, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(comboBoxMatchList, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(29, Short.MAX_VALUE))
+					.addGap(59))
 		);
-		matchListPanel.setLayout(gl_matchListPanel);
+		selectionPanel.setLayout(gl_selectionPanel);
 		setLayout(groupLayout);
+	}
+
+	private void setCategoryPanelEnabled(boolean b) {
+		lblCategory.setEnabled(b);
+		comboBoxCategoryList.resetKeyboardActions();
+		comboBoxCategoryList.setEnabled(b);
 	}
 }
