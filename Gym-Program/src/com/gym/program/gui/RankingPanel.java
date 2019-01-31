@@ -339,6 +339,7 @@ public class RankingPanel extends JPanel {
 
 	private void popolateRankingPerTeamScoreList(Match match, RankingPerTeam temp) {
 		boolean found = false;
+		
 		for (TeamScore toAdd : match.getTeamScores()) {
 			found = false;
 			for (TeamScore inList : temp) {
