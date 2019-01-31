@@ -286,8 +286,6 @@ public class RankingPanel extends JPanel {
 					case ABSOLUTE:
 						List<Competitor> competitors = this.matchFrame.getManager().getAbsoluteCompetitors(Sex.MALE);
 						scroll = GuiHelper.getInstance().createTableForAbsoluteRanking(competitors);
-						System.out.println("COMPETITORS ************************************************* "
-								+ this.matchFrame.getManager().getCompetitors().size());
 						break;
 					default:
 						break;

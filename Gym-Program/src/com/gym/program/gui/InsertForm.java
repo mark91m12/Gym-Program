@@ -34,6 +34,8 @@ import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.LogicHelper;
 import com.gym.program.utils.Sex;
 
+import javafx.scene.control.RadioButton;
+
 public class InsertForm extends JPanel {
 
 	/**
@@ -97,6 +99,9 @@ public class InsertForm extends JPanel {
 		setVisible(true);
 		// setLocationRelativeTo(null);
 		// setContentPane(contentPane);
+
+		List<JRadioButton> list_weight_btns = new ArrayList<JRadioButton>();
+		List<JRadioButton> list_age_btns = new ArrayList<JRadioButton>();
 
 		switch (this.mainFrame.getCollar()) {
 		case LIGHT:
@@ -166,6 +171,55 @@ public class InsertForm extends JPanel {
 		submit_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				if (!absolute_ranking) {
+					Set<JRadioButton> setRdBtns3 = new HashSet<>();
+					setRdBtns3.add(weight_class_deadbtn);
+					setRdBtns3.add(age_class_deadbtn);
+					GuiHelper.getInstance().setSwitch(setRdBtns3);
+
+					Set<JRadioButton> setRdBtns2 = new HashSet<>();
+					setRdBtns2.add(weight_class_squatbtn);
+					setRdBtns2.add(age_class_squatbtn);
+					GuiHelper.getInstance().setSwitch(setRdBtns2);
+
+					Set<JRadioButton> setRdBtns4 = new HashSet<>();
+					setRdBtns4.add(weight_class_benchbtn);
+					setRdBtns4.add(age_class_benchbtn);
+					GuiHelper.getInstance().setSwitch(setRdBtns4);
+
+				} else {
+					for (JRadioButton rdBtn : list_age_btns) {
+						rdBtn.addActionListener(new ActionListener() {
+
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								for (JRadioButton rdBtn2 : list_weight_btns) {
+									rdBtn2.setSelected(false);
+								}
+								for (JRadioButton rdBtn3 : list_age_btns) {
+									rdBtn3.setSelected(true);
+								}
+
+							}
+						});
+					}
+
+					for (JRadioButton rdBtn : list_weight_btns) {
+						rdBtn.addActionListener(new ActionListener() {
+
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								for (JRadioButton rdBtn2 : list_age_btns) {
+									rdBtn2.setSelected(false);
+								}
+								for (JRadioButton rdBtn3 : list_weight_btns) {
+									rdBtn3.setSelected(true);
+								}
+							}
+						});
+					}
+				}
+
 				if (checkDataInput()) {
 					initDisciplineForms();
 					submitLifter();
@@ -188,10 +242,6 @@ public class InsertForm extends JPanel {
 
 		weight_class_squatbtn = new JRadioButton("  categoria peso", true);
 		age_class_squatbtn = new JRadioButton("  categoria et\u00E0");
-		Set<JRadioButton> setRdBtns2 = new HashSet<>();
-		setRdBtns2.add(weight_class_squatbtn);
-		setRdBtns2.add(age_class_squatbtn);
-		GuiHelper.getInstance().setSwitch(setRdBtns2);
 
 		rdbtnSquat = new JRadioButton("  seleziona");
 		rdbtnSquat.addItemListener(new ItemListener() {
@@ -201,7 +251,13 @@ public class InsertForm extends JPanel {
 				if (stateChange == ItemEvent.SELECTED) {
 					setEnabledPanelComponents(TypeOfMatch.SQUAT, true);
 				} else if (stateChange == ItemEvent.DESELECTED) {
-					setEnabledPanelComponents(TypeOfMatch.SQUAT, false);
+
+					if (absolute_ranking) {
+						rdbtnSquat.setSelected(true);
+					} else {
+						setEnabledPanelComponents(TypeOfMatch.SQUAT, false);
+					}
+
 				}
 			}
 		});
@@ -264,10 +320,6 @@ public class InsertForm extends JPanel {
 
 		weight_class_deadbtn = new JRadioButton("  categoria peso", true);
 		age_class_deadbtn = new JRadioButton("  categoria et\u00E0");
-		Set<JRadioButton> setRdBtns3 = new HashSet<>();
-		setRdBtns3.add(weight_class_deadbtn);
-		setRdBtns3.add(age_class_deadbtn);
-		GuiHelper.getInstance().setSwitch(setRdBtns3);
 
 		rdbtnDeadLift = new JRadioButton("  seleziona");
 		rdbtnDeadLift.addItemListener(new ItemListener() {
@@ -277,7 +329,12 @@ public class InsertForm extends JPanel {
 				if (stateChange == ItemEvent.SELECTED) {
 					setEnabledPanelComponents(TypeOfMatch.DEADLIFT, true);
 				} else if (stateChange == ItemEvent.DESELECTED) {
-					setEnabledPanelComponents(TypeOfMatch.DEADLIFT, false);
+					if (absolute_ranking) {
+						rdbtnDeadLift.setSelected(true);
+					} else {
+						setEnabledPanelComponents(TypeOfMatch.DEADLIFT, false);
+					}
+
 				}
 			}
 		});
@@ -335,7 +392,11 @@ public class InsertForm extends JPanel {
 			public void itemStateChanged(ItemEvent e) {
 				int stateChange = e.getStateChange();
 				if (stateChange == ItemEvent.SELECTED) {
-					absolute_ranking = true;
+					if (InsertForm.this.mainFrame.getManager().getMatches().size() == 3) {
+						absolute_ranking = true;
+					} else {
+						absolute_ranking_radiobtn.setSelected(false);
+					}
 				} else if (stateChange == ItemEvent.DESELECTED) {
 					absolute_ranking = false;
 				}
@@ -437,7 +498,11 @@ public class InsertForm extends JPanel {
 				if (stateChange == ItemEvent.SELECTED) {
 					setEnabledPanelComponents(TypeOfMatch.BENCHPRESS, true);
 				} else if (stateChange == ItemEvent.DESELECTED) {
-					setEnabledPanelComponents(TypeOfMatch.BENCHPRESS, false);
+					if (absolute_ranking) {
+						rdbtnBenchPress.setSelected(true);
+					} else {
+						setEnabledPanelComponents(TypeOfMatch.BENCHPRESS, false);
+					}
 				}
 			}
 		});
@@ -448,10 +513,6 @@ public class InsertForm extends JPanel {
 
 		weight_class_benchbtn = new JRadioButton("  categoria peso", true);
 		age_class_benchbtn = new JRadioButton("  categoria et\u00E0");
-		Set<JRadioButton> setRdBtns4 = new HashSet<>();
-		setRdBtns4.add(weight_class_benchbtn);
-		setRdBtns4.add(age_class_benchbtn);
-		GuiHelper.getInstance().setSwitch(setRdBtns4);
 
 		txt_rack_n_bench = new JTextField();
 		txt_rack_n_bench.setColumns(10);
@@ -506,6 +567,13 @@ public class InsertForm extends JPanel {
 		setEnabledPanelComponents(TypeOfMatch.BENCHPRESS, false);
 		setEnabledPanelComponents(TypeOfMatch.SQUAT, false);
 		setEnabledPanelComponents(TypeOfMatch.DEADLIFT, false);
+
+		list_weight_btns.add(weight_class_squatbtn);
+		list_age_btns.add(age_class_squatbtn);
+		list_weight_btns.add(weight_class_benchbtn);
+		list_age_btns.add(age_class_benchbtn);
+		list_weight_btns.add(weight_class_deadbtn);
+		list_age_btns.add(age_class_deadbtn);
 	}
 
 	private void updateChoicePanels() {
@@ -518,6 +586,12 @@ public class InsertForm extends JPanel {
 	}
 
 	public void setEnabledPanel(TypeOfMatch type, boolean value) {
+
+		if (this.absolute_ranking) {
+			rdbtnBenchPress.setSelected(true);
+			rdbtnSquat.setSelected(true);
+			rdbtnDeadLift.setSelected(true);
+		}
 
 		switch (type) {
 		case BENCHPRESS:
@@ -570,7 +644,8 @@ public class InsertForm extends JPanel {
 
 		CompetitorBuilder builder = CompetitorBuilder.newBuilder().setName(this.txt_name.getText())
 				.setSurname(this.txt_surname.getText()).setAge((int) this.list_age.getSelectedItem())
-				.setTeam(this.txt_team.getText()).setAbsoluteRanking(this.absolute_ranking).setWeight(Double.parseDouble(this.txt_weight.getText()));
+				.setTeam(this.txt_team.getText()).setAbsoluteRanking(this.absolute_ranking)
+				.setWeight(Double.parseDouble(this.txt_weight.getText()));
 
 		if (this.male_radiobtn.isSelected())
 			builder.setSex(Sex.MALE);
@@ -637,15 +712,23 @@ public class InsertForm extends JPanel {
 	public void initDisciplineForms() {
 		Manager manager = mainFrame.getManager();
 		Set<TypeOfMatch> matches = manager.getMatches().keySet();
-		if (matches.contains(TypeOfMatch.BENCHPRESS)) {
+
+		if (!this.absolute_ranking) {
+			if (matches.contains(TypeOfMatch.BENCHPRESS)) {
+				setEnabledPanel(TypeOfMatch.BENCHPRESS, true);
+			}
+			if (matches.contains(TypeOfMatch.SQUAT)) {
+				setEnabledPanel(TypeOfMatch.SQUAT, true);
+			}
+			if (matches.contains(TypeOfMatch.DEADLIFT)) {
+				setEnabledPanel(TypeOfMatch.DEADLIFT, true);
+			}
+		} else {
 			setEnabledPanel(TypeOfMatch.BENCHPRESS, true);
-		}
-		if (matches.contains(TypeOfMatch.SQUAT)) {
 			setEnabledPanel(TypeOfMatch.SQUAT, true);
-		}
-		if (matches.contains(TypeOfMatch.DEADLIFT)) {
 			setEnabledPanel(TypeOfMatch.DEADLIFT, true);
 		}
+
 	}
 
 	private boolean canAddLifter() {
