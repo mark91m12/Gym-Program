@@ -118,7 +118,6 @@ public class RankingPanel extends JPanel {
 			}
 		});
 		
-		
 		JLabel lblMatchList = new JLabel("Visualizza classifica per:");
 		
 		comboBoxMatchList = new JComboBox<TypeOfRanking.Discipline>();
