@@ -64,7 +64,7 @@ public class Card extends JPanel {
 	private JLabel bonus_attempt_label;
 	private JLabel fixed_rack_label;
 	private JLabel rack_number_label;
-
+	private ActionListener timerAL;
 	/**
 	 * Create the frame.
 	 */
@@ -113,24 +113,22 @@ public class Card extends JPanel {
 		fixed_plates_label.setHorizontalAlignment(SwingConstants.LEFT);
 		fixed_plates_label.setFont(new Font("Serif", Font.PLAIN, 35));
 		GroupLayout gl_contentPane = new GroupLayout(this);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(
-				Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
-						.createParallelGroup(Alignment.TRAILING).addGroup(gl_contentPane
-								.createSequentialGroup()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(lifter_panel, GroupLayout.PREFERRED_SIZE, 744, Short.MAX_VALUE)
-										.addGroup(gl_contentPane.createSequentialGroup().addGap(264).addComponent(
-												fixed_plates_label, GroupLayout.PREFERRED_SIZE, 197,
-												GroupLayout.PREFERRED_SIZE))
-										.addComponent(plates_panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE))
-								.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-								.addComponent(target_panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addGroup(gl_contentPane
+				.createSequentialGroup()
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addGroup(gl_contentPane
+						.createSequentialGroup()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lifter_panel, GroupLayout.PREFERRED_SIZE, 744, Short.MAX_VALUE)
+								.addGroup(gl_contentPane.createSequentialGroup().addGap(264).addComponent(
+										fixed_plates_label, GroupLayout.PREFERRED_SIZE, 197,
+										GroupLayout.PREFERRED_SIZE))
+								.addComponent(plates_panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE))
+						.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE).addComponent(target_panel,
+								GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup().addGap(1).addComponent(button_panel,
 								GroupLayout.DEFAULT_SIZE, 1355, Short.MAX_VALUE)))
-						.addContainerGap()));
+				.addContainerGap()));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
 				.createSequentialGroup()
 				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -151,11 +149,6 @@ public class Card extends JPanel {
 		JLabel time_label = new JLabel("Time :");
 		time_label.setFont(new Font("Serif", Font.PLAIN, 40));
 
-		time = 60;
-		seconds_left_label = new JLabel("" + time + "s");
-		seconds_left_label.setFont(new Font("Serif", Font.PLAIN, 40));
-		seconds_left_label.setHorizontalAlignment(SwingConstants.CENTER);
-
 		JLabel Kg_label = new JLabel("Kg :");
 		Kg_label.setFont(new Font("Serif", Font.PLAIN, 50));
 
@@ -166,18 +159,7 @@ public class Card extends JPanel {
 		exercise_label.setHorizontalAlignment(SwingConstants.CENTER);
 		exercise_label.setFont(new Font("Serif", Font.PLAIN, 40));
 
-		ActionListener timerAL = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (time > 0) {
-					Card.this.logic();
-					seconds_left_label.repaint();
-				} else {
-					timer.stop();
-				}
-			}
-		};
-		timer = new Timer(1000, timerAL);
+		initTimer();
 		JButton btnStartStop = new JButton("Start/Stop");
 		btnStartStop.addActionListener(new ActionListener() {
 
@@ -203,8 +185,8 @@ public class Card extends JPanel {
 		GroupLayout gl_target_panel = new GroupLayout(target_panel);
 		gl_target_panel
 				.setHorizontalGroup(gl_target_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_target_panel.createSequentialGroup()
-								.addContainerGap(174, Short.MAX_VALUE)
+						.addGroup(gl_target_panel
+								.createSequentialGroup().addContainerGap(174, Short.MAX_VALUE)
 								.addComponent(exercise_label, GroupLayout.PREFERRED_SIZE, 266,
 										GroupLayout.PREFERRED_SIZE)
 								.addGap(159))
@@ -287,11 +269,10 @@ public class Card extends JPanel {
 
 		bonus_lift_panel = new JPanel();
 		GroupLayout gl_lifter_panel = new GroupLayout(lifter_panel);
-		gl_lifter_panel
-				.setHorizontalGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_lifter_panel
-						.createSequentialGroup().addContainerGap()
-						.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_lifter_panel
-								.createSequentialGroup()
+		gl_lifter_panel.setHorizontalGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_lifter_panel.createSequentialGroup().addContainerGap().addGroup(gl_lifter_panel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_lifter_panel.createSequentialGroup()
 								.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
 										.addComponent(fixed_team_label, GroupLayout.PREFERRED_SIZE, 180,
 												GroupLayout.PREFERRED_SIZE)
@@ -303,28 +284,27 @@ public class Card extends JPanel {
 												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(lifter_category_label, GroupLayout.PREFERRED_SIZE, 320,
 												GroupLayout.PREFERRED_SIZE)))
-								.addGroup(gl_lifter_panel.createSequentialGroup()
-										.addComponent(fixed_record_label, GroupLayout.PREFERRED_SIZE, 195,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(record_weights_label,
-												GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_lifter_panel.createSequentialGroup()
+								.addComponent(fixed_record_label, GroupLayout.PREFERRED_SIZE, 195,
+										GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(record_weights_label,
+										GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)))
 						.addGap(18)
 						.addComponent(bonus_lift_panel, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
 						.addGap(26))
-						.addComponent(name_panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
-						.addGroup(gl_lifter_panel.createSequentialGroup()
-								.addComponent(attempts_panel, GroupLayout.PREFERRED_SIZE, 749,
-										GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+				.addComponent(name_panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+				.addGroup(gl_lifter_panel.createSequentialGroup()
+						.addComponent(attempts_panel, GroupLayout.PREFERRED_SIZE, 749, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		gl_lifter_panel.setVerticalGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_lifter_panel
 				.createSequentialGroup()
 				.addComponent(name_panel, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
 				.addPreferredGap(ComponentPlacement.RELATED)
 				.addGroup(gl_lifter_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_lifter_panel
-								.createSequentialGroup().addGroup(gl_lifter_panel
-										.createParallelGroup(Alignment.BASELINE).addComponent(lifter_team_label,
-												GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_lifter_panel.createSequentialGroup()
+								.addGroup(gl_lifter_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lifter_team_label, GroupLayout.PREFERRED_SIZE, 38,
+												GroupLayout.PREFERRED_SIZE)
 										.addComponent(fixed_team_label, GroupLayout.PREFERRED_SIZE, 38,
 												GroupLayout.PREFERRED_SIZE))
 								.addPreferredGap(ComponentPlacement.RELATED)
@@ -396,8 +376,8 @@ public class Card extends JPanel {
 						.addComponent(fixed_attempts_label, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
 						.addGroup(gl_attempts_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(second_attempt_label).addComponent(first_attempt_label).addComponent(
-										third_attempt_label, GroupLayout.PREFERRED_SIZE, 50,
+								.addComponent(second_attempt_label).addComponent(first_attempt_label)
+								.addComponent(third_attempt_label, GroupLayout.PREFERRED_SIZE, 50,
 										GroupLayout.PREFERRED_SIZE))
 						.addContainerGap()));
 		attempts_panel.setLayout(gl_attempts_panel);
@@ -587,7 +567,6 @@ public class Card extends JPanel {
 			// TODO: handle exception
 			this.setWhiteIcon(bonus_attempt_label);
 		}
-
 	}
 
 	private void setLiftValidation(boolean isValid) {
@@ -658,9 +637,10 @@ public class Card extends JPanel {
 								tooHigh = true;
 							}
 						}
-					} catch (NumberFormatException e) {
+					} catch (NumberFormatException | NullPointerException e) {
 						weight = JOptionPane.showInputDialog(getParent(), "Inserire il peso correttamente", null);
 					}
+					
 				}
 			}
 		} else if (current_lifter.getCurrentAttempt().equals(Attempt.StandardAttempt.THIRD) && !isValid) {
@@ -670,6 +650,7 @@ public class Card extends JPanel {
 	}
 
 	private void updateCard() {
+		resetTimer();
 		updateCurrentLifter();
 		if (current_lifter != null) {
 			setLifterData();
@@ -691,5 +672,39 @@ public class Card extends JPanel {
 	private void logic() {
 		time--;
 		seconds_left_label.setText("" + time + "s");
+	}
+	
+	private void initTimer() {
+		timerAL = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (time > 0) {
+					Card.this.logic();
+					seconds_left_label.repaint();
+				} else {
+					timer.stop();
+				}
+			}
+		};
+		resetTimer();
+	}
+	
+	private void resetTimer() {
+		resetTimerTime();
+		if(timer != null) {
+			timer.stop();
+		}
+		timer = new Timer(1000, timerAL);
+	}
+	
+	private void resetTimerTime() {
+		time = 60;
+		if(seconds_left_label == null) {
+			seconds_left_label = new JLabel("" + time + "s");
+			seconds_left_label.setFont(new Font("Serif", Font.PLAIN, 40));
+			seconds_left_label.setHorizontalAlignment(SwingConstants.CENTER);
+		}else {
+			seconds_left_label.setText("" + time + "s");
+		}
 	}
 }
