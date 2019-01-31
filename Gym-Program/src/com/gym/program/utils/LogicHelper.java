@@ -95,6 +95,7 @@ public class LogicHelper {
 		Category result = null;
 		int age = competitor.getAge();
 
+		System.out.println(competitor.getSex());
 		switch (competitor.getSex()) {
 
 		case MALE:
@@ -148,6 +149,7 @@ public class LogicHelper {
 			default:
 				break;
 			} // end switch Choice MALE
+			break;
 		case FEMALE:
 
 			switch (choice) {
@@ -197,7 +199,7 @@ public class LogicHelper {
 			default:
 				break;
 			} // end switch Choice FEMALE
-
+			break;
 		default:
 			break;
 		} // end switch Sex

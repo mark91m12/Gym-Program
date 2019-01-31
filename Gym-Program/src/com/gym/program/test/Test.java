@@ -95,7 +95,7 @@ public class Test {
 		 */
 		// TEST main menu window
 
-		new MainMenu();
+ 		new MainMenu();
 
 	}
 
