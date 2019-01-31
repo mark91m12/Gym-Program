@@ -383,6 +383,21 @@ public class GuiHelper {
 
 	public JScrollPane createTableForAbsoluteRanking(List<Competitor> competitors) {
 		// TODO Auto-generated method stub
+
+		competitors.sort(new Comparator<Competitor>() {
+			@Override
+			public int compare(Competitor c1, Competitor c2) {
+				if (c1.getScore() > c2.getScore()) { // o1.score > o2.score
+					return -1;
+				} else if (c2.getScore() > c1.getScore()) { // o2.score >
+															// o1.score
+					return 1;
+				} else { // o1.score == o2.score TODO order by name or age?
+					return 0;// 01 score
+				}
+			}
+		});
+
 		Object names[] = { " Posizione ", " Cognome ", " Nome ", "Punteggio", " Squadra ", " Età ", " Peso Corporeo ",
 				" Categoria " };
 		Object rowData[][] = new Object[competitors.size()][names.length];

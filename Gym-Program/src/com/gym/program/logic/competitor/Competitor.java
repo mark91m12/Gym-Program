@@ -24,8 +24,6 @@ public class Competitor {
 	private boolean absolute_ranking;
 	private Category category;
 
-	 
-
 	public Category getCategory() {
 		return category;
 	}
@@ -47,10 +45,11 @@ public class Competitor {
 	}
 
 	public void setScore(double score) {
-		this.score = score;
+
+		this.score = LogicHelper.rounded(score);
 	}
 
-	public Competitor(String name, String surname, Sex sex, String team, double weight, int age,boolean absolute) {
+	public Competitor(String name, String surname, Sex sex, String team, double weight, int age, boolean absolute) {
 		this.setName(name);
 		this.setSurname(surname);
 		this.setSex(sex);
@@ -60,7 +59,7 @@ public class Competitor {
 
 		this.setAge_class();
 		this.setWeight_class();
-		
+
 		this.score = 0;
 		this.absolute_ranking = absolute;
 
@@ -144,7 +143,7 @@ public class Competitor {
 
 	private void setWeight_class() {
 		this.weight_class = LogicHelper.getCategory(Choice.CLSS_WEIGHT, this);
-		System.out.println("this wc "+this.weight_class);
+		System.out.println("this wc " + this.weight_class);
 	}
 
 	@Override
@@ -195,5 +194,4 @@ public class Competitor {
 		return true;
 	}
 
-	
 }
