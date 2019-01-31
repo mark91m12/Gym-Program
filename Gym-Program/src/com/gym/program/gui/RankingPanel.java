@@ -250,6 +250,9 @@ public class RankingPanel extends JPanel {
 		selectionPanel.setLayout(gl_selectionPanel);
 		setLayout(groupLayout);
 	}
+	
+	
+	
 
 	private void setCategoryPanelEnabled(boolean b) {
 		lblCategory.setEnabled(b);
