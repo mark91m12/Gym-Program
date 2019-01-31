@@ -41,6 +41,7 @@ public class Card extends JPanel {
 	private JLabel lifter_name_label;
 	private JLabel lifter_team_label;
 	private JLabel lifter_category_label;
+	private JLabel lifter_class_label;
 	private JLabel record_weights_label;
 	private JLabel first_attempt_label;
 	private JLabel second_attempt_label;
@@ -281,11 +282,16 @@ public class Card extends JPanel {
 		fixed_record_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		record_weights_label = new JLabel();
+		record_weights_label.setText("217 ");
 		record_weights_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		JPanel attempts_panel = new JPanel();
 
 		bonus_lift_panel = new JPanel();
+
+		lifter_class_label = new JLabel();
+		lifter_class_label.setFont(new Font("Serif", Font.PLAIN, 35));
+
 		GroupLayout gl_lifter_panel = new GroupLayout(lifter_panel);
 		gl_lifter_panel
 				.setHorizontalGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_lifter_panel
@@ -299,15 +305,15 @@ public class Card extends JPanel {
 												GroupLayout.PREFERRED_SIZE))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lifter_team_label, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lifter_team_label, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
 										.addComponent(lifter_category_label, GroupLayout.PREFERRED_SIZE, 320,
 												GroupLayout.PREFERRED_SIZE)))
 								.addGroup(gl_lifter_panel.createSequentialGroup()
-										.addComponent(fixed_record_label, GroupLayout.PREFERRED_SIZE, 195,
+										.addComponent(lifter_class_label, GroupLayout.PREFERRED_SIZE, 322,
 												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(fixed_record_label)
 										.addPreferredGap(ComponentPlacement.RELATED).addComponent(record_weights_label,
-												GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)))
+												GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))
 						.addGap(18)
 						.addComponent(bonus_lift_panel, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
 						.addGap(26))
@@ -323,8 +329,9 @@ public class Card extends JPanel {
 				.addGroup(gl_lifter_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_lifter_panel
 								.createSequentialGroup().addGroup(gl_lifter_panel
-										.createParallelGroup(Alignment.BASELINE).addComponent(lifter_team_label,
-												GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lifter_team_label, GroupLayout.PREFERRED_SIZE, 38,
+												GroupLayout.PREFERRED_SIZE)
 										.addComponent(fixed_team_label, GroupLayout.PREFERRED_SIZE, 38,
 												GroupLayout.PREFERRED_SIZE))
 								.addPreferredGap(ComponentPlacement.RELATED)
@@ -333,14 +340,17 @@ public class Card extends JPanel {
 												GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(gl_lifter_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(fixed_record_label, GroupLayout.PREFERRED_SIZE, 46,
+										.addComponent(lifter_class_label, GroupLayout.PREFERRED_SIZE, 46,
 												GroupLayout.PREFERRED_SIZE)
-										.addComponent(record_weights_label, GroupLayout.PREFERRED_SIZE, 46,
-												GroupLayout.PREFERRED_SIZE)))
+										.addGroup(gl_lifter_panel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(record_weights_label, GroupLayout.PREFERRED_SIZE, 46,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(fixed_record_label, GroupLayout.PREFERRED_SIZE, 46,
+														GroupLayout.PREFERRED_SIZE))))
 						.addComponent(bonus_lift_panel, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(ComponentPlacement.UNRELATED)
 				.addComponent(attempts_panel, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-				.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+				.addContainerGap(17, Short.MAX_VALUE)));
 		bonus_lift_panel.setLayout(new BorderLayout(0, 0));
 
 		fixed_bonus_attempt_label = new JLabel();
@@ -511,6 +521,8 @@ public class Card extends JPanel {
 		this.lifter_surname_label.setText(current_lifter.getCompetitor().getSurname());
 		this.lifter_team_label.setText(current_lifter.getCompetitor().getTeam());
 		this.lifter_category_label.setText(current_lifter.getCategory().toString());
+		this.lifter_class_label.setText(
+				current_lifter.getCompetitor().getAge_class() + " " + current_lifter.getCompetitor().getWeight_class());
 
 		this.first_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.StandardAttempt.FIRST).toString());
 		this.second_attempt_label.setText(current_lifter.getAttemptWeight(Attempt.StandardAttempt.SECOND).toString());
