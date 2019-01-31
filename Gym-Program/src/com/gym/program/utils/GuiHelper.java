@@ -141,19 +141,22 @@ public class GuiHelper {
 
 		Object rowData[][] = new Object[teams_scores.keySet().size()][names.length];
 
-//		Map sorted = teams_scores.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-//				.collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
-//
-//		for (int i = 0; i < teams_scores.keySet().size(); i++) {
-//			rowData[i][0] = i + 1;
-//			rowData[i][1] = teams_scores.get(key).get(i).getCompetitor().getSurname();
-//			rowData[i][2] = lifters.get(i).getCompetitor().getName();
-//			rowData[i][3] = lifters.get(i).getCompetitor().getTeam();
-//			rowData[i][4] = lifters.get(i).getCompetitor().getAge();
-//			rowData[i][5] = lifters.get(i).getCompetitor().getWeight();
-//			rowData[i][6] = lifters.get(i).getCategory();
-//			rowData[i][7] = lifters.get(i).getCurrentAttemptWeight();
-//		}
+		// Map sorted =
+		// teams_scores.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+		// .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) ->
+		// e2, LinkedHashMap::new));
+		//
+		// for (int i = 0; i < teams_scores.keySet().size(); i++) {
+		// rowData[i][0] = i + 1;
+		// rowData[i][1] =
+		// teams_scores.get(key).get(i).getCompetitor().getSurname();
+		// rowData[i][2] = lifters.get(i).getCompetitor().getName();
+		// rowData[i][3] = lifters.get(i).getCompetitor().getTeam();
+		// rowData[i][4] = lifters.get(i).getCompetitor().getAge();
+		// rowData[i][5] = lifters.get(i).getCompetitor().getWeight();
+		// rowData[i][6] = lifters.get(i).getCategory();
+		// rowData[i][7] = lifters.get(i).getCurrentAttemptWeight();
+		// }
 
 		TableModel model = new DefaultTableModel(rowData, names);
 		JTable table = new JTable(model);
@@ -357,7 +360,7 @@ public class GuiHelper {
 	}
 
 	public JScrollPane createTableForRanking(RankingPerTeam teamScores) {
-		Object names[] = { " Posizione ", " Squadra ", "Punteggio"};
+		Object names[] = { " Posizione ", " Squadra ", "Punteggio" };
 		Object rowData[][] = new Object[teamScores.size()][names.length];
 
 		for (int i = 0; i < teamScores.size(); i++) {
@@ -373,6 +376,37 @@ public class GuiHelper {
 		};
 		// ZebraJTable table = new ZebraJTable(model);
 		JTable table = new JTable(model);
+		table.getTableHeader().setReorderingAllowed(false);
+		JScrollPane scroll = new JScrollPane(table);
+		return scroll;
+	}
+
+	public JScrollPane createTableForAbsoluteRanking(List<Competitor> competitors) {
+		// TODO Auto-generated method stub
+		Object names[] = { " Posizione ", " Cognome ", " Nome ", "Punteggio", " Squadra ", " Età ", " Peso Corporeo ",
+				" Categoria " };
+		Object rowData[][] = new Object[competitors.size()][names.length];
+
+		for (int i = 0; i < competitors.size(); i++) {
+			rowData[i][0] = i + 1;
+			rowData[i][1] = competitors.get(i).getSurname();
+			rowData[i][2] = competitors.get(i).getName();
+			rowData[i][3] = competitors.get(i).getScore();
+			rowData[i][4] = competitors.get(i).getTeam();
+			rowData[i][5] = competitors.get(i).getAge();
+			rowData[i][6] = competitors.get(i).getWeight();
+			rowData[i][7] = competitors.get(i).getCategory();
+
+		}
+
+		TableModel model = new DefaultTableModel(rowData, names) {
+			public boolean isCellEditable(int row, int column) {
+				return false;// This causes all cells to be not editable
+			}
+		};
+		// ZebraJTable table = new ZebraJTable(model);
+		JTable table = new JTable(model);
+
 		table.getTableHeader().setReorderingAllowed(false);
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;

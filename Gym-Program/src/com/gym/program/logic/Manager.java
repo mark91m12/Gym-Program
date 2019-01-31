@@ -1,5 +1,6 @@
 package com.gym.program.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -14,9 +15,30 @@ import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Attempt;
 import com.gym.program.utils.Choice;
 import com.gym.program.utils.RecordKey;
+import com.gym.program.utils.Sex;
 import com.gym.program.utils.TeamScore;
 
 public class Manager {
+
+	private List<Competitor> competitors;
+
+	public List<Competitor> getCompetitors() {
+		return competitors;
+	}
+
+	public List<Competitor> getAbsoluteCompetitors(Sex sex) {
+
+		List<Competitor> result = new ArrayList<Competitor>();
+		for (Competitor competitor : competitors) {
+			if (competitor.getSex().equals(sex) && competitor.isAbsolute_ranking())
+				result.add(competitor);
+		}
+		return result;
+	}
+
+	public void setCompetitors(List<Competitor> competitors) {
+		this.competitors = competitors;
+	}
 
 	private Map<TypeOfMatch, Match> matches;
 	private TypeOfMatch currentTypeOfMatch;
@@ -44,6 +66,7 @@ public class Manager {
 	public Manager() {
 		this.matches = new HashMap<>();
 		completed = new HashSet<>();
+		competitors = new ArrayList<Competitor>();
 	}
 
 	public Map<TypeOfMatch, Match> getMatches() {

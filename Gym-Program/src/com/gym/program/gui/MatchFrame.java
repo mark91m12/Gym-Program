@@ -121,7 +121,7 @@ public class MatchFrame extends JFrame {
 		this.setVisible(true);
 
 		final int ORDER = 1;
-		//final int RANKING = 2;
+		// final int RANKING = 2;
 
 		ChangeListener changeListener = new ChangeListener() {
 			public void stateChanged(ChangeEvent changeEvent) {

@@ -20,8 +20,37 @@ public class Competitor {
 	private Category age_class;
 	private Category weight_class;
 	private Map<TypeOfMatch, Choice> map;
+	private double score;
+	private boolean absolute_ranking;
+	private Category category;
 
-	public Competitor(String name, String surname, Sex sex, String team, double weight, int age) {
+	 
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public boolean isAbsolute_ranking() {
+		return absolute_ranking;
+	}
+
+	public void setAbsolute_ranking(boolean absolute_ranking) {
+		this.absolute_ranking = absolute_ranking;
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	public Competitor(String name, String surname, Sex sex, String team, double weight, int age,boolean absolute) {
 		this.setName(name);
 		this.setSurname(surname);
 		this.setSex(sex);
@@ -31,6 +60,9 @@ public class Competitor {
 
 		this.setAge_class();
 		this.setWeight_class();
+		
+		this.score = 0;
+		this.absolute_ranking = absolute;
 
 		this.map = new HashMap<TypeOfMatch, Choice>();
 

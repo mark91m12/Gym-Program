@@ -10,6 +10,7 @@ public class CompetitorBuilder {
 	private int age;
 	private Sex sex;
 	private String team;
+	private boolean absolute_ranking = false;
 
 	private CompetitorBuilder() {
 	}
@@ -48,8 +49,14 @@ public class CompetitorBuilder {
 		return this;
 	}
 
+	public CompetitorBuilder setAbsoluteRanking(boolean b) {
+		this.absolute_ranking = b;
+		return this;
+	}
+
 	public Competitor build() {
-		return new Competitor(this.name, this.surname, this.sex, this.team, this.weight, this.age);
+		return new Competitor(this.name, this.surname, this.sex, this.team, this.weight, this.age,
+				this.absolute_ranking);
 	}
 
 }

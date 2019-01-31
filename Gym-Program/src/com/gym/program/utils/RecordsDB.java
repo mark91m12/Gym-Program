@@ -48,15 +48,10 @@ public class RecordsDB {
 					String[] record = line.split(cvsSplitBy);
 
 					Sex sex = Sex.valueOf(record[2]);
-					// records.put(new RecordKey((TypeOfMatch) record[4],
-					// record[3], record[0]), record[1]);
-
 					records.put(new RecordKey(TypeOfMatch.valueOf(record[4]), sex,
 							this.getCategory(record[3], sex, this.AGE), this.getCategory(record[0], sex, this.WEIGHT)),
 							Double.parseDouble(record[1]));
 
-					System.out.println("RECORD [ SEX = " + record[2] + ", AGE = " + record[3] + " , WEIGHT=" + record[0]
-							+ " , VALUE=" + record[1] + " ]");
 				}
 
 			}

@@ -47,6 +47,10 @@ public class Lifter {
 	public void setCategory(Choice choice) {
 		this.category = LogicHelper.getCategory(choice, this.competitor);
 
+		if (this.competitor.isAbsolute_ranking()) {
+			this.competitor.setCategory(this.category);
+		}
+
 	}
 
 	public Category getCategory() {
@@ -127,9 +131,12 @@ public class Lifter {
 		// this.setNextCurrentAttempt();
 		if (result) {
 
-			if (!this.currentAttempt.equals(Attempt.BonusAttempt.RECORD))
-				this.setScore(LogicHelper.getWilksResult(this.getCompetitor().getWeight(),
-						this.getCurrentAttemptWeight(), this.getCompetitor().getSex()));
+			if (!this.currentAttempt.equals(Attempt.BonusAttempt.RECORD)) {
+				double score = LogicHelper.getWilksResult(this.getCompetitor().getWeight(),
+						this.getCurrentAttemptWeight(), this.getCompetitor().getSex());
+				this.setScore(score);
+				this.getCompetitor().setScore(this.competitor.getScore() + score);
+			}
 		}
 	}
 
@@ -214,7 +221,6 @@ public class Lifter {
 		return true;
 	}
 
-	
 	// public Attempt getPreviousAttempt() {
 	// if(this.currentAttempt instanceof StandardAttempt) {
 	// switch ((StandardAttempt)this.currentAttempt) {
