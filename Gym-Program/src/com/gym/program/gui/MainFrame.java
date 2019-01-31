@@ -61,6 +61,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	 * Create the frame.
 	 */
 	public MainFrame(Manager manager) {
+		
+		
 		this.manager = manager;
 
 		this.disciplinePanel = new DisciplinePanel(this);
