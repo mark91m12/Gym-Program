@@ -57,6 +57,7 @@ public class MainMenu extends JFrame implements ActionListener {
 		createEventBtn.addActionListener(this);
 		loadEventBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
