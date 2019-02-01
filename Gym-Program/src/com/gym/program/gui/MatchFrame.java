@@ -14,6 +14,10 @@ import javax.swing.event.ChangeListener;
 
 import com.gym.program.logic.Manager;
 import com.gym.program.utils.CollarType;
+import java.awt.Color;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import java.awt.BorderLayout;
 
 public class MatchFrame extends JFrame {
 
@@ -102,13 +106,15 @@ public class MatchFrame extends JFrame {
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.CYAN);
+		contentPane.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		// contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
 		JTabbedPane tabbed_pane = new JTabbedPane(JTabbedPane.TOP);
-		contentPane.add(tabbed_pane);
+		tabbed_pane.setBackground(Color.GREEN);
 		this.setCollar(mF.getCollar());
+		contentPane.setLayout(new BorderLayout(0, 0));
 
 		Card card = new Card(this);
 		OrderPanel order_panel = new OrderPanel(this);
@@ -117,6 +123,7 @@ public class MatchFrame extends JFrame {
 		tabbed_pane.add(" pedana ", card);
 		tabbed_pane.add(" ordine ", order_panel);
 		tabbed_pane.add(" classifica ", ranking_panel);
+		contentPane.add(tabbed_pane);
 
 		this.setVisible(true);
 
