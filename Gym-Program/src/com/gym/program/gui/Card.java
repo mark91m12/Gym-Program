@@ -713,6 +713,8 @@ public class Card extends JPanel {
 		}
 		if (current_lifter.hasMoreLift()) {
 
+			
+			
 			boolean is_valid = false;
 
 			String weight = JOptionPane.showInputDialog(getParent(), "Inserire la prossima alzata per l'atleta \n"
