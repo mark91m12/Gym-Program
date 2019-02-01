@@ -590,6 +590,7 @@ public class Card extends JPanel {
 			disc_label.setIcon(new ImageIcon(disc_scaled));
 			this.plates_panel.add(disc_label);
 		}
+		
 
 		switch (this.match_frame.getCollar()) {
 		case LIGHT:
