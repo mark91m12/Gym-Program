@@ -108,7 +108,7 @@ public class OrderPanel extends JPanel {
 		this.scroll = GuiHelper.getInstance().createTable(names, this.match_frame.getManager().getMatches()
 				.get(TypeOfMatch.valueOf((String) this.choice_box.getSelectedItem())).getLifters());
 
-		this.scroll.getViewport().setBackground(GuiHelper.getInstance().getBlue_2());
+		this.scroll.getViewport().setBackground(GuiHelper.getInstance().getBlue_1());
 
 		this.list_panel.add(this.scroll);
 		this.list_panel.updateUI();

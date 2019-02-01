@@ -2,6 +2,7 @@ package com.gym.program.utils;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -11,9 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,20 +41,21 @@ import com.gym.program.logic.match.RankingPerTeam;
 
 public class GuiHelper {
 
-	public Image getScaledImage(Image srcImg, int w, int h){
-	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-	    Graphics2D g2 = resizedImg.createGraphics();
+	public Image getScaledImage(Image srcImg, int w, int h) {
+		BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = resizedImg.createGraphics();
 
-	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	    g2.drawImage(srcImg, 0, 0, w, h, null);
-	    g2.dispose();
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(srcImg, 0, 0, w, h, null);
+		g2.dispose();
 
-	    return resizedImg;
+		return resizedImg;
 	}
-	
+
 	private Color blue_3;
 	private Color blue_2;
 	private Color blue_1;
+	private TableCellRenderer table_cell_render;
 
 	private static GuiHelper instance = null;
 
@@ -72,6 +72,20 @@ public class GuiHelper {
 		blue_3 = new Color(30, 145, 245);
 		blue_2 = new Color(51, 153, 255);
 		blue_1 = new Color(102, 178, 255);
+
+		this.table_cell_render = new TableCellRenderer() {
+
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				JLabel label = new JLabel();
+				if (value != null) {
+					label.setText(value.toString());
+					System.out.println("********* " + value);
+				}
+				System.out.println();
+				return label;
+			}
+		};
 
 	}
 
@@ -193,6 +207,8 @@ public class GuiHelper {
 		table.getTableHeader().setBackground(GuiHelper.getInstance().getBlue_1());
 		table.setEnabled(false);
 
+		table.setDefaultRenderer(Object.class, this.getTableCellRender());
+
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;
 	}
@@ -203,26 +219,11 @@ public class GuiHelper {
 
 		Object rowData[][] = new Object[teams_scores.keySet().size()][names.length];
 
-		// Map sorted =
-		// teams_scores.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-		// .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) ->
-		// e2, LinkedHashMap::new));
-		//
-		// for (int i = 0; i < teams_scores.keySet().size(); i++) {
-		// rowData[i][0] = i + 1;
-		// rowData[i][1] =
-		// teams_scores.get(key).get(i).getCompetitor().getSurname();
-		// rowData[i][2] = lifters.get(i).getCompetitor().getName();
-		// rowData[i][3] = lifters.get(i).getCompetitor().getTeam();
-		// rowData[i][4] = lifters.get(i).getCompetitor().getAge();
-		// rowData[i][5] = lifters.get(i).getCompetitor().getWeight();
-		// rowData[i][6] = lifters.get(i).getCategory();
-		// rowData[i][7] = lifters.get(i).getCurrentAttemptWeight();
-		// }
-
 		TableModel model = new DefaultTableModel(rowData, names);
 		JTable table = new JTable(model);
 		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setBackground(GuiHelper.getInstance().getBlue_1());
+		table.setDefaultRenderer(Object.class, this.getTableCellRender());
 
 		JScrollPane scroll = new JScrollPane(table);
 
@@ -290,9 +291,9 @@ public class GuiHelper {
 		};
 		// ZebraJTable table = new ZebraJTable(model);
 		JTable table = new JTable(model);
-		for (int i = 0; i < names.length; i++) {
-			table.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
-		}
+
+		table.setDefaultRenderer(Object.class, tableCellRenderer);
+		table.getTableHeader().setBackground(GuiHelper.getInstance().getBlue_1());
 		table.getTableHeader().setReorderingAllowed(false);
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;
@@ -408,15 +409,14 @@ public class GuiHelper {
 		};
 		// ZebraJTable table = new ZebraJTable(model);
 		JTable table = new JTable(model);
-		for (int i = 0; i < names.length - 1; i++) {
-			table.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
-		}
+		table.setDefaultRenderer(Object.class, tableCellRenderer);
 
 		TableCellRenderer btnRenderer = new JTableButtonRenderer();
 		table.getColumn("Avvia Contestazione").setCellRenderer(btnRenderer);
 		table.getColumn("Avvia Contestazione").setCellEditor(new ButtonEditor(new JCheckBox()));
 		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setBackground(GuiHelper.getInstance().getBlue_1());
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;
 	}
@@ -436,9 +436,11 @@ public class GuiHelper {
 				return false;// This causes all cells to be not editable
 			}
 		};
-		// ZebraJTable table = new ZebraJTable(model);
 		JTable table = new JTable(model);
 		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setBackground(GuiHelper.getInstance().getBlue_1());
+		table.setDefaultRenderer(Object.class, this.getTableCellRender());
+
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;
 	}
@@ -483,12 +485,18 @@ public class GuiHelper {
 		};
 		// ZebraJTable table = new ZebraJTable(model);
 		JTable table = new JTable(model);
-
+		table.setDefaultRenderer(Object.class, this.getTableCellRender());
+		table.getTableHeader().setBackground(GuiHelper.getInstance().getBlue_1());
 		table.getTableHeader().setReorderingAllowed(false);
 		JScrollPane scroll = new JScrollPane(table);
 		return scroll;
 	}
 
+	private TableCellRenderer getTableCellRender() {
+
+		return this.table_cell_render;
+
+	}
 }
 
 // class ButtonRenderer extends JButton implements TableCellRenderer {
@@ -498,7 +506,8 @@ public class GuiHelper {
 // }
 //
 // @Override
-// public Component getTableCellRendererComponent(JTable table, Object value,
+// public Component getTableCellRendererComponent(JTable table, Object
+// value,
 // boolean isSelected, boolean hasFocus, int row, int column) {
 // if (isSelected) {
 // setForeground(table.getSelectionForeground());
@@ -526,7 +535,8 @@ class JTableButtonMouseListener extends MouseAdapter {
 																			// of
 																			// the
 																			// button
-		int row = e.getY() / table.getRowHeight(); // get the row of the button
+		int row = e.getY() / table.getRowHeight(); // get the row of the
+													// button
 
 		/* Checking the row or column is valid or not */
 		if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {

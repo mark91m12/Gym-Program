@@ -15,7 +15,7 @@ import com.gym.program.utils.GuiHelper;
 public class MainMenu extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
-	JButton createEventBtn, loadEventBtn, exitBtn;
+	JButton createEventBtn, exitBtn;
 	JPanel panel;
 
 	ImageIcon imageBg;
@@ -24,7 +24,7 @@ public class MainMenu extends JFrame implements ActionListener {
 	public MainMenu() {
 
 		panel = new JPanel();
-		
+
 		panel.setLayout(null);
 		panel.setOpaque(false);
 		panel.setSize(620, 520);
@@ -55,9 +55,8 @@ public class MainMenu extends JFrame implements ActionListener {
 		setVisible(true);
 
 		createEventBtn.addActionListener(this);
-		loadEventBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
-		
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -71,14 +70,7 @@ public class MainMenu extends JFrame implements ActionListener {
 
 			this.dispose();
 
-		} else if (e.getSource() == loadEventBtn) {
-
-			// Load event TODO
-			// new Card();
-			this.dispose();
-		}
-
-		else if (e.getSource() == exitBtn) {
+		} else if (e.getSource() == exitBtn) {
 			System.exit(0);
 		}
 	}
