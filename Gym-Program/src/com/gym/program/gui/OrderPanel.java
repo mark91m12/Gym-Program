@@ -24,6 +24,7 @@ public class OrderPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> choice_box;
 	private JPanel list_panel;
+	
 	private JPanel choice_panel;
 	private MatchFrame match_frame;
 	private Object names[] = { " Posizione ", " Cognome ", " Nome ", " Squadra ", " Età ", " Peso Corporeo ",
