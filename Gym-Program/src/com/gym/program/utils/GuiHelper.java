@@ -39,6 +39,10 @@ import com.gym.program.logic.match.RankingPerTeam;
 
 public class GuiHelper {
 
+	private Color blue_3;
+	private Color blue_2;
+	private Color blue_1;
+
 	private static GuiHelper instance = null;
 
 	public static GuiHelper getInstance() {
@@ -50,6 +54,10 @@ public class GuiHelper {
 	}
 
 	private GuiHelper() {
+
+		blue_3 = new Color(30, 145, 245);
+		blue_2 = new Color(51, 153, 255);
+		blue_1 = new Color(102, 178, 255);
 
 	}
 
@@ -65,7 +73,7 @@ public class GuiHelper {
 
 	}
 
-	public int getMiusre(int x) {
+	public int getMiusreBy1366(int x) {
 
 		return (int) ((x / 1366.00) * GuiHelper.getInstance().getScreenWidth());
 
@@ -78,6 +86,30 @@ public class GuiHelper {
 				frame.getPreferredSize().height - scale, Image.SCALE_SMOOTH);
 		JLabel picture = new JLabel(new ImageIcon(scaledImage));
 		frame.add(picture);
+	}
+
+	public Color getBlue_3() {
+		return blue_3;
+	}
+
+	public void setBlue_3(Color blue_3) {
+		this.blue_3 = blue_3;
+	}
+
+	public Color getBlue_2() {
+		return blue_2;
+	}
+
+	public void setBlue_2(Color blue_2) {
+		this.blue_2 = blue_2;
+	}
+
+	public Color getBlue_1() {
+		return blue_1;
+	}
+
+	public void setBlue_1(Color blue_1) {
+		this.blue_1 = blue_1;
 	}
 
 	public void addBgImageJP(JPanel panel, String path, int scale) {
@@ -128,12 +160,6 @@ public class GuiHelper {
 
 	public JScrollPane createTable(Object names[], List<Lifter> lifters) {
 
-		// Object rowData[][] = { { "Row1-Column1", "Row1-Column2",
-		// "Row1-Column3" },
-		// { "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
-		// Object columnNames[] = { "Column One", "Column Two", "Column Three"
-		// };
-
 		Object rowData[][] = new Object[lifters.size()][names.length];
 
 		for (int i = 0; i < lifters.size(); i++) {
@@ -150,9 +176,10 @@ public class GuiHelper {
 		TableModel model = new DefaultTableModel(rowData, names);
 		JTable table = new JTable(model);
 		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setBackground(GuiHelper.getInstance().getBlue_1());
+		table.setEnabled(false);
 
 		JScrollPane scroll = new JScrollPane(table);
-
 		return scroll;
 	}
 
