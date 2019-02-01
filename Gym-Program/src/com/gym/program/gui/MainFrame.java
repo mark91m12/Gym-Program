@@ -2,6 +2,7 @@ package com.gym.program.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -42,7 +44,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final DisciplinePanel disciplinePanel;
-	private JPanel mainPanelToSwitch;
+	private ImagePanel mainPanelToSwitch;
 	private Manager manager;
 	private JButton btnChooseDisciplines;
 	private JButton btnInsertLifters;
@@ -58,6 +60,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	private JButton btn_check_score;
 	
 	private JButton btnRanking;
+	
+	private ImageIcon imageBg;
 
 	/**
 	 * Create the frame.
@@ -88,8 +92,10 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBackground(Color.DARK_GRAY);
 
-		mainPanelToSwitch = new JPanel();
-		mainPanelToSwitch.setBackground(Color.ORANGE);
+		imageBg = new ImageIcon("images/menu/main_menu3.jpg");
+		mainPanelToSwitch = new ImagePanel(null);
+		mainPanelToSwitch.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		mainPanelToSwitch.setImage(imageBg.getImage().getScaledInstance(mainPanelToSwitch.getSize().width -280,mainPanelToSwitch.getSize().height -50, Image.SCALE_SMOOTH));
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -108,7 +114,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		btnInsertLifters.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showInsertForm();
+				switchTo(new InsertForm(MainFrame.this));
 			}
 		});
 
@@ -225,7 +231,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		btnShowDisputePanel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showDisputeForm();
+				switchTo(new DisputePanel(MainFrame.this));
 			}
 		});
 
@@ -234,8 +240,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				showCheckScorePanel();
+				switchTo(new CheckScorePanel());
 			}
 		});
 		
@@ -244,7 +249,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showRankingPanel();
+				switchTo(new RankingPanel(MainFrame.this));
 			}
 		});
 		GroupLayout gl_menuPanel = new GroupLayout(menuPanel);
@@ -324,17 +329,17 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		return manager;
 	}
 
-	public void showInsertForm() {
-		switchTo(new InsertForm(this));
-	}
-
-	public void showCheckScorePanel() {
-		switchTo(new CheckScorePanel());
-	}
-
-	public void showRankingPanel() {
-		switchTo(new RankingPanel(this));
-	}
+//	public void showInsertForm() {
+//		switchTo(new InsertForm(this));
+//	}
+//
+//	public void showCheckScorePanel() {
+//		switchTo(new CheckScorePanel());
+//	}
+//
+//	public void showRankingPanel() {
+//		switchTo(new RankingPanel(this));
+//	}
 	
 	public void setStartBtnEnabled(boolean b) {
 		updateRdBtnsMatchesToStart();
@@ -387,7 +392,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		return this.collarType;
 	}
 
-	public void showDisputeForm() {
-		switchTo(new DisputePanel(this));
-	}
+//	public void showDisputeForm() {
+//		switchTo(new DisputePanel(this));
+//	}
 }

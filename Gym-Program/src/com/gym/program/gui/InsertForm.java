@@ -893,6 +893,6 @@ public class InsertForm extends JPanel {
 	}
 
 	void reset() {
-		mainFrame.showInsertForm();
+		mainFrame.switchTo(new InsertForm(mainFrame));
 	}
 }
