@@ -53,15 +53,21 @@ public class GuiHelper {
 
 	}
 
-	public double getScreenWidth() {
+	private double getScreenWidth() {
 
 		return Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 
 	}
 
-	public double getScreenHeight() {
+	private double getScreenHeight() {
 
-		return Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		return Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+
+	}
+
+	public int getMiusre(int x) {
+
+		return (int) ((x / 1366.00) * GuiHelper.getInstance().getScreenWidth());
 
 	}
 
