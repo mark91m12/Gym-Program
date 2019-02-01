@@ -66,6 +66,7 @@ public class Card extends JPanel {
 
 	private Timer timer;
 	private int time;
+	
 	private JLabel fixed_bonus_attempt_label;
 	private JLabel bonus_attempt_label;
 	private JLabel fixed_rack_label;
