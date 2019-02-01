@@ -52,18 +52,20 @@ public class GuiHelper {
 
 	}
 
-	public void addBgImageJF(JFrame frame, String path) {
+	public void addBgImageJF(JFrame frame, String path, int scale) {
 
 		ImageIcon imageBg = new ImageIcon(path);
-		JLabel picture = new JLabel(new ImageIcon(imageBg.getImage()));
+		Image scaledImage = imageBg.getImage().getScaledInstance(frame.getPreferredSize().width - scale,
+				frame.getPreferredSize().height - scale, Image.SCALE_SMOOTH);
+		JLabel picture = new JLabel(new ImageIcon(scaledImage));
 		frame.add(picture);
 	}
 
-	public void addBgImageJP(JPanel panel, String path) {
+	public void addBgImageJP(JPanel panel, String path, int scale) {
 
 		ImageIcon imageBg = new ImageIcon(path);
-		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width - 150,
-				panel.getPreferredSize().height - 150, Image.SCALE_SMOOTH);
+		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width - scale,
+				panel.getPreferredSize().height - scale, Image.SCALE_SMOOTH);
 		JLabel picture = new JLabel(new ImageIcon(scaledImage));
 		panel.add(picture);
 	}
