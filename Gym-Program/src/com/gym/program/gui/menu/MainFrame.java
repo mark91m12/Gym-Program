@@ -47,7 +47,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private final DisciplinePanel disciplinePanel;
+//	private final DisciplinePanel disciplinePanel;
+	private final DisciplinePanel2 disciplinePanel;
 	private ImagePanel mainPanelToSwitch;
 	private Manager manager;
 	private JButton btnChooseDisciplines;
@@ -75,7 +76,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		
 		this.manager = manager;
 
-		this.disciplinePanel = new DisciplinePanel(this);
+		this.disciplinePanel = new DisciplinePanel2(this);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -113,8 +114,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 								.addComponent(menuPanel, GroupLayout.DEFAULT_SIZE, 1023, Short.MAX_VALUE))
 						.addGap(0)));
 
-		btnInsertLifters = new JButton("Iscrivi atleti");
-		btnInsertLifters.setEnabled(false);
+		btnInsertLifters = new JButton("");
+		btnInsertLifters.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_iscrivi-atleti.png")));
 		btnInsertLifters.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,20 +124,23 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		});
 
 		JLabel lblSelezionaGara = new JLabel("Seleziona gara:");
-		lblSelezionaGara.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblSelezionaGara.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblSelezionaGara.setForeground(Color.WHITE);
 
 		rdbtnBenchPress = new JRadioButton("Bench Press");
+		rdbtnBenchPress.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnBenchPress.setEnabled(false);
 		rdbtnBenchPress.setForeground(Color.WHITE);
 		rdbtnBenchPress.setBackground(Color.DARK_GRAY);
 
 		rdbtnSquat = new JRadioButton("Squat");
+		rdbtnSquat.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnSquat.setForeground(Color.WHITE);
 		rdbtnSquat.setBackground(Color.DARK_GRAY);
 		rdbtnSquat.setEnabled(false);
 
 		rdbtnDeadLift = new JRadioButton("Dead Lift");
+		rdbtnDeadLift.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnDeadLift.setForeground(Color.WHITE);
 		rdbtnDeadLift.setBackground(Color.DARK_GRAY);
 		rdbtnDeadLift.setEnabled(false);
@@ -147,7 +151,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		setRdBtns.add(rdbtnDeadLift);
 		GuiHelper.getInstance().setSwitch(setRdBtns);
 
-		btnStart = new JButton("Inizia gara");
+		btnStart = new JButton("");
+		btnStart.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_inizia-gara.png")));
 		btnStart.setEnabled(false);
 		btnStart.addActionListener(new ActionListener() {
 
@@ -165,11 +170,13 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 			}
 		});
 
-		btnChooseDisciplines = new JButton("Scegli discipline");
+		btnChooseDisciplines = new JButton("");
+		btnChooseDisciplines.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_scegli-discipline.png")));
 		btnChooseDisciplines.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				switchTo(disciplinePanel);
+//				switchTo(disciplinePanel);
+				switchTo(new DisciplinePanel2(MainFrame.this));
 			}
 		});
 
@@ -231,7 +238,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 			}
 		});
 
-		JButton btnShowDisputePanel = new JButton("Segnala Contestazione");
+		JButton btnShowDisputePanel = new JButton("");
+		btnShowDisputePanel.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_contestazioni.png")));
 		btnShowDisputePanel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -239,7 +247,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 			}
 		});
 
-		btn_check_score = new JButton("Punteggio Wilks");
+		btn_check_score = new JButton("");
+		btn_check_score.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_punteggio-wilks.png")));
 		btn_check_score.addActionListener(new ActionListener() {
 
 			@Override
@@ -248,7 +257,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 			}
 		});
 		
-		btnRanking = new JButton("Classifica");
+		btnRanking = new JButton("");
+		btnRanking.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_classifica.png")));
 		btnRanking.addActionListener(new ActionListener() {
 
 			@Override
@@ -258,48 +268,51 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		});
 		GroupLayout gl_menuPanel = new GroupLayout(menuPanel);
 		gl_menuPanel.setHorizontalGroup(
-			gl_menuPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_menuPanel.createSequentialGroup()
-					.addGroup(gl_menuPanel.createParallelGroup(Alignment.TRAILING, false)
+			gl_menuPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_menuPanel.createSequentialGroup()
+					.addGroup(gl_menuPanel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(Alignment.LEADING, gl_menuPanel.createSequentialGroup()
-							.addGap(36)
-							.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(rdbtnBenchPress)
-								.addGroup(gl_menuPanel.createSequentialGroup()
-									.addGap(24)
-									.addComponent(btnStart))
-								.addGroup(gl_menuPanel.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(lblSelezionaGara, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(rdbtnSquat, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(rdbtnDeadLift, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnTest, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))))
+							.addContainerGap()
+							.addComponent(btnStart, GroupLayout.PREFERRED_SIZE, 202, Short.MAX_VALUE))
 						.addGroup(Alignment.LEADING, gl_menuPanel.createSequentialGroup()
-							.addGap(36)
-							.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btn_check_score, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-								.addComponent(btnChooseDisciplines, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addContainerGap()
+							.addComponent(btnShowDisputePanel, GroupLayout.PREFERRED_SIZE, 202, Short.MAX_VALUE))
 						.addGroup(Alignment.LEADING, gl_menuPanel.createSequentialGroup()
-							.addGap(36)
-							.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnInsertLifters, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-								.addComponent(btnShowDisputePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnRanking, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(39, Short.MAX_VALUE))
+							.addContainerGap()
+							.addComponent(btn_check_score, 0, 0, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, gl_menuPanel.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(Alignment.LEADING, gl_menuPanel.createSequentialGroup()
+								.addGap(36)
+								.addGroup(gl_menuPanel.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(rdbtnBenchPress)
+									.addComponent(lblSelezionaGara, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(rdbtnSquat, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(rdbtnDeadLift, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnTest, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)))
+							.addGroup(Alignment.LEADING, gl_menuPanel.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(btnChooseDisciplines, GroupLayout.PREFERRED_SIZE, 202, Short.MAX_VALUE)))
+						.addGroup(gl_menuPanel.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_menuPanel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(btnRanking, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 202, Short.MAX_VALUE)
+								.addComponent(btnInsertLifters, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 202, Short.MAX_VALUE))))
+					.addGap(24))
 		);
 		gl_menuPanel.setVerticalGroup(
 			gl_menuPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_menuPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(btnChooseDisciplines)
-					.addGap(15)
-					.addComponent(btn_check_score)
+					.addGap(22)
+					.addComponent(btnChooseDisciplines, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(btnInsertLifters)
-					.addGap(76)
-					.addComponent(btnShowDisputePanel)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnRanking)
-					.addPreferredGap(ComponentPlacement.RELATED, 437, Short.MAX_VALUE)
+					.addComponent(btnInsertLifters, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+					.addGap(167)
+					.addComponent(btnRanking, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btn_check_score, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnShowDisputePanel, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
 					.addComponent(btnTest)
 					.addGap(51)
 					.addComponent(lblSelezionaGara)
@@ -309,9 +322,9 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 					.addComponent(rdbtnSquat)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(rdbtnDeadLift)
-					.addGap(18)
-					.addComponent(btnStart)
-					.addGap(97))
+					.addGap(26)
+					.addComponent(btnStart, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+					.addGap(99))
 		);
 		menuPanel.setLayout(gl_menuPanel);
 		contentPane.setLayout(gl_contentPane);

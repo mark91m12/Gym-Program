@@ -33,6 +33,7 @@ import com.gym.program.utils.Choice;
 import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.LogicHelper;
 import com.gym.program.utils.Sex;
+import java.awt.Color;
 
 public class InsertForm extends JPanel {
 
@@ -95,6 +96,7 @@ public class InsertForm extends JPanel {
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 680);
 		setVisible(true);
+		setOpaque(false);
 		// setLocationRelativeTo(null);
 		// setContentPane(contentPane);
 
@@ -113,6 +115,7 @@ public class InsertForm extends JPanel {
 		}
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(102,178,255,80));
 		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane
