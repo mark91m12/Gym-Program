@@ -2,6 +2,7 @@ package com.gym.program.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
@@ -39,7 +40,7 @@ public class RankingPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private MatchFrame matchFrame;
+	private MainFrame matchFrame;
 	private DefaultComboBoxModel<TypeOfRanking.Team_Single> team_atletModel;
 	private DefaultComboBoxModel<TypeOfRanking.Discipline> matchListModel;
 	private DefaultComboBoxModel<Category> categoryListModel;
@@ -58,8 +59,9 @@ public class RankingPanel extends JPanel {
 	 * 
 	 * @param testFrame
 	 */
-	public RankingPanel(MatchFrame mF) {
+	public RankingPanel(MainFrame mF) {
 
+		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		this.matchFrame = mF;
 
 		selectionPanel = new JPanel();

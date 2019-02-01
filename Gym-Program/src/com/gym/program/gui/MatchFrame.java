@@ -126,7 +126,7 @@ public class MatchFrame extends JFrame {
 
 		Card card = new Card(this);
 		OrderPanel order_panel = new OrderPanel(this);
-		RankingPanel ranking_panel = new RankingPanel(this);
+		RankingPanel ranking_panel = new RankingPanel(this.mainFrame);
 
 		tabbed_pane.add(" pedana ", card);
 		tabbed_pane.add(" ordine ", order_panel);
