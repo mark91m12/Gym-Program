@@ -34,8 +34,6 @@ import com.gym.program.utils.GuiHelper;
 import com.gym.program.utils.LogicHelper;
 import com.gym.program.utils.Sex;
 
-import javafx.scene.control.RadioButton;
-
 public class InsertForm extends JPanel {
 
 	/**
