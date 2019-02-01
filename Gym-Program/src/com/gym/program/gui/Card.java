@@ -5,10 +5,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
@@ -580,7 +584,10 @@ public class Card extends JPanel {
 		for (WeightDisc weightDisc : plates) {
 			JLabel disc_label = this.createLabel();
 			disc_label.setText("[" + weightDisc.getLabel() + " x " + weightDisc.getOccurrance() + "]");
-			disc_label.setIcon(new ImageIcon(weightDisc.getPathImage()));
+			ImageIcon disc_img = new ImageIcon(weightDisc.getPathImage());
+			GuiHelper guiHelper = GuiHelper.getInstance();
+			Image disc_scaled = guiHelper.getScaledImage(disc_img.getImage(), guiHelper.getMiusreBy1366(disc_img.getIconWidth()),guiHelper.getMiusreBy1366(disc_img.getIconHeight()));
+			disc_label.setIcon(new ImageIcon(disc_scaled));
 			this.plates_panel.add(disc_label);
 		}
 
