@@ -1,4 +1,4 @@
-package com.gym.program.gui;
+package com.gym.program.gui.menu;
 
 import java.awt.Color;
 import java.awt.Font;

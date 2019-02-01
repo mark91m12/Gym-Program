@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.gym.program.gui.menu.MainFrame;
 import com.gym.program.logic.Manager;
 import com.gym.program.utils.CollarType;
 import java.awt.Color;

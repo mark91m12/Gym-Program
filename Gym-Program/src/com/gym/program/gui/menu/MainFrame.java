@@ -1,4 +1,4 @@
-package com.gym.program.gui;
+package com.gym.program.gui.menu;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -26,6 +26,10 @@ import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import com.gym.program.gui.ImagePanel;
+import com.gym.program.gui.MatchFrame;
+import com.gym.program.gui.PanelSwitcher;
+import com.gym.program.gui.RankingPanel;
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.competitor.CompetitorBuilder;

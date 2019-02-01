@@ -1,4 +1,4 @@
-package com.gym.program.gui;
+package com.gym.program.gui.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

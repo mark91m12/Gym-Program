@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import com.gym.program.gui.Card;
-import com.gym.program.gui.InsertForm;
 import com.gym.program.gui.MainMenu;
 import com.gym.program.gui.MatchFrame;
+import com.gym.program.gui.menu.InsertForm;
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.competitor.CompetitorBuilder;

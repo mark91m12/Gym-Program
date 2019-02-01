@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.gym.program.gui.menu.MainFrame;
 import com.gym.program.logic.Manager;
 import com.gym.program.utils.GuiHelper;
 
