@@ -117,7 +117,7 @@ public class Card extends JPanel {
 		target_panel.setBackground(blue_2);
 
 		JLabel fixed_plates_label = new JLabel(" caricamento :");
-		fixed_plates_label.setForeground(SystemColor.infoText);
+		fixed_plates_label.setForeground(Color.WHITE);
 		fixed_plates_label.setVerticalAlignment(SwingConstants.TOP);
 		fixed_plates_label.setHorizontalAlignment(SwingConstants.LEFT);
 		fixed_plates_label.setFont(new Font("Serif", Font.PLAIN, 35));
@@ -412,7 +412,7 @@ public class Card extends JPanel {
 		bonus_lift_panel.setVisible(false);
 
 		JLabel fixed_attempts_label = new JLabel("tentativi :");
-		fixed_attempts_label.setForeground(SystemColor.infoText);
+		fixed_attempts_label.setForeground(Color.WHITE);
 		fixed_attempts_label.setFont(new Font("Serif", Font.PLAIN, 35));
 
 		first_attempt_label = new JLabel();

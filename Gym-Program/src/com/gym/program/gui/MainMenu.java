@@ -24,6 +24,7 @@ public class MainMenu extends JFrame implements ActionListener {
 	public MainMenu() {
 
 		panel = new JPanel();
+		
 		panel.setLayout(null);
 		panel.setOpaque(false);
 		panel.setSize(620, 520);
