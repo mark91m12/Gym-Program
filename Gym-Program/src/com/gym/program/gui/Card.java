@@ -87,6 +87,8 @@ public class Card extends JPanel {
 		this.current_lifter = this.match_frame.getManager().getCurrentLifter();
 
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+		System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
 
 		collar_label = this.createLabel();
@@ -122,47 +124,73 @@ public class Card extends JPanel {
 		fixed_plates_label.setHorizontalAlignment(SwingConstants.LEFT);
 		fixed_plates_label.setFont(new Font("Serif", Font.PLAIN, 35));
 		GroupLayout gl_contentPane = new GroupLayout(this);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(
-				Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
-						.createParallelGroup(
-								Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-								.addGroup(gl_contentPane
-										.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-												.createSequentialGroup().addContainerGap()
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-														.addComponent(lifter_panel, Alignment.TRAILING,
-																GroupLayout.PREFERRED_SIZE, 734, Short.MAX_VALUE)
-														.addComponent(plates_panel, GroupLayout.DEFAULT_SIZE, 734,
-																Short.MAX_VALUE))
-												.addGap(13))
-										.addGroup(gl_contentPane.createSequentialGroup().addGap(258)
-												.addComponent(fixed_plates_label, GroupLayout.PREFERRED_SIZE, 197,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(target_panel, GroupLayout.PREFERRED_SIZE, 590, GroupLayout.PREFERRED_SIZE)
-								.addGap(9))
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(1).addComponent(button_panel,
-								GroupLayout.DEFAULT_SIZE, 1355, Short.MAX_VALUE)))
-						.addContainerGap()));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup().addContainerGap()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(lifter_panel, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(fixed_plates_label, GroupLayout.PREFERRED_SIZE, 41, Short.MAX_VALUE)
-								.addPreferredGap(ComponentPlacement.RELATED).addComponent(plates_panel,
-										GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE))
-						.addComponent(target_panel, GroupLayout.PREFERRED_SIZE, 662, Short.MAX_VALUE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(button_panel, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE).addGap(43)));
+		gl_contentPane
+				.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
+								.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane
+												.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+														.createSequentialGroup()
+														.addContainerGap().addGroup(gl_contentPane
+																.createParallelGroup(Alignment.LEADING).addComponent(
+																		lifter_panel,
+																		Alignment.TRAILING, GroupLayout.PREFERRED_SIZE,
+																		(int) (0.537 * GuiHelper.getInstance()
+																				.getScreenHeight()),
+																		Short.MAX_VALUE)
+																.addComponent(
+																		plates_panel, GroupLayout.DEFAULT_SIZE,
+																		(int) (0.537 * GuiHelper.getInstance()
+																				.getScreenHeight()),
+																		Short.MAX_VALUE))
+														.addGap((int) (0.00951
+																* GuiHelper.getInstance().getScreenHeight())))
+												.addGroup(gl_contentPane.createSequentialGroup().addGap(
+														(int) (0.189 * GuiHelper.getInstance().getScreenHeight()))
+														.addComponent(fixed_plates_label, GroupLayout.PREFERRED_SIZE,
+																(int) (0.14497
+																		* GuiHelper.getInstance().getScreenHeight()),
+																GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(target_panel, GroupLayout.PREFERRED_SIZE,
+												(int) (0.432 * GuiHelper.getInstance().getScreenHeight()),
+												GroupLayout.PREFERRED_SIZE)
+										.addGap((int) (0.00659 * GuiHelper.getInstance().getScreenHeight())))
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap((int) (0.000732 * GuiHelper.getInstance().getScreenHeight()))
+										.addComponent(button_panel, GroupLayout.DEFAULT_SIZE,
+												(int) (0.99195 * GuiHelper.getInstance().getScreenHeight()),
+												Short.MAX_VALUE)))
+								.addContainerGap()));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
+				Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap().addGroup(
+						gl_contentPane
+								.createParallelGroup(Alignment.TRAILING).addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(lifter_panel, GroupLayout.PREFERRED_SIZE,
+												(int) (0.26208 * GuiHelper.getInstance().getScreenHeight()),
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(fixed_plates_label, GroupLayout.PREFERRED_SIZE,
+												(int) (0.030015 * GuiHelper.getInstance().getScreenHeight()),
+												Short.MAX_VALUE)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(plates_panel,
+												GroupLayout.PREFERRED_SIZE,
+												(int) (0.18375 * GuiHelper.getInstance().getScreenHeight()),
+												GroupLayout.PREFERRED_SIZE))
+								.addComponent(target_panel, GroupLayout.PREFERRED_SIZE,
+										(int) (0.48463 * GuiHelper.getInstance().getScreenHeight()), Short.MAX_VALUE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(button_panel, GroupLayout.PREFERRED_SIZE,
+								(int) (0.020497 * GuiHelper.getInstance().getScreenHeight()),
+								GroupLayout.PREFERRED_SIZE)
+						.addGap((int) (0.031478 * GuiHelper.getInstance().getScreenHeight()))));
 
 		image_exercise_panel = new JPanel();
 		image_exercise_panel.setBackground(blue_3);
-		image_exercise_panel.setPreferredSize(new Dimension(500, 500));
+		image_exercise_panel.setPreferredSize(new Dimension((int) (0.36603 * GuiHelper.getInstance().getScreenHeight()),
+				(int) (0.36603 * GuiHelper.getInstance().getScreenHeight())));
 		JLabel time_label = new JLabel("Time :");
 		time_label.setForeground(SystemColor.infoText);
 		time_label.setFont(new Font("Serif", Font.PLAIN, 40));
