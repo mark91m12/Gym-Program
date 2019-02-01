@@ -1,6 +1,8 @@
 package com.gym.program.gui;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -9,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -102,18 +105,22 @@ public class MatchFrame extends JFrame {
 		//
 		// >>>>>>> branch 'master' of https://github.com/mark91m12/Gym-Program
 		setResizable(false);
+
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		System.out.println("SCREEN SIZE:"+Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
+
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.CYAN);
 		contentPane.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		// contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout());
 
 		JTabbedPane tabbed_pane = new JTabbedPane(JTabbedPane.TOP);
-		tabbed_pane.setBackground(Color.GREEN);
 		this.setCollar(mF.getCollar());
 		contentPane.setLayout(new BorderLayout(0, 0));
 
