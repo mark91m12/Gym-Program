@@ -70,10 +70,7 @@ public class MainMenu extends JFrame implements ActionListener {
 			new MainFrame(new Manager());
 
 			this.dispose();
-
-		}
-
-		else if (e.getSource() == exitBtn) {
+		} else if (e.getSource() == exitBtn) {
 			System.exit(0);
 		}
 	}

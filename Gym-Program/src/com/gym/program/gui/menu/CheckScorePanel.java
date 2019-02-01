@@ -96,8 +96,7 @@ public class CheckScorePanel extends JPanel {
 					wilks_label.setText(Double.toString(
 							LogicHelper.rounded(LogicHelper.getWilksResult(body_weight, lifted_weight, sex))));
 				} else {
-					JOptionPane.showMessageDialog(CheckScorePanel.this, response_message,
-							"ATTENZIONE", 2);
+					JOptionPane.showMessageDialog(CheckScorePanel.this, response_message, "ATTENZIONE", 2);
 				}
 			}
 		});
@@ -106,44 +105,53 @@ public class CheckScorePanel extends JPanel {
 		wilks_text_pane.setBackground(new Color(65, 105, 225));
 		wilks_text_pane.setForeground(Color.WHITE);
 		wilks_text_pane.setText("Calcola il punteggio Wilks");
-		wilks_text_pane.setFont(new Font("Arial", Font.PLAIN, 18));
+		wilks_text_pane.setFont(new Font("Arial", Font.PLAIN, GuiHelper.getInstance().getMiusreBy1366(18)));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(wilks_text_pane, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-				.addGroup(groupLayout.createSequentialGroup().addGap(32).addGroup(groupLayout
-						.createParallelGroup(Alignment.TRAILING)
-						.addComponent(calculate_wilks_btn, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(fixed_lifted_label).addComponent(fixed_bw_label)
-										.addComponent(fixed_wilks_label).addComponent(fixed_sex_label))
-								.addGap(18)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(txt_field_lifted)
-										.addComponent(txt_field_bw, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-										.addComponent(wilks_label)
-										.addComponent(sex_cmbx, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-						.addContainerGap(20, Short.MAX_VALUE)));
+				.addComponent(wilks_text_pane, GroupLayout.DEFAULT_SIZE, GuiHelper.getInstance().getMiusreBy1366(450),
+						Short.MAX_VALUE)
+				.addGroup(
+						groupLayout.createSequentialGroup().addGap(GuiHelper.getInstance().getMiusreBy1366(32))
+								.addGroup(
+										groupLayout.createParallelGroup(Alignment.TRAILING)
+												.addComponent(calculate_wilks_btn, GroupLayout.PREFERRED_SIZE,
+														GuiHelper.getInstance().getMiusreBy1366(83),
+														GroupLayout.PREFERRED_SIZE)
+												.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
+														.createParallelGroup(Alignment.TRAILING)
+														.addComponent(fixed_lifted_label).addComponent(fixed_bw_label)
+														.addComponent(fixed_wilks_label).addComponent(fixed_sex_label))
+														.addGap(GuiHelper.getInstance().getMiusreBy1366(18))
+														.addGroup(groupLayout
+																.createParallelGroup(Alignment.LEADING, false)
+																.addComponent(txt_field_lifted)
+																.addComponent(txt_field_bw, GroupLayout.DEFAULT_SIZE,
+																		GuiHelper.getInstance().getMiusreBy1366(236),
+																		Short.MAX_VALUE)
+																.addComponent(wilks_label).addComponent(sex_cmbx, 0,
+																		GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+								.addContainerGap(GuiHelper.getInstance().getMiusreBy1366(20), Short.MAX_VALUE)));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 						.addComponent(wilks_text_pane, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-						.addGap(33)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(fixed_sex_label)
-								.addComponent(sex_cmbx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(fixed_bw_label).addComponent(txt_field_bw, GroupLayout.PREFERRED_SIZE,
+						.addGap(GuiHelper.getInstance().getMiusreBy1366(33))
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(fixed_sex_label).addComponent(sex_cmbx, GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
+						.addGap(GuiHelper.getInstance().getMiusreBy1366(18))
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(fixed_bw_label)
+								.addComponent(txt_field_bw, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(GuiHelper.getInstance().getMiusreBy1366(18))
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(txt_field_lifted, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
 								.addComponent(fixed_lifted_label))
-						.addGap(18)
+						.addGap(GuiHelper.getInstance().getMiusreBy1366(18))
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(fixed_wilks_label)
 								.addComponent(wilks_label))
-						.addPreferredGap(ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED, GuiHelper.getInstance().getMiusreBy1366(57),
+								Short.MAX_VALUE)
 						.addComponent(calculate_wilks_btn).addContainerGap()));
 		setLayout(groupLayout);
 

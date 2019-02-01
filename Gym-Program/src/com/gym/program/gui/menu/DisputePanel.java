@@ -28,12 +28,13 @@ public class DisputePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public DisputePanel(MainFrame m) {
+		setBackground(GuiHelper.getInstance().getBlue_2());
 		JLabel lblLifters = new JLabel("Atleti:");
 		JPanel tableContainerPanel = new JPanel();
-		tableContainerPanel.setBackground(Color.WHITE);
-		
+		tableContainerPanel.setBackground(GuiHelper.getInstance().getBlue_2());
+
 		JLabel lblDisciplineSelection = new JLabel("Seleziona disciplina");
-		
+
 		JComboBox comboBoxDisciplines = new JComboBox();
 		DefaultComboBoxModel<TypeOfMatch> disciplinesModel = new DefaultComboBoxModel();
 		for (TypeOfMatch type : m.getManager().getMatches().keySet()) {
@@ -45,49 +46,39 @@ public class DisputePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				tableContainerPanel.removeAll();
 				List<Lifter> lifters = new LinkedList();
-				for (Lifter lifter : m.getManager().getMatches().get(comboBoxDisciplines.getSelectedItem()).getLiftersCanDispute()) {
+				for (Lifter lifter : m.getManager().getMatches().get(comboBoxDisciplines.getSelectedItem())
+						.getLiftersCanDispute()) {
 					lifters.add(lifter);
 				}
-				JScrollPane scroll = GuiHelper.getInstance().createTableForDispute(lifters, m.getManager(), (TypeOfMatch)comboBoxDisciplines.getSelectedItem());
+				JScrollPane scroll = GuiHelper.getInstance().createTableForDispute(lifters, m.getManager(),
+						(TypeOfMatch) comboBoxDisciplines.getSelectedItem());
+				scroll.getViewport().setBackground(GuiHelper.getInstance().getBlue_1());
+
 				tableContainerPanel.add(scroll);
 				tableContainerPanel.updateUI();
-				
+
 			}
 		});
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
-					.addGap(16))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblLifters, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(390, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(425)
-					.addComponent(lblDisciplineSelection)
-					.addContainerGap(431, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(363)
-					.addComponent(comboBoxDisciplines, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(395, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblDisciplineSelection)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(comboBoxDisciplines, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addGap(39)
-					.addComponent(lblLifters)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tableContainerPanel, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(16, Short.MAX_VALUE))
-		);
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
+						.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE).addGap(16))
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
+						.addComponent(lblLifters, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(390, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup().addGap(425).addComponent(lblDisciplineSelection)
+						.addContainerGap(431, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup().addGap(363)
+						.addComponent(comboBoxDisciplines, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(395, Short.MAX_VALUE)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(lblDisciplineSelection)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(comboBoxDisciplines, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addGap(39).addComponent(lblLifters).addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(tableContainerPanel, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(16, Short.MAX_VALUE)));
 		tableContainerPanel.setLayout(new BorderLayout(0, 0));
 		setLayout(groupLayout);
 		setSize(new Dimension(1956, 1055));

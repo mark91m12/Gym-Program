@@ -18,12 +18,14 @@ import com.gym.program.utils.GuiHelper;
 
 public class OrderPanel extends JPanel {
 
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> choice_box;
 	private JPanel list_panel;
+	
 	private JPanel choice_panel;
 	private MatchFrame match_frame;
 	private Object names[] = { " Posizione ", " Cognome ", " Nome ", " Squadra ", " Età ", " Peso Corporeo ",
@@ -108,7 +110,7 @@ public class OrderPanel extends JPanel {
 		this.scroll = GuiHelper.getInstance().createTable(names, this.match_frame.getManager().getMatches()
 				.get(TypeOfMatch.valueOf((String) this.choice_box.getSelectedItem())).getLifters());
 
-		this.scroll.getViewport().setBackground(GuiHelper.getInstance().getBlue_2());
+		this.scroll.getViewport().setBackground(GuiHelper.getInstance().getBlue_1());
 
 		this.list_panel.add(this.scroll);
 		this.list_panel.updateUI();

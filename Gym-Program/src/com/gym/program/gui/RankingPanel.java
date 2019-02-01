@@ -61,48 +61,60 @@ public class RankingPanel extends JPanel {
 	 * @param testFrame
 	 */
 	public RankingPanel(MainFrame mF) {
+		setBackground(GuiHelper.getInstance().getBlue_2());
 
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		this.matchFrame = mF;
 
 		selectionPanel = new JPanel();
+		selectionPanel.setBackground(GuiHelper.getInstance().getBlue_2());
 
 		rankingListPanel = new JPanel();
 
 		categoryPanel = new JPanel();
+		categoryPanel.setBackground(GuiHelper.getInstance().getBlue_2());
 		categoryPanel.setEnabled(false);
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(selectionPanel, GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
-				.addComponent(categoryPanel, GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
-				.addComponent(rankingListPanel, GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
-				groupLayout.createSequentialGroup()
-						.addComponent(selectionPanel, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(categoryPanel, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(rankingListPanel, GroupLayout.PREFERRED_SIZE, 294, Short.MAX_VALUE)
-						.addContainerGap()));
+				.addComponent(selectionPanel, GroupLayout.DEFAULT_SIZE, GuiHelper.getInstance().getMiusreBy1366(519),
+						Short.MAX_VALUE)
+				.addComponent(categoryPanel, GroupLayout.DEFAULT_SIZE, GuiHelper.getInstance().getMiusreBy1366(519),
+						Short.MAX_VALUE)
+				.addComponent(rankingListPanel, GroupLayout.DEFAULT_SIZE, GuiHelper.getInstance().getMiusreBy1366(519),
+						Short.MAX_VALUE));
+		groupLayout
+				.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
+						groupLayout.createSequentialGroup()
+								.addComponent(selectionPanel, GroupLayout.PREFERRED_SIZE,
+										GuiHelper.getInstance().getMiusreBy1366(91), GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(categoryPanel, GroupLayout.PREFERRED_SIZE,
+										GuiHelper.getInstance().getMiusreBy1366(53), GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(rankingListPanel, GroupLayout.PREFERRED_SIZE,
+										GuiHelper.getInstance().getMiusreBy1366(294), Short.MAX_VALUE)
+								.addContainerGap()));
 		lblCategory = new JLabel("Seleziona categoria");
 		comboBoxCategoryList = new JComboBox<Category>();
 		GroupLayout gl_categoryPanel = new GroupLayout(categoryPanel);
 		gl_categoryPanel.setHorizontalGroup(gl_categoryPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_categoryPanel.createSequentialGroup().addGap(212)
-						.addComponent(comboBoxCategoryList, 0, 0, Short.MAX_VALUE).addGap(222))
-				.addGroup(gl_categoryPanel.createSequentialGroup().addGap(199)
+				.addGroup(gl_categoryPanel.createSequentialGroup().addGap(GuiHelper.getInstance().getMiusreBy1366(212))
+						.addComponent(comboBoxCategoryList, 0, 0, Short.MAX_VALUE)
+						.addGap(GuiHelper.getInstance().getMiusreBy1366(222)))
+				.addGroup(gl_categoryPanel.createSequentialGroup().addGap(GuiHelper.getInstance().getMiusreBy1366(199))
 						.addComponent(lblCategory, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGap(208)));
+						.addGap(GuiHelper.getInstance().getMiusreBy1366(208))));
 		gl_categoryPanel.setVerticalGroup(gl_categoryPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_categoryPanel.createSequentialGroup().addComponent(lblCategory).addGap(9)
+				.addGroup(gl_categoryPanel.createSequentialGroup().addComponent(lblCategory)
+						.addGap(GuiHelper.getInstance().getMiusreBy1366(9))
 						.addComponent(comboBoxCategoryList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		categoryPanel.setLayout(gl_categoryPanel);
 
 		tableContainerPanel = new JPanel();
-		tableContainerPanel.setBackground(Color.WHITE);
+		tableContainerPanel.setBackground(GuiHelper.getInstance().getBlue_2());
 
 		comboBoxCategoryList.addActionListener(new ActionListener() {
 			@Override
@@ -164,37 +176,28 @@ public class RankingPanel extends JPanel {
 
 				TypeOfRanking.Team_Single team_atlet = (TypeOfRanking.Team_Single) team_atletModel.getSelectedItem();
 				Set<Category> cats = new HashSet<Category>();
-				if(!team_atlet.equals(TypeOfRanking.Team_Single.TEAM)) {
+				if (!team_atlet.equals(TypeOfRanking.Team_Single.TEAM)) {
 					Sex sex = null;
-					if(team_atlet.equals(TypeOfRanking.Team_Single.SINGLE_MALE)) {
+					if (team_atlet.equals(TypeOfRanking.Team_Single.SINGLE_MALE)) {
 						sex = Sex.MALE;
-					}else if (team_atlet.equals(TypeOfRanking.Team_Single.SINGLE_FEMALE)) {
+					} else if (team_atlet.equals(TypeOfRanking.Team_Single.SINGLE_FEMALE)) {
 						sex = Sex.FEMALE;
 					}
-					if(absolute) {
+					if (absolute) {
 						cats = manager.getAbsoluteCategories(sex);
-					}else {
+					} else {
 						cats = manager.getCategoriesBy(t, sex);
 					}
 				}
-				System.out.println("ABS CATEG:"+cats);
+				System.out.println("ABS CATEG:" + cats);
 				categoryListModel = new DefaultComboBoxModel(cats.toArray());
 				comboBoxCategoryList.setModel(categoryListModel);
 				refreshRankingList();
 			}
 		});
-
-		GroupLayout gl_rankingListPanel = new GroupLayout(rankingListPanel);
-		gl_rankingListPanel.setHorizontalGroup(gl_rankingListPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_rankingListPanel.createSequentialGroup().addContainerGap()
-						.addComponent(tableContainerPanel, GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
-						.addContainerGap()));
-		gl_rankingListPanel.setVerticalGroup(gl_rankingListPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_rankingListPanel.createSequentialGroup().addContainerGap()
-						.addComponent(tableContainerPanel, GroupLayout.PREFERRED_SIZE, 274, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		rankingListPanel.setLayout(new BorderLayout(0, 0));
 		tableContainerPanel.setLayout(new BorderLayout(0, 0));
-		rankingListPanel.setLayout(gl_rankingListPanel);
+		rankingListPanel.add(tableContainerPanel);
 
 		comboBoxTeam_Atlet = new JComboBox<TypeOfRanking.Team_Single>();
 		team_atletModel = new DefaultComboBoxModel<TypeOfRanking.Team_Single>();
@@ -220,20 +223,20 @@ public class RankingPanel extends JPanel {
 
 		GroupLayout gl_selectionPanel = new GroupLayout(selectionPanel);
 		gl_selectionPanel.setHorizontalGroup(gl_selectionPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_selectionPanel.createSequentialGroup().addGap(180)
-						.addComponent(lblMatchList, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE).addGap(176))
-				.addGroup(gl_selectionPanel.createSequentialGroup().addGap(207)
+				.addGroup(gl_selectionPanel.createSequentialGroup().addGap(GuiHelper.getInstance().getMiusreBy1366(180))
+						.addComponent(lblMatchList, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE).addGap(GuiHelper.getInstance().getMiusreBy1366(176)))
+				.addGroup(gl_selectionPanel.createSequentialGroup().addGap(GuiHelper.getInstance().getMiusreBy1366(207))
 						.addGroup(gl_selectionPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(comboBoxTeam_Atlet, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE)
 								.addComponent(comboBoxMatchList, Alignment.TRAILING, 0, 87, Short.MAX_VALUE))
-						.addGap(225)));
+						.addGap(GuiHelper.getInstance().getMiusreBy1366(225))));
 		gl_selectionPanel.setVerticalGroup(gl_selectionPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_selectionPanel.createSequentialGroup().addGap(5).addComponent(lblMatchList)
+				.addGroup(gl_selectionPanel.createSequentialGroup().addGap(GuiHelper.getInstance().getMiusreBy1366(5)).addComponent(lblMatchList)
 						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(comboBoxTeam_Atlet, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBoxTeam_Atlet, GroupLayout.PREFERRED_SIZE, GuiHelper.getInstance().getMiusreBy1366(21), GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(comboBoxMatchList, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBoxMatchList, GroupLayout.PREFERRED_SIZE, GuiHelper.getInstance().getMiusreBy1366(21), GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		selectionPanel.setLayout(gl_selectionPanel);
 		setLayout(groupLayout);
@@ -299,7 +302,8 @@ public class RankingPanel extends JPanel {
 						scroll = GuiHelper.getInstance().createTableForRanking(rankingDeadlift.getBySex(Sex.MALE));
 						break;
 					case ABSOLUTE:
-						List<Competitor> competitors = this.matchFrame.getManager().getAbsoluteCompetitors(Sex.MALE,category);
+						List<Competitor> competitors = this.matchFrame.getManager().getAbsoluteCompetitors(Sex.MALE,
+								category);
 						scroll = GuiHelper.getInstance().createTableForAbsoluteRanking(competitors);
 						break;
 					default:
@@ -328,7 +332,8 @@ public class RankingPanel extends JPanel {
 						scroll = GuiHelper.getInstance().createTableForRanking(rankingDeadlift.getBySex(Sex.FEMALE));
 						break;
 					case ABSOLUTE:
-						List<Competitor> competitors = this.matchFrame.getManager().getAbsoluteCompetitors(Sex.FEMALE,category2);
+						List<Competitor> competitors = this.matchFrame.getManager().getAbsoluteCompetitors(Sex.FEMALE,
+								category2);
 						scroll = GuiHelper.getInstance().createTableForAbsoluteRanking(competitors);
 						System.out.println("COMPETITORS ************************************************* "
 								+ this.matchFrame.getManager().getCompetitors().size());
@@ -342,6 +347,7 @@ public class RankingPanel extends JPanel {
 				break;
 			}
 			if (scroll != null) {
+				scroll.getViewport().setBackground(GuiHelper.getInstance().getBlue_1());
 				tableContainerPanel.add(scroll);
 			}
 			tableContainerPanel.updateUI();
