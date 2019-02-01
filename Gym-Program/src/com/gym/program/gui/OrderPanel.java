@@ -39,31 +39,37 @@ public class OrderPanel extends JPanel {
 
 		this.match_frame = mf;
 
-		System.out.println("OP  " + this.match_frame.getManager());
-
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
 
+		setBackground(GuiHelper.getInstance().getBlue_2());
+
 		list_panel = new JPanel();
-		list_panel.setBackground(Color.CYAN);
+		list_panel.setBackground(GuiHelper.getInstance().getBlue_2());
 
 		choice_panel = new JPanel();
 
+		choice_panel.setBackground(GuiHelper.getInstance().getBlue_2());
+
 		GroupLayout gl_contentPane = new GroupLayout(this);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup().addGap(1)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(choice_panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1355,
-										Short.MAX_VALUE)
-								.addComponent(list_panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1355,
-										Short.MAX_VALUE))
-						.addContainerGap()));
+		gl_contentPane
+				.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+						gl_contentPane.createSequentialGroup().addGap(GuiHelper.getInstance().getMiusreBy1366(1))
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addComponent(choice_panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GuiHelper.getInstance().getMiusreBy1366(1355), Short.MAX_VALUE)
+										.addComponent(list_panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GuiHelper.getInstance().getMiusreBy1366(1355), Short.MAX_VALUE))
+								.addContainerGap()));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addComponent(choice_panel, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-						.addComponent(list_panel, GroupLayout.PREFERRED_SIZE, 670, GroupLayout.PREFERRED_SIZE)
-						.addGap(43)));
+						.addComponent(choice_panel, GroupLayout.PREFERRED_SIZE,
+								GuiHelper.getInstance().getMiusreBy1366(29), GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED, GuiHelper.getInstance().getMiusreBy1366(7),
+								Short.MAX_VALUE)
+						.addComponent(list_panel, GroupLayout.PREFERRED_SIZE,
+								GuiHelper.getInstance().getMiusreBy1366(670), GroupLayout.PREFERRED_SIZE)
+						.addGap(GuiHelper.getInstance().getMiusreBy1366(43))));
 		list_panel.setLayout(new BorderLayout(0, 0));
 
 		choice_box = new JComboBox<String>();
@@ -101,6 +107,8 @@ public class OrderPanel extends JPanel {
 
 		this.scroll = GuiHelper.getInstance().createTable(names, this.match_frame.getManager().getMatches()
 				.get(TypeOfMatch.valueOf((String) this.choice_box.getSelectedItem())).getLifters());
+
+		this.scroll.getViewport().setBackground(GuiHelper.getInstance().getBlue_2());
 
 		this.list_panel.add(this.scroll);
 		this.list_panel.updateUI();
