@@ -137,9 +137,9 @@ public class CreateEventMenu extends JFrame {
 		contentPane.add(button_panel, gbc_button_panel);
 		components.add(button_panel);
 
-		GuiHelper.getInstance().addBgImageJP(bench_panel, "images/bench_press_bg.jpg");
-		GuiHelper.getInstance().addBgImageJP(deadlift_panel, "images/deadlift_bg.jpg");
-		GuiHelper.getInstance().addBgImageJP(squat_panel, "images/squat_bg.jpg");
+		GuiHelper.getInstance().addBgImageJP(bench_panel, "images/bench_press_bg.jpg",150);
+		GuiHelper.getInstance().addBgImageJP(deadlift_panel, "images/deadlift_bg.jpg",150);
+		GuiHelper.getInstance().addBgImageJP(squat_panel, "images/squat_bg.jpg",150);
 
 		GuiHelper.getInstance().setBgColor(components, bg_color);
 

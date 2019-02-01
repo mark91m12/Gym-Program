@@ -169,6 +169,27 @@ public class InsertForm extends JPanel {
 		submit_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				for (ActionListener act : weight_class_deadbtn.getActionListeners()) {
+					weight_class_deadbtn.removeActionListener(act);
+				}
+				for (ActionListener act : age_class_deadbtn.getActionListeners()) {
+					age_class_deadbtn.removeActionListener(act);
+				}
+
+				for (ActionListener act : weight_class_squatbtn.getActionListeners()) {
+					weight_class_squatbtn.removeActionListener(act);
+				}
+				for (ActionListener act : age_class_squatbtn.getActionListeners()) {
+					age_class_squatbtn.removeActionListener(act);
+				}
+
+				for (ActionListener act : weight_class_benchbtn.getActionListeners()) {
+					weight_class_benchbtn.removeActionListener(act);
+				}
+				for (ActionListener act : age_class_benchbtn.getActionListeners()) {
+					age_class_benchbtn.removeActionListener(act);
+				}
+
 				if (!absolute_ranking) {
 					Set<JRadioButton> setRdBtns3 = new HashSet<>();
 					setRdBtns3.add(weight_class_deadbtn);
@@ -185,7 +206,11 @@ public class InsertForm extends JPanel {
 					setRdBtns4.add(age_class_benchbtn);
 					GuiHelper.getInstance().setSwitch(setRdBtns4);
 
+					System.out.println("DENTRO IF set switch :> " + absolute_ranking);
+
 				} else {
+
+					System.out.println("DENTRO ELSE set list :> " + absolute_ranking);
 					for (JRadioButton rdBtn : list_age_btns) {
 						rdBtn.addActionListener(new ActionListener() {
 

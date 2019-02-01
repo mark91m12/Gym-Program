@@ -30,23 +30,17 @@ public class MainMenu extends JFrame implements ActionListener {
 		getContentPane().add(panel);
 
 		// Add background
-		GuiHelper.getInstance().addBgImageJF(this, "images/main_menu_bg_v6.png");
+		GuiHelper.getInstance().addBgImageJF(this, "images/main_menu_bg.jpg", 0);
 
 		// Create Event Button
 		createEventBtn = new JButton("Crea Gara");
-		createEventBtn.setBounds(50, 230, 110, 25);
+		createEventBtn.setBounds(253, 40, 110, 25);
 		createEventBtn.setFocusable(false);
 		panel.add(createEventBtn);
 
-		// Load Event Button
-		loadEventBtn = new JButton(" Carica Gara ");
-		loadEventBtn.setBounds(450, 230, 110, 25);
-		loadEventBtn.setFocusable(false);
-		panel.add(loadEventBtn);
-
 		// Exit Button
 		exitBtn = new JButton(" Exit ");
-		exitBtn.setBounds(253, 420, 110, 25);
+		exitBtn.setBounds(253, 410, 110, 25);
 		exitBtn.setFocusable(false);
 		panel.add(exitBtn);
 
