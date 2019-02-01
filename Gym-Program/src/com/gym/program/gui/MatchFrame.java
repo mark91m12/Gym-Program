@@ -104,6 +104,7 @@ public class MatchFrame extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		System.out.println("SCREEN SIZE:"+Toolkit.getDefaultToolkit().getScreenSize());
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.CYAN);
