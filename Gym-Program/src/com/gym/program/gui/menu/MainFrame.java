@@ -1,6 +1,7 @@
 package com.gym.program.gui.menu;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -158,7 +159,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		GuiHelper.getInstance().setSwitch(setRdBtns);
 
 		btnStart = new JButton("");
-		GuiHelper.getInstance().setScaledImageJBtn(btnStart, "/btns/button_inizia-gara.png", 50);
+		btnStart.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_inizia-gara.png")));
 		btnStart.setEnabled(false);
 		btnStart.addActionListener(new ActionListener() {
 
@@ -177,7 +178,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		});
 
 		btnChooseDisciplines = new JButton("");
-		GuiHelper.getInstance().setScaledImageJBtn(btnChooseDisciplines, "/btns/button_scegli-discipline.png", 50);
+		btnChooseDisciplines.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_scegli-discipline.png")));
 		btnChooseDisciplines.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -244,7 +245,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		});
 
 		JButton btnShowDisputePanel = new JButton("");
-		GuiHelper.getInstance().setScaledImageJBtn(btnShowDisputePanel, "/btns/button_contestazioni.png", 50);
+		btnShowDisputePanel.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_contestazioni.png")));
 		btnShowDisputePanel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -253,7 +254,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		});
 
 		btn_check_score = new JButton("");
-		GuiHelper.getInstance().setScaledImageJBtn(btn_check_score, "/btns/button_punteggio-wilks.png", 50);
+		btn_check_score.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_punteggio-wilks.png")));
 		btn_check_score.addActionListener(new ActionListener() {
 
 			@Override
@@ -263,11 +264,12 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		});
 
 		btnRanking = new JButton("");
-		GuiHelper.getInstance().setScaledImageJBtn(btnRanking, "/btns/button_classifica.png", 50);
+		btnRanking.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_classifica.png")));
 		btnRanking.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				switchTo(new RankingPanel(MainFrame.this));
 			}
 		});
@@ -390,6 +392,18 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		return manager;
 	}
 
+	// public void showInsertForm() {
+	// switchTo(new InsertForm(this));
+	// }
+	//
+	// public void showCheckScorePanel() {
+	// switchTo(new CheckScorePanel());
+	// }
+	//
+	// public void showRankingPanel() {
+	// switchTo(new RankingPanel(this));
+	// }
+
 	public void setStartBtnEnabled(boolean b) {
 		updateRdBtnsMatchesToStart();
 		btnStart.setEnabled(b);
@@ -441,4 +455,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		return this.collarType;
 	}
 
+	// public void showDisputeForm() {
+	// switchTo(new DisputePanel(this));
+	// }
 }

@@ -123,12 +123,12 @@ public class GuiHelper {
 		frame.add(picture);
 	}
 
-	public void setScaledImageJBtn(JButton btn,String path,  int scale) {
-		ImageIcon imageBg = new ImageIcon(GuiHelper.class.getResource(path));
-		Image scaledImage = imageBg.getImage().getScaledInstance(btn.getPreferredSize().width - scale,
-				btn.getPreferredSize().height - scale, Image.SCALE_SMOOTH);
-		btn.setIcon(new ImageIcon(scaledImage));
-	}
+//	public void setScaledImageJBtn(JButton btn,String path,  int scale) {
+//		ImageIcon imageBg = new ImageIcon(GuiHelper.class.getResource(path));
+//		Image scaledImage = imageBg.getImage().getScaledInstance(btn.getPreferredSize().width - scale,
+//				btn.getPreferredSize().height - scale, Image.SCALE_SMOOTH);
+//		btn.setIcon(new ImageIcon(scaledImage));
+//	}
 	
 	public Color getBlue_3() {
 		return blue_3;
