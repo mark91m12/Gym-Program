@@ -95,6 +95,7 @@ public class InsertForm extends JPanel {
 		mainFrame = m;
 		manager = mainFrame.getManager();
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		setBounds(100, 100, 435, 610);
 		setVisible(true);
 		// setLocationRelativeTo(null);
@@ -115,7 +116,7 @@ public class InsertForm extends JPanel {
 		}
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(102, 178, 255,90));
+		panel.setBackground(GuiHelper.getInstance().getBlue_1());
 
 		txt_name = new JTextField();
 		txt_name.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -145,7 +146,7 @@ public class InsertForm extends JPanel {
 		male_radiobtn = new JRadioButton(" M", true);
 		male_radiobtn.setBackground(GuiHelper.getInstance().getBlue_1());
 		female_radiobtn = new JRadioButton(" F");
-		female_radiobtn.setBackground(Color.PINK);
+		female_radiobtn.setBackground(GuiHelper.getInstance().getBlue_1());
 		Set<JRadioButton> setRdBtns = new HashSet<>();
 		setRdBtns.add(male_radiobtn);
 		setRdBtns.add(female_radiobtn);

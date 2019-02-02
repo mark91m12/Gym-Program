@@ -106,6 +106,12 @@ public class GuiHelper {
 		return (int) ((x / 1366.00) * GuiHelper.getInstance().getScreenWidth());
 
 	}
+	
+	public int getMiusreBy1920(int x) {
+
+		return (int) ((x / 1920.00) * GuiHelper.getInstance().getScreenWidth());
+
+	}
 
 	public void addBgImageJF(JFrame frame, String path, int scale) {
 
