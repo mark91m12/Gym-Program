@@ -41,13 +41,15 @@ public class CheckScorePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public CheckScorePanel() {
+		setBackground(GuiHelper.getInstance().getBlue_2());
 
 		JLabel fixed_sex_label = new JLabel("Genere");
-		fixed_sex_label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		fixed_sex_label.setForeground(Color.WHITE);
+		fixed_sex_label.setFont(new Font("Roboto", Font.PLAIN, 18));
 		sex = Sex.MALE;
 
 		sex_cmbx = new JComboBox<String>();
-		sex_cmbx.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		sex_cmbx.setFont(new Font("Roboto", Font.PLAIN, 14));
 		sex_cmbx.addItem("Maschile");
 		sex_cmbx.addItem("Femminile");
 
@@ -66,27 +68,30 @@ public class CheckScorePanel extends JPanel {
 		});
 
 		JLabel fixed_bw_label = new JLabel("Peso Corporeo KG");
-		fixed_bw_label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		fixed_bw_label.setForeground(Color.WHITE);
+		fixed_bw_label.setFont(new Font("Roboto", Font.PLAIN, 18));
 
 		txt_field_bw = new JTextField();
-		txt_field_bw.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txt_field_bw.setFont(new Font("Roboto", Font.PLAIN, 14));
 		txt_field_bw.setColumns(10);
 
 		JLabel fixed_lifted_label = new JLabel("Peso Sollevato");
-		fixed_lifted_label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		fixed_lifted_label.setForeground(Color.WHITE);
+		fixed_lifted_label.setFont(new Font("Roboto", Font.PLAIN, 18));
 
 		txt_field_lifted = new JTextField();
-		txt_field_lifted.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txt_field_lifted.setFont(new Font("Roboto", Font.PLAIN, 14));
 		txt_field_lifted.setColumns(10);
 
 		JLabel fixed_wilks_label = new JLabel("Punteggio Wilks");
-		fixed_wilks_label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		fixed_wilks_label.setForeground(Color.WHITE);
+		fixed_wilks_label.setFont(new Font("Roboto", Font.PLAIN, 18));
 
 		JLabel wilks_label = new JLabel("");
-		wilks_label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		wilks_label.setFont(new Font("Roboto", Font.PLAIN, 18));
 
 		JButton calculate_wilks_btn = new JButton("Calcola\r\n");
-		calculate_wilks_btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		calculate_wilks_btn.setFont(new Font("Roboto", Font.PLAIN, 14));
 		calculate_wilks_btn.addActionListener(new ActionListener() {
 
 			@Override
@@ -102,7 +107,7 @@ public class CheckScorePanel extends JPanel {
 		});
 
 		JTextPane wilks_text_pane = new JTextPane();
-		wilks_text_pane.setBackground(new Color(65, 105, 225));
+		wilks_text_pane.setBackground(GuiHelper.getInstance().getBlue_1());
 		wilks_text_pane.setForeground(Color.WHITE);
 		wilks_text_pane.setText("Calcola il punteggio Wilks");
 		wilks_text_pane.setFont(new Font("Arial", Font.PLAIN, GuiHelper.getInstance().getMiusreBy1366(18)));

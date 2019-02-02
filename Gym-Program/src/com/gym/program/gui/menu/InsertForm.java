@@ -95,6 +95,7 @@ public class InsertForm extends JPanel {
 		mainFrame = m;
 		manager = mainFrame.getManager();
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		setBounds(100, 100, 435, 610);
 		setVisible(true);
 		// setLocationRelativeTo(null);
@@ -115,16 +116,18 @@ public class InsertForm extends JPanel {
 		}
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(102, 178, 255,90));
+		panel.setBackground(GuiHelper.getInstance().getBlue_1());
 
 		txt_name = new JTextField();
-		txt_name.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txt_name.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txt_name.setColumns(10);
 
 		txt_surname = new JTextField();
+		txt_surname.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txt_surname.setColumns(10);
 
 		txt_team = new JTextField();
+		txt_team.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txt_team.setColumns(10);
 
 		list_age = new JComboBox<Integer>();
@@ -136,6 +139,7 @@ public class InsertForm extends JPanel {
 		list_age.setSelectedIndex(0);
 
 		txt_weight = new JTextField();
+		txt_weight.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txt_weight.setColumns(10);
 
 		JLabel fixed_age_label = new JLabel("et\u00E0 :");
@@ -145,7 +149,7 @@ public class InsertForm extends JPanel {
 		male_radiobtn = new JRadioButton(" M", true);
 		male_radiobtn.setBackground(GuiHelper.getInstance().getBlue_1());
 		female_radiobtn = new JRadioButton(" F");
-		female_radiobtn.setBackground(Color.PINK);
+		female_radiobtn.setBackground(GuiHelper.getInstance().getBlue_1());
 		Set<JRadioButton> setRdBtns = new HashSet<>();
 		setRdBtns.add(male_radiobtn);
 		setRdBtns.add(female_radiobtn);
@@ -256,6 +260,7 @@ public class InsertForm extends JPanel {
 		squat_panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Squat"));
 
 		txt_lift_squat = new JTextField();
+		txt_lift_squat.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txt_lift_squat.setColumns(10);
 
 		fixed_1st_squat = new JLabel("peso da sollevare:");
@@ -286,6 +291,7 @@ public class InsertForm extends JPanel {
 		});
 
 		txt_rack_n_squat = new JTextField();
+		txt_rack_n_squat.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txt_rack_n_squat.setColumns(10);
 
 		fixed_rack_n_squat_label = new JLabel("numero rack :");
@@ -339,6 +345,7 @@ public class InsertForm extends JPanel {
 		deadlift_panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Deadlift"));
 
 		txt_lift_deadlift = new JTextField();
+		txt_lift_deadlift.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txt_lift_deadlift.setColumns(10);
 
 		fixed_1st_deadlift = new JLabel("peso da sollevare:");
@@ -595,6 +602,7 @@ public class InsertForm extends JPanel {
 			}
 		});
 		txt_lift_bench = new JTextField();
+		txt_lift_bench.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txt_lift_bench.setColumns(10);
 
 		fixed_1st_bench = new JLabel("peso da sollevare:");
@@ -605,6 +613,7 @@ public class InsertForm extends JPanel {
 		age_class_benchbtn.setBackground(GuiHelper.getInstance().getBlue_1());
 
 		txt_rack_n_bench = new JTextField();
+		txt_rack_n_bench.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txt_rack_n_bench.setColumns(10);
 
 		JLabel fixed_rack_n_bench_label = new JLabel("numero rack :");
