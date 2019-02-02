@@ -33,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
+import com.gym.program.gui.menu.DisciplinePanel2;
 import com.gym.program.logic.Manager;
 import com.gym.program.logic.competitor.Competitor;
 import com.gym.program.logic.match.Lifter;
@@ -122,6 +123,13 @@ public class GuiHelper {
 		frame.add(picture);
 	}
 
+	public void setScaledImageJBtn(JButton btn,String path,  int scale) {
+		ImageIcon imageBg = new ImageIcon(GuiHelper.class.getResource(path));
+		Image scaledImage = imageBg.getImage().getScaledInstance(btn.getPreferredSize().width - scale,
+				btn.getPreferredSize().height - scale, Image.SCALE_SMOOTH);
+		btn.setIcon(new ImageIcon(scaledImage));
+	}
+	
 	public Color getBlue_3() {
 		return blue_3;
 	}
