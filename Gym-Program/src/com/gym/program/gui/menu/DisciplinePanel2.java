@@ -16,9 +16,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.CollarType;
+import com.gym.program.utils.GuiHelper;
+
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JCheckBox;
 
 public class DisciplinePanel2 extends JPanel {
@@ -55,7 +59,7 @@ public class DisciplinePanel2 extends JPanel {
 
 		btnSquat = new JButton("");
 		squatIsSelected = false;
-		btnSquat.setIcon(new ImageIcon(DisciplinePanel2.class.getResource("/menu/SquatMenuBWS.jpg")));
+		GuiHelper.getInstance().setScaledImageJBtn(btnSquat, "/menu/SquatMenuBWS.jpg",50);
 		btnSquat.addActionListener(new ActionListener() {
 
 			@Override
@@ -78,7 +82,7 @@ public class DisciplinePanel2 extends JPanel {
 
 		btnDeadlift = new JButton("");
 		deadliftIsSelected = false;
-		btnDeadlift.setIcon(new ImageIcon(DisciplinePanel2.class.getResource("/menu/deadliftMenuBWS.jpg")));
+		GuiHelper.getInstance().setScaledImageJBtn(btnDeadlift, "/menu/deadliftMenuBWS.jpg",50);
 		btnDeadlift.addActionListener(new ActionListener() {
 
 			@Override
@@ -101,7 +105,7 @@ public class DisciplinePanel2 extends JPanel {
 
 		btnBenchPress = new JButton("");
 		benchPressIsSelected = false;
-		btnBenchPress.setIcon(new ImageIcon(DisciplinePanel2.class.getResource("/menu/BenchPressMenuBWS.jpg")));
+		GuiHelper.getInstance().setScaledImageJBtn(btnBenchPress, "/menu/BenchPressMenuBWS.jpg",50);
 		btnBenchPress.addActionListener(new ActionListener() {
 
 			@Override
@@ -124,7 +128,7 @@ public class DisciplinePanel2 extends JPanel {
 
 		btnCollarStandard = new JButton("");
 		collarSelected = CollarType.WEIGHT;
-		btnCollarStandard.setIcon(new ImageIcon(DisciplinePanel2.class.getResource("/menu/barbellCollarS.jpg")));
+		GuiHelper.getInstance().setScaledImageJBtn(btnCollarStandard, "/menu/barbellCollarS.jpg",50);
 		btnCollarStandard.addActionListener(new ActionListener() {
 
 			@Override
