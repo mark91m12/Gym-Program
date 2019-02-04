@@ -72,6 +72,7 @@ public class Manager {
 
 	private boolean is_0p25_present;
 	private boolean is_0p5_present;
+	private boolean started;
 
 	public boolean is0p25Present() {
 		return is_0p25_present;
@@ -93,6 +94,7 @@ public class Manager {
 		this.matches = new HashMap<>();
 		completed = new HashSet<>();
 		competitors = new ArrayList<Competitor>();
+		started = false;
 	}
 
 	public Map<TypeOfMatch, Match> getMatches() {
@@ -175,4 +177,13 @@ public class Manager {
 			System.out.println(teamScore.getName() + " ===> " + teamScore.getScore());
 		}
 	}
+
+	public void setStarted(boolean b) {
+		started = b;
+	}
+
+	public boolean isStarted() {
+		return started;
+	}
+	
 }

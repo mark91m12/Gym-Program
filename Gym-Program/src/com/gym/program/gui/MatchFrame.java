@@ -105,7 +105,8 @@ public class MatchFrame extends JFrame {
 		//
 		//
 		// >>>>>>> branch 'master' of https://github.com/mark91m12/Gym-Program
-		setResizable(false);
+		
+//		setResizable(false);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

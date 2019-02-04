@@ -172,6 +172,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				} else if (rdbtnDeadLift.isSelected()) {
 					MainFrame.this.manager.setCurrentTypeOfMatch(TypeOfMatch.DEADLIFT);
 				}
+				MainFrame.this.manager.setStarted(true);
+				MainFrame.this.disableBtnsAtferStart();
 				matchFrame = new MatchFrame(MainFrame.this);
 				// MainFrame.this.setVisible(false);
 			}
@@ -376,6 +378,11 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		contentPane.setLayout(gl_contentPane);
 		switchTo(disciplinePanel);
 		this.setVisible(true);
+	}
+
+	protected void disableBtnsAtferStart() {
+		btnChooseDisciplines.setEnabled(false);
+		btnInsertLifters.setEnabled(false);
 	}
 
 	@Override
