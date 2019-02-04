@@ -812,8 +812,9 @@ public class InsertForm extends JPanel {
 				errors.add("Peso");
 			}
 
-			if (!this.txt_weight.getText().equals(""))
+			if (!this.txt_weight.getText().equals("")) {
 				Double.parseDouble(this.txt_weight.getText());
+			}
 		} catch (NumberFormatException e) {
 			// not a double
 			correct = false;
@@ -821,6 +822,7 @@ public class InsertForm extends JPanel {
 		}
 
 		this.response_message_confirm += GuiHelper.getInstance().getEmptyError(errors);
+
 		return correct;
 	}
 

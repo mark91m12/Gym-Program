@@ -175,6 +175,7 @@ public class DisciplinePanel2 extends JPanel {
 				mainFrame.setCollar(collarSelected);
 				mainFrame.getManager().set0p5Present(chckbx0p5.isSelected());
 				mainFrame.getManager().set0p25Present(chckbx0p25.isSelected());
+				mainFrame.getBtnInsertLifters().setEnabled(true);
 				mainFrame.switchTo(new InsertForm(mainFrame));
 			}
 		});

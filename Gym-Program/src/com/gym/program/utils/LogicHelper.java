@@ -78,9 +78,10 @@ public class LogicHelper {
 		WeightDisc.is_present_0_25_kg = p25_is_present;
 		WeightDisc.is_present_0_5_kg = p5_is_present;
 		double target;
-
-		System.out.println(
-				"0.25 = > " + WeightDisc.is_present_0_25_kg + " , " + " 0.5 = > " + WeightDisc.is_present_0_5_kg);
+		
+		if(weight < bar){
+			return false;
+		}
 
 		ArrayList<WeightDisc> plates = new ArrayList<WeightDisc>();
 

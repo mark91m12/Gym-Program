@@ -121,9 +121,10 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 										GuiHelper.getInstance().getMiusreBy1920(1023), Short.MAX_VALUE))
 						.addGap(0)));
 
-		btnInsertLifters = new JButton("");
-		btnInsertLifters.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_iscrivi-atleti.png")));
-		btnInsertLifters.addActionListener(new ActionListener() {
+		setBtnInsertLifters(new JButton(""));
+		getBtnInsertLifters().setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_iscrivi-atleti.png")));
+		getBtnInsertLifters().setEnabled(false);
+		getBtnInsertLifters().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switchTo(new InsertForm(MainFrame.this));
@@ -342,7 +343,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 																				GuiHelper.getInstance().getMiusreBy1920(
 																						202),
 																				Short.MAX_VALUE)
-																		.addComponent(btnInsertLifters,
+																		.addComponent(getBtnInsertLifters(),
 																				Alignment.LEADING,
 																				GroupLayout.PREFERRED_SIZE,
 																				GuiHelper.getInstance().getMiusreBy1920(
@@ -354,7 +355,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				.addComponent(btnChooseDisciplines, GroupLayout.PREFERRED_SIZE,
 						GuiHelper.getInstance().getMiusreBy1920(52), GroupLayout.PREFERRED_SIZE)
 				.addGap(GuiHelper.getInstance().getMiusreBy1920(18))
-				.addComponent(btnInsertLifters, GroupLayout.PREFERRED_SIZE, GuiHelper.getInstance().getMiusreBy1920(53),
+				.addComponent(getBtnInsertLifters(), GroupLayout.PREFERRED_SIZE, GuiHelper.getInstance().getMiusreBy1920(53),
 						GroupLayout.PREFERRED_SIZE)
 				.addGap(GuiHelper.getInstance().getMiusreBy1920(167))
 				.addComponent(btnRanking, GroupLayout.PREFERRED_SIZE, GuiHelper.getInstance().getMiusreBy1920(51),
@@ -382,7 +383,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 
 	protected void disableBtnsAtferStart() {
 		btnChooseDisciplines.setEnabled(false);
-		btnInsertLifters.setEnabled(false);
+		getBtnInsertLifters().setEnabled(false);
 	}
 
 	@Override
@@ -421,7 +422,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		for (int i = 0; i < disciplinesChoosen.size(); i++) {
 			manager.addMatch(new Match(disciplinesChoosen.get(i)));
 		}
-		btnInsertLifters.setEnabled(true);
+		getBtnInsertLifters().setEnabled(true);
 	}
 
 	private boolean anyMatchYetSelected() {
@@ -460,6 +461,14 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 
 	public CollarType getCollar() {
 		return this.collarType;
+	}
+
+	public JButton getBtnInsertLifters() {
+		return btnInsertLifters;
+	}
+
+	public void setBtnInsertLifters(JButton btnInsertLifters) {
+		this.btnInsertLifters = btnInsertLifters;
 	}
 
 	// public void showDisputeForm() {
