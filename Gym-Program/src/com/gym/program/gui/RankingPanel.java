@@ -65,6 +65,8 @@ public class RankingPanel extends JPanel {
 
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		this.matchFrame = mF;
+		
+		
 
 		selectionPanel = new JPanel();
 		selectionPanel.setBackground(GuiHelper.getInstance().getBlue_2());

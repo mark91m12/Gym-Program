@@ -72,7 +72,7 @@ public class LogicHelper {
 	//
 	// }
 
-	public static boolean calculateWeights(double weight, double bar, boolean p25_is_present, boolean p5_is_present) {
+	public static boolean calculateWeights(double weight, double bar, boolean p5_is_present, boolean p25_is_present) {
 
 		WeightDisc plate = new W25Kg();
 		WeightDisc.is_present_0_25_kg = p25_is_present;
