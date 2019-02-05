@@ -181,8 +181,12 @@ public class GuiHelper {
 		return response;
 	}
 
-	public String getIncorrectError(String string) {
+	public String getIncorrectWeightError(String string) {
 		return "Inserire " + string + " correttamente\n";
+	}
+	
+	public String getIncorrectMonthError() {
+		return "Inserire la data correttamente\n";
 	}
 
 	public void setSwitch(Set<JRadioButton> radioBtns) {

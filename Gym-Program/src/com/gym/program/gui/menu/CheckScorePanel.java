@@ -188,7 +188,7 @@ public class CheckScorePanel extends JPanel {
 
 		} catch (NumberFormatException e) {
 			correct = false;
-			this.response_message += GuiHelper.getInstance().getIncorrectError("Il peso corporeo o il peso sollevato");
+			this.response_message += GuiHelper.getInstance().getIncorrectWeightError("Il peso corporeo o il peso sollevato");
 		}
 
 		this.response_message += GuiHelper.getInstance().getEmptyError(errors);

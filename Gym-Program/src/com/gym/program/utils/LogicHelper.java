@@ -1,12 +1,10 @@
 package com.gym.program.utils;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.gym.program.logic.competitor.Competitor;
-import com.gym.program.logic.match.Lifter;
-import com.gym.program.logic.match.Match.TypeOfMatch;
 import com.gym.program.utils.Category.Female;
 import com.gym.program.utils.Category.Male;
 
@@ -78,8 +76,8 @@ public class LogicHelper {
 		WeightDisc.is_present_0_25_kg = p25_is_present;
 		WeightDisc.is_present_0_5_kg = p5_is_present;
 		double target;
-		
-		if(weight < bar){
+
+		if (weight < bar) {
 			return false;
 		}
 
@@ -222,6 +220,15 @@ public class LogicHelper {
 
 	public static void setRest(double rest) {
 		LogicHelper.remainder = rest;
+	}
+
+	public static int calculateAge(LocalDate birthDate, LocalDate now) {
+		// TODO Auto-generated method stub
+		if ((birthDate != null) && (now != null)) {
+			return Period.between(birthDate, now).getYears();
+		} else {
+			return 0;
+		}
 	}
 
 }
