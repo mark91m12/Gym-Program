@@ -63,7 +63,7 @@ public class Card extends JPanel {
 
 	private Timer timer;
 	private int time;
-	
+
 	private JLabel fixed_bonus_attempt_label;
 	private JLabel bonus_attempt_label;
 	private JLabel fixed_rack_label;
@@ -584,11 +584,12 @@ public class Card extends JPanel {
 			disc_label.setText("[" + weightDisc.getLabel() + " x " + weightDisc.getOccurrance() + "]");
 			ImageIcon disc_img = new ImageIcon(weightDisc.getPathImage());
 			GuiHelper guiHelper = GuiHelper.getInstance();
-			Image disc_scaled = guiHelper.getScaledImage(disc_img.getImage(), guiHelper.getMiusreBy1366(disc_img.getIconWidth()),guiHelper.getMiusreBy1366(disc_img.getIconHeight()));
+			Image disc_scaled = guiHelper.getScaledImage(disc_img.getImage(),
+					guiHelper.getMiusreBy1366(disc_img.getIconWidth()),
+					guiHelper.getMiusreBy1366(disc_img.getIconHeight()));
 			disc_label.setIcon(new ImageIcon(disc_scaled));
 			this.plates_panel.add(disc_label);
 		}
-		
 
 		switch (this.match_frame.getCollar()) {
 		case LIGHT:
@@ -833,6 +834,9 @@ public class Card extends JPanel {
 		this.match_frame.getManager().getMatches().get(this.match_frame.getManager().getCurrentTypeOfMatch())
 				.updateLifters();
 		this.current_lifter = this.match_frame.getManager().getCurrentLifter();
+
+		this.match_frame.getManager().getMatches().get(this.match_frame.getManager().getCurrentTypeOfMatch())
+				.handleWaits();
 	}
 
 	private void logic() {

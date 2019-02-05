@@ -26,6 +26,8 @@ public class Lifter {
 	private double rack_number;
 
 	private Attempt bonusAttempt;
+	
+	private int wait;
 
 	public Lifter(Competitor competitor, Choice choice) {
 		this.competitor = competitor;
@@ -34,6 +36,7 @@ public class Lifter {
 		this.attemptsResults = new HashMap<Attempt, Boolean>();
 		this.currentAttempt = Attempt.StandardAttempt.FIRST;
 		this.bonusAttempt = null;
+		this.wait = 0;
 	}
 
 	public double getRack_number() {
@@ -51,6 +54,18 @@ public class Lifter {
 			this.competitor.setCategory(this.category);
 		}
 
+	}
+	
+	public void incrementWait(){
+		this.wait++;
+	}
+	
+	public void resetWait(){
+		this.wait=0;
+	}
+	
+	public int getWait(){
+		return this.wait;
 	}
 
 	public Category getCategory() {

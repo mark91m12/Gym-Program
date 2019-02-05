@@ -88,6 +88,16 @@ public class Match {
 		sortLifters();
 	}
 
+	public void handleWaits() {
+
+		if (lifters.size() > 1) {
+			lifters.get(0).resetWait();
+			for (int i = 1; i < lifters.size(); i++) {
+				lifters.get(i).incrementWait();
+			}
+		}
+	}
+
 	public void sortLifters() {
 		this.lifters.sort(new CallComparator());
 	}
@@ -97,7 +107,7 @@ public class Match {
 		RankingPerTeam result = new RankingPerTeam();
 
 		Set<String> teams = new HashSet<String>();
-		List<Lifter> tmp = new ArrayList<>(); 
+		List<Lifter> tmp = new ArrayList<>();
 		for (Category cat : this.getMatchRanking().getRankings().keySet()) {
 			for (Lifter lifter : this.getMatchRanking().getRankings().get(cat)) {
 				tmp.add(lifter);
