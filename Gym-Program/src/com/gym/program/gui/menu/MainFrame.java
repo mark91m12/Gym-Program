@@ -53,6 +53,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	private ImagePanel mainPanelToSwitch;
 	private Manager manager;
 	private JButton btnChooseDisciplines;
+	
+
 	private JButton btnInsertLifters;
 	private JRadioButton rdbtnBenchPress;
 	private JRadioButton rdbtnSquat;
@@ -66,6 +68,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	private JButton btn_check_score;
 
 	private JButton btnRanking;
+
+	
 
 	private ImageIcon imageBg;
 
@@ -249,6 +253,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 
 		JButton btnShowDisputePanel = new JButton("");
 		btnShowDisputePanel.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_contestazioni.png")));
+		btnShowDisputePanel.setEnabled(false);
 		btnShowDisputePanel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -268,6 +273,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 
 		btnRanking = new JButton("");
 		btnRanking.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_classifica.png")));
+		btnRanking.setEnabled(false);
 		btnRanking.addActionListener(new ActionListener() {
 
 			@Override
@@ -474,4 +480,11 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	// public void showDisputeForm() {
 	// switchTo(new DisputePanel(this));
 	// }
+	public JButton getBtnChooseDisciplines() {
+		return btnChooseDisciplines;
+	}
+	
+	public JButton getBtnRanking() {
+		return btnRanking;
+	}
 }

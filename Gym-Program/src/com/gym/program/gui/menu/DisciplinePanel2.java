@@ -54,10 +54,15 @@ public class DisciplinePanel2 extends JPanel {
 
 		mainFrame = mF;
 		disciplinesChoosen = new ArrayList<>();
+		for (TypeOfMatch typeOfMatch : mainFrame.getManager().getMatches().keySet()) {
+			disciplinesChoosen.add(typeOfMatch);
+		}
+		
+		btnConfirm = new JButton("");
 
 		btnSquat = new JButton("");
-		squatIsSelected = false;
-		btnSquat.setIcon(new ImageIcon(DisciplinePanel2.class.getResource("/menu/SquatMenuBWS.jpg")));
+		squatIsSelected = mainFrame.getManager().getMatches().keySet().contains(TypeOfMatch.SQUAT);
+		updateBtnImgs(TypeOfMatch.SQUAT, squatIsSelected);
 		btnSquat.addActionListener(new ActionListener() {
 
 			@Override
@@ -79,8 +84,8 @@ public class DisciplinePanel2 extends JPanel {
 		});
 
 		btnDeadlift = new JButton("");
-		deadliftIsSelected = false;
-		btnDeadlift.setIcon(new ImageIcon(DisciplinePanel2.class.getResource("/menu/deadliftMenuBWS.jpg")));
+		deadliftIsSelected = mainFrame.getManager().getMatches().keySet().contains(TypeOfMatch.DEADLIFT);
+		updateBtnImgs(TypeOfMatch.DEADLIFT, deadliftIsSelected);
 		btnDeadlift.addActionListener(new ActionListener() {
 
 			@Override
@@ -102,8 +107,8 @@ public class DisciplinePanel2 extends JPanel {
 		});
 
 		btnBenchPress = new JButton("");
-		benchPressIsSelected = false;
-		btnBenchPress.setIcon(new ImageIcon(DisciplinePanel2.class.getResource("/menu/BenchPressMenuBWS.jpg")));
+		benchPressIsSelected = mainFrame.getManager().getMatches().keySet().contains(TypeOfMatch.BENCHPRESS);
+		updateBtnImgs(TypeOfMatch.BENCHPRESS, benchPressIsSelected);
 		btnBenchPress.addActionListener(new ActionListener() {
 
 			@Override
@@ -125,8 +130,17 @@ public class DisciplinePanel2 extends JPanel {
 		});
 
 		btnCollarStandard = new JButton("");
-		collarSelected = CollarType.WEIGHT;
-		btnCollarStandard.setIcon(new ImageIcon(DisciplinePanel2.class.getResource("/menu/barbellCollarS.jpg")));
+		collarSelected = mainFrame.getCollar() == null ? CollarType.WEIGHT : mainFrame.getCollar();
+		switch (collarSelected) {
+		case WEIGHT:
+			btnCollarStandard.setIcon(getImageIconByName(collarStdImgName));
+			break;
+		case LIGHT:
+			btnCollarStandard.setIcon(getImageIconByName(collarSprImgName));
+			break;
+		default:
+			break;
+		}
 		btnCollarStandard.addActionListener(new ActionListener() {
 
 			@Override
@@ -155,18 +169,23 @@ public class DisciplinePanel2 extends JPanel {
 
 		JCheckBox chckbx0p5 = new JCheckBox("0.5 KG");
 		chckbx0p5.setOpaque(false);
+		chckbx0p5.setSelected(mainFrame.getManager().is0p5Present());
 		chckbx0p5.setFont(new Font("Tahoma", Font.BOLD, GuiHelper.getInstance().getMiusreBy1920(25)));
 		chckbx0p5.setForeground(Color.WHITE);
 
 		JCheckBox chckbx0p25 = new JCheckBox("0.25 KG");
 		chckbx0p25.setOpaque(false);
+		chckbx0p25.setSelected(mainFrame.getManager().is0p25Present());
 		chckbx0p25.setForeground(Color.WHITE);
 		chckbx0p25.setFont(new Font("Tahoma", Font.BOLD, GuiHelper.getInstance().getMiusreBy1920(25)));
 
-		btnConfirm = new JButton("");
 		btnConfirm.setIcon(new ImageIcon(DisciplinePanel2.class.getResource("/btns/button_confirm.png")));
 		btnConfirm.setOpaque(false);
-		btnConfirm.setEnabled(false);
+		if(disciplinesChoosen.size() > 0) {
+			btnConfirm.setEnabled(true);
+		}else {
+			btnConfirm.setEnabled(false);
+		}
 		btnConfirm.addActionListener(new ActionListener() {
 
 			@Override
@@ -257,5 +276,40 @@ public class DisciplinePanel2 extends JPanel {
 
 	private ImageIcon getImageIconByName(String imgName) {
 		return new ImageIcon(DisciplinePanel2.class.getResource("/menu/" + imgName + "S.jpg"));
+	}
+	
+	private void updateBtnImgs(TypeOfMatch tom, boolean isSelected) {
+		if(isSelected) {
+			switch (tom) {
+			case BENCHPRESS:
+				btnBenchPress.setIcon(getImageIconByName(benchPressImgName));
+				btnConfirm.setEnabled(true);
+				break;
+			case SQUAT:
+				btnSquat.setIcon(getImageIconByName(squatImgName));
+				btnConfirm.setEnabled(true);
+				break;
+			case DEADLIFT:
+				btnDeadlift.setIcon(getImageIconByName(deadliftImgName));
+				btnConfirm.setEnabled(true);
+				break;
+			default:
+				break;
+			}
+		}else {
+			switch (tom) {
+			case BENCHPRESS:
+				btnBenchPress.setIcon(getImageIconByName(benchPressImgName + "BW"));
+				break;
+			case SQUAT:
+				btnSquat.setIcon(getImageIconByName(squatImgName + "BW"));
+				break;
+			case DEADLIFT:
+				btnDeadlift.setIcon(getImageIconByName(deadliftImgName + "BW"));
+				break;
+			default:
+				break;
+			}
+		}
 	}
 }

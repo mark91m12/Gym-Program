@@ -443,6 +443,8 @@ public class InsertForm extends JPanel {
 				if (canAddLifter()) {
 					addLifter();
 					InsertForm.this.mainFrame.setStartBtnEnabled(true);
+					mainFrame.getBtnChooseDisciplines().setEnabled(false);
+					mainFrame.getBtnRanking().setEnabled(true);
 				} else {
 					JOptionPane.showMessageDialog(InsertForm.this, response_message_submit, "ATTENZIONE", 2);
 				}
