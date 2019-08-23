@@ -195,6 +195,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		});
 
 		btnTest = new JButton("Crea istanza Test");
+		btnTest.setEnabled(false);
 		btnTest.addActionListener(new ActionListener() {
 
 			@Override
