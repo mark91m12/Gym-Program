@@ -116,7 +116,7 @@ public class GuiHelper {
 
 	public void addBgImageJF(JFrame frame, String path, int scale) {
 
-		ImageIcon imageBg = new ImageIcon(path);
+		ImageIcon imageBg = new ImageIcon(this.getClass().getResource(path.replaceAll("images", "")));
 		Image scaledImage = imageBg.getImage().getScaledInstance(frame.getPreferredSize().width - scale,
 				frame.getPreferredSize().height - scale, Image.SCALE_SMOOTH);
 		JLabel picture = new JLabel(new ImageIcon(scaledImage));
@@ -156,7 +156,7 @@ public class GuiHelper {
 
 	public void addBgImageJP(JPanel panel, String path, int scale) {
 
-		ImageIcon imageBg = new ImageIcon(path);
+		ImageIcon imageBg = new ImageIcon(this.getClass().getResource(path.replaceAll("images", "")));
 		Image scaledImage = imageBg.getImage().getScaledInstance(panel.getPreferredSize().width - scale,
 				panel.getPreferredSize().height - scale, Image.SCALE_SMOOTH);
 		JLabel picture = new JLabel(new ImageIcon(scaledImage));

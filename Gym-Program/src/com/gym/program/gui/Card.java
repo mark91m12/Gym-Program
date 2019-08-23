@@ -88,11 +88,11 @@ public class Card extends JPanel {
 		setVisible(true);
 
 		collar_label = this.createLabel();
-		collar_label.setIcon(new ImageIcon("images/fermo2_5kg50px.png"));
+		collar_label.setIcon(new ImageIcon(this.getClass().getResource("/fermo2_5kg50px.png")));
 		collar_label.setText(" ");
 
 		light_collar_label = this.createLabel();
-		light_collar_label.setIcon(new ImageIcon("images/fermo100px.png"));
+		light_collar_label.setIcon(new ImageIcon(this.getClass().getResource("/fermo100px.png")));
 		light_collar_label.setText(" ");
 
 		// setBounds(100, 100, 450, 300);
@@ -582,7 +582,7 @@ public class Card extends JPanel {
 		for (WeightDisc weightDisc : plates) {
 			JLabel disc_label = this.createLabel();
 			disc_label.setText("[" + weightDisc.getLabel() + " x " + weightDisc.getOccurrance() + "]");
-			ImageIcon disc_img = new ImageIcon(weightDisc.getPathImage());
+			ImageIcon disc_img = new ImageIcon(this.getClass().getResource(weightDisc.getPathImage().replaceAll("images", "")));
 			GuiHelper guiHelper = GuiHelper.getInstance();
 			Image disc_scaled = guiHelper.getScaledImage(disc_img.getImage(),
 					guiHelper.getMiusreBy1366(disc_img.getIconWidth()),
@@ -617,14 +617,14 @@ public class Card extends JPanel {
 	private void setPositiveIcon(JLabel label, boolean isPositive) {
 
 		if (isPositive) {
-			label.setIcon(new ImageIcon("images/positive-50px.png"));
+			label.setIcon(new ImageIcon(this.getClass().getResource("/positive-50px.png")));
 		} else {
-			label.setIcon(new ImageIcon("images/negative-50px.png"));
+			label.setIcon(new ImageIcon(this.getClass().getResource("/negative-50px.png")));
 		}
 	}
 
 	private void setWhiteIcon(JLabel label) {
-		label.setIcon(new ImageIcon("images/white-50px.png"));
+		label.setIcon(new ImageIcon(this.getClass().getResource("/white-50px.png")));
 	}
 
 	public void setLifterData() {
@@ -810,6 +810,7 @@ public class Card extends JPanel {
 			}
 		} else if (current_lifter.getCurrentAttempt().equals(Attempt.StandardAttempt.THIRD) && !isValid) {
 			match_frame.getManager().getCurrentMatch().addLifterCanDispute(current_lifter);
+			match_frame.getMainFrame().setBtnShowDisputePanelEnabled(true);
 		}
 		updateCard();
 	}

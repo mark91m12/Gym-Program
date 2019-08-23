@@ -31,6 +31,8 @@ public class MatchFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MainFrame mainFrame;
+	
+
 	private Manager manager;
 	private CollarType collarType;
 
@@ -184,6 +186,10 @@ public class MatchFrame extends JFrame {
 
 	public CollarType getCollar() {
 		return this.collarType;
+	}
+	
+	public MainFrame getMainFrame() {
+		return mainFrame;
 	}
 
 }

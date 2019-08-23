@@ -60,7 +60,8 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	private JRadioButton rdbtnSquat;
 	private JRadioButton rdbtnDeadLift;
 	private JButton btnStart;
-
+	private JButton btnShowDisputePanel;
+	
 	private JButton btnTest;
 
 	private MatchFrame matchFrame;
@@ -101,7 +102,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBackground(Color.DARK_GRAY);
 
-		imageBg = new ImageIcon("images/menu/main_menu3.jpg");
+		imageBg = new ImageIcon(this.getClass().getResource("/menu/main_menu3.jpg"));
 		mainPanelToSwitch = new ImagePanel(null);
 		mainPanelToSwitch.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		mainPanelToSwitch.setImage(imageBg.getImage().getScaledInstance(
@@ -195,7 +196,7 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 		});
 
 		btnTest = new JButton("Crea istanza Test");
-		btnTest.setEnabled(false);
+//		btnTest.setEnabled(false);
 		btnTest.addActionListener(new ActionListener() {
 
 			@Override
@@ -249,10 +250,11 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 				MainFrame.this.setCollar(CollarType.WEIGHT);
 				MainFrame.this.update();
 				btnStart.setEnabled(true);
+				btnRanking.setEnabled(true);
 			}
 		});
 
-		JButton btnShowDisputePanel = new JButton("");
+		btnShowDisputePanel = new JButton("");
 		btnShowDisputePanel.setIcon(new ImageIcon(MainFrame.class.getResource("/btns/button_contestazioni.png")));
 		btnShowDisputePanel.setEnabled(false);
 		btnShowDisputePanel.addActionListener(new ActionListener() {
@@ -487,5 +489,9 @@ public class MainFrame extends JFrame implements PanelSwitcher {
 	
 	public JButton getBtnRanking() {
 		return btnRanking;
+	}
+
+	public void setBtnShowDisputePanelEnabled(boolean b) {
+		btnShowDisputePanel.setEnabled(b);
 	}
 }
